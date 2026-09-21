@@ -1,12 +1,76 @@
-# NanoJev — A nano replica of [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev)
+# NanoJev-MLX — NanoJev 的 Apple Silicon 版本
 
 **简体中文** | [English](README.md)
 
-> **本仓库是 [TianyuCodings/NanoJev](https://github.com/TianyuCodings/NanoJev) 的 Apple Silicon / MLX 分支。**
-> 模型、数据集、训练方法、游戏环境、网页演示以及下文所有结果均为上游作者的工作
-> （MIT License，Copyright (c) 2026 OpenJev contributors，[LICENSE](LICENSE) 原样保留）。
-> 本分支新增 MLX 后端，使发布的 checkpoint 无需 CUDA 即可在 Mac 上运行；见
-> [本分支的改动](#本分支的改动) 与 [docs/MLX.md](docs/MLX.md)。
+**[TianyuCodings/NanoJev](https://github.com/TianyuCodings/NanoJev) 的 MLX 分支：发布的 0.6B 并行决策模型，无需 CUDA 即可在 Mac 上原生运行。**
+
+模型、数据集、训练方法、游戏环境、网页演示以及下方上游 README 中引用的所有结果，均为上游作者的工作（MIT License，Copyright (c) 2026 OpenJev contributors，[LICENSE](LICENSE) 原样保留）。本分支只增加了在 Apple Silicon 上运行与微调所需的部分，CUDA 路径保持不变。
+
+## Mac 快速开始
+
+在 Apple M5 / 16 GB 统一内存 / macOS 26 / Python 3.12 上验证。
+
+```bash
+git clone git@github.com:bigqiao/NanoJev-MLX.git
+cd NanoJev-MLX
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install -r requirements-mlx.txt
+```
+
+下载发布的 checkpoint（2.4 GB），数据集可选：
+
+```python
+from huggingface_hub import snapshot_download
+
+snapshot_download(repo_id="C-Tianyu/NanoJev", revision="unified-games-v1", local_dir="checkpoints/NanoJev-unified",
+                  allow_patterns=["best.safetensors", "config.json", "tokenizer/*", "backbone_config/*"])
+snapshot_download(repo_id="C-Tianyu/NanoJev-Data", repo_type="dataset", revision="unified-games-v1",
+                  local_dir="data/NanoJev-unified", allow_patterns=["unified/hard/*", "evaluation/experiment/selected_test.jsonl"])
+```
+
+启动模型服务与网页演示（`--quantize 8` 让常驻权重保持在 0.63 GB 且决策结果无可测差异；去掉即为 bf16）：
+
+```bash
+python scripts/serve_decisions.py --checkpoint-dir checkpoints/NanoJev-unified --web-root web --port 8765 --quantize 8
+```
+
+然后打开 **http://127.0.0.1:8765/dev/?autoplay=1**，或向 `POST /api/evaluate` 发送状态/问题批次。也可以直接对请求文件打分，或测量决策延迟：
+
+```bash
+python scripts/mlx_decisions.py --checkpoint-dir checkpoints/NanoJev-unified --input request.json --quantize 8
+python scripts/benchmark_mlx_latency.py --checkpoint-dir checkpoints/NanoJev-unified
+```
+
+完整说明、内存表、数值校验与 QLoRA 训练器见 [docs/MLX.md](docs/MLX.md)。
+
+## 本分支的改动
+
+上游在 CUDA 上的所有功能保持不变，改动都是增量的。
+
+- **MLX 推理后端**（[scripts/mlx_decisions.py](scripts/mlx_decisions.py)）：用 `mlx-lm` 重建同一个 `DecisionModel`
+  （Qwen3-0.6B backbone + LayerNorm + 标量头 + 集合注意力头），直接加载发布的 `best.safetensors`，权重不做任何转换。
+  与 torch 参考实现对比：CPU fp32 相对误差 1.6e-7；与发布的 CUDA 决策记录对比：Maze / Snake / ViZDoom 72 个决策
+  概率最大差 0.009，argmax 72/72 一致。
+- **后端选择**：`DecisionPredictor`、`serve_decisions.py`、`predict_toy_decisions.py` 新增 `--device auto`
+  （有 CUDA 用 CUDA，否则用 MLX），现有评测脚本在 Mac 上无需修改即可运行。
+- **内存控制**：`--quantize 8`（近乎无损，常驻 0.63 GB）与 `--quantize 4`；逐张量流式加载；限制 MLX buffer cache
+  与内存上限。bf16 常驻 1.2 GB，推理峰值低于 2 GB。
+- **请求内按长度分桶打包**，混合长度批次的单决策成本减半。
+- **QLoRA 微调**（[scripts/train_unified_games_mlx.py](scripts/train_unified_games_mlx.py)）：SFT 阶段改为 8-bit 冻结
+  backbone + 注意力投影 LoRA + 决策头全量训练 + 梯度检查点 + 内存预检，16 GB 机器上峰值 2 GB；导出与上游布局一致的
+  fp32 `best.safetensors`。critic 阶段未移植。
+- **延迟基准**（[scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py)），M5 实测结果在
+  [results/mlx/](results/mlx/)：ViZDoom Basic 单决策 123 ms、Snake 156 ms、Predict Position 254 ms、Maze 283 ms（p50，bf16）。
+- 测试：[scripts/test_mlx_decisions.py](scripts/test_mlx_decisions.py)；依赖锁定：[requirements-mlx.txt](requirements-mlx.txt)。
+
+分支由 [bigqiao](https://github.com/bigqiao) 维护，MLX 移植借助 Claude Code 完成。模型与数据相关问题请反馈到上游仓库，MLX 相关问题在本仓库提出。
+
+---
+
+# 上游 README · NanoJev — A nano replica of [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev)
+
+*以下内容转载自分叉时的 [TianyuCodings/NanoJev](https://github.com/TianyuCodings/NanoJev)，其中的演示链接与结果均属上游作者。*
+
 
 **一个 0.6B 并行决策模型：输入状态与问题，直接得到完整概率分布，无需生成答案 token。**
 
@@ -153,28 +217,6 @@ python3 -m http.server 8080 --bind 127.0.0.1 --directory web
 ```
 
 打开 **http://127.0.0.1:8080/dev/?autoplay=1** 体验 ViZDoom Basic，或打开 **http://127.0.0.1:8080/dev/side-by-side.html?autoplay=1#maze** 体验迷宫。
-
-## 本分支的改动
-
-上游在 CUDA 上的所有功能保持不变，改动都是增量的。
-
-- **MLX 推理后端**（[scripts/mlx_decisions.py](scripts/mlx_decisions.py)）：用 `mlx-lm` 重建同一个 `DecisionModel`
-  （Qwen3-0.6B backbone + LayerNorm + 标量头 + 集合注意力头），直接加载发布的 `best.safetensors`，权重不做任何转换。
-  与 torch 参考实现对比：CPU fp32 相对误差 1.6e-7；与发布的 CUDA 决策记录对比：Maze / Snake / ViZDoom 72 个决策
-  概率最大差 0.009，argmax 72/72 一致。
-- **后端选择**：`DecisionPredictor`、`serve_decisions.py`、`predict_toy_decisions.py` 新增 `--device auto`
-  （有 CUDA 用 CUDA，否则用 MLX），现有评测脚本在 Mac 上无需修改即可运行。
-- **内存控制**：`--quantize 8`（近乎无损，常驻 0.63 GB）与 `--quantize 4`；逐张量流式加载；限制 MLX buffer cache
-  与内存上限。bf16 常驻 1.2 GB，推理峰值低于 2 GB。
-- **请求内按长度分桶打包**，混合长度批次的单决策成本减半。
-- **QLoRA 微调**（[scripts/train_unified_games_mlx.py](scripts/train_unified_games_mlx.py)）：SFT 阶段改为 8-bit 冻结
-  backbone + 注意力投影 LoRA + 决策头全量训练 + 梯度检查点 + 内存预检，16 GB 机器上峰值 2 GB；导出与上游布局一致的
-  fp32 `best.safetensors`。critic 阶段未移植。
-- **延迟基准**（[scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py)），M5 实测结果在
-  [results/mlx/](results/mlx/)：ViZDoom Basic 单决策 123 ms、Snake 156 ms、Predict Position 254 ms、Maze 283 ms（p50，bf16）。
-- 测试：[scripts/test_mlx_decisions.py](scripts/test_mlx_decisions.py)；依赖锁定：[requirements-mlx.txt](requirements-mlx.txt)。
-
-分支由 [bigqiao](https://github.com/bigqiao) 维护，MLX 移植借助 Claude Code 完成。模型与数据相关问题请反馈到上游仓库，MLX 相关问题在本仓库提出。
 
 ## 开发文档
 

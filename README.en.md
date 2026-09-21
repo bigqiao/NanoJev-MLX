@@ -1,12 +1,80 @@
-# NanoJev — A nano replica of [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev)
+# NanoJev-MLX — NanoJev on Apple Silicon
 
 **English** | [简体中文](README.zh-CN.md)
 
-> **This is the Apple Silicon / MLX fork of [TianyuCodings/NanoJev](https://github.com/TianyuCodings/NanoJev).**
-> The model, dataset, training recipe, game environments, browser demos and all results below are the upstream
-> authors' work (MIT License, Copyright (c) 2026 OpenJev contributors, kept verbatim in [LICENSE](LICENSE)).
-> This fork adds an MLX backend so the released checkpoint runs on a Mac without CUDA; see
-> [What this fork changes](#what-this-fork-changes) and [docs/MLX.md](docs/MLX.md).
+**An MLX fork of [TianyuCodings/NanoJev](https://github.com/TianyuCodings/NanoJev): the released 0.6B parallel decision model, running natively on a Mac without CUDA.**
+
+The model, dataset, training recipe, game environments, browser demos and every result quoted in the upstream README below are the upstream authors' work (MIT License, Copyright (c) 2026 OpenJev contributors, kept verbatim in [LICENSE](LICENSE)). This fork only adds what is needed to run and fine-tune it on Apple Silicon; the CUDA path is unchanged.
+
+## Quick start on a Mac
+
+Verified on an Apple M5 with 16 GB unified memory, macOS 26, Python 3.12.
+
+```bash
+git clone git@github.com:bigqiao/NanoJev-MLX.git
+cd NanoJev-MLX
+python3.12 -m venv .venv && source .venv/bin/activate
+pip install -r requirements-mlx.txt
+```
+
+Download the released checkpoint (2.4 GB) and, optionally, the dataset:
+
+```python
+from huggingface_hub import snapshot_download
+
+snapshot_download(repo_id="C-Tianyu/NanoJev", revision="unified-games-v1", local_dir="checkpoints/NanoJev-unified",
+                  allow_patterns=["best.safetensors", "config.json", "tokenizer/*", "backbone_config/*"])
+snapshot_download(repo_id="C-Tianyu/NanoJev-Data", repo_type="dataset", revision="unified-games-v1",
+                  local_dir="data/NanoJev-unified", allow_patterns=["unified/hard/*", "evaluation/experiment/selected_test.jsonl"])
+```
+
+Serve the model and the browser demos (`--quantize 8` keeps resident weights at 0.63 GB with no measurable change in decisions; drop it for bf16):
+
+```bash
+python scripts/serve_decisions.py --checkpoint-dir checkpoints/NanoJev-unified --web-root web --port 8765 --quantize 8
+```
+
+Then open **http://127.0.0.1:8765/dev/?autoplay=1** or post state/question batches to `POST /api/evaluate`. Score a request file directly, or measure decision latency:
+
+```bash
+python scripts/mlx_decisions.py --checkpoint-dir checkpoints/NanoJev-unified --input request.json --quantize 8
+python scripts/benchmark_mlx_latency.py --checkpoint-dir checkpoints/NanoJev-unified
+```
+
+Full details, memory table, numerical checks and the QLoRA trainer: [docs/MLX.md](docs/MLX.md).
+
+## What this fork changes
+
+Everything upstream still works as before on CUDA; the changes are additive.
+
+- **MLX inference backend** ([scripts/mlx_decisions.py](scripts/mlx_decisions.py)): the same `DecisionModel`
+  (Qwen3-0.6B backbone + LayerNorm + scalar head + set-attention head) rebuilt on `mlx-lm`, loading the
+  released `best.safetensors` unchanged. Verified against the torch reference (CPU fp32 relative error
+  1.6e-7) and against the released CUDA decision recordings (max probability difference 0.009, argmax
+  agreement 72/72 on Maze, Snake and ViZDoom).
+- **Backend selection** in `DecisionPredictor`, `serve_decisions.py` and `predict_toy_decisions.py`:
+  `--device auto` picks CUDA when present and MLX otherwise, so every existing evaluation script runs on a Mac.
+- **Memory control**: `--quantize 8` (near-lossless, 0.63 GB resident) and `--quantize 4`; streamed weight
+  loading; MLX buffer-cache and memory caps. Resident memory 1.2 GB in bf16, inference peak under 2 GB.
+- **Length-bucketed batching** inside a request, which halves per-decision cost for mixed-length batches.
+- **QLoRA fine-tuning** ([scripts/train_unified_games_mlx.py](scripts/train_unified_games_mlx.py)): the SFT
+  stage with an 8-bit frozen backbone, LoRA on the attention projections, trainable heads, gradient
+  checkpointing and a memory preflight; 2 GB peak on a 16 GB machine. Exports a dense float32
+  `best.safetensors` in the upstream layout. The critic stage is not ported.
+- **Latency benchmark** ([scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py)) with recorded
+  M5 results in [results/mlx/](results/mlx/): 123 ms per ViZDoom Basic decision, 156 ms Snake,
+  254 ms Predict Position, 283 ms Maze (p50, bf16).
+- Tests: [scripts/test_mlx_decisions.py](scripts/test_mlx_decisions.py); pinned stack: [requirements-mlx.txt](requirements-mlx.txt).
+
+Fork maintained by [bigqiao](https://github.com/bigqiao); MLX port written with Claude Code. Please report
+upstream model or data issues to the upstream repository and MLX issues here.
+
+---
+
+# Upstream README · NanoJev — A nano replica of [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev)
+
+*Reproduced from [TianyuCodings/NanoJev](https://github.com/TianyuCodings/NanoJev) as of the fork point; the demo links and results are the upstream authors'.*
+
 
 **A 0.6B parallel decision model: states and questions in, complete probability distributions out. Zero output-token decoding.**
 
@@ -153,32 +221,6 @@ python3 -m http.server 8080 --bind 127.0.0.1 --directory web
 ```
 
 Open **http://127.0.0.1:8080/dev/?autoplay=1** for ViZDoom Basic or **http://127.0.0.1:8080/dev/side-by-side.html?autoplay=1#maze** for Maze.
-
-## What this fork changes
-
-Everything upstream still works as before on CUDA; the changes are additive.
-
-- **MLX inference backend** ([scripts/mlx_decisions.py](scripts/mlx_decisions.py)): the same `DecisionModel`
-  (Qwen3-0.6B backbone + LayerNorm + scalar head + set-attention head) rebuilt on `mlx-lm`, loading the
-  released `best.safetensors` unchanged. Verified against the torch reference (CPU fp32 relative error
-  1.6e-7) and against the released CUDA decision recordings (max probability difference 0.009, argmax
-  agreement 72/72 on Maze, Snake and ViZDoom).
-- **Backend selection** in `DecisionPredictor`, `serve_decisions.py` and `predict_toy_decisions.py`:
-  `--device auto` picks CUDA when present and MLX otherwise, so every existing evaluation script runs on a Mac.
-- **Memory control**: `--quantize 8` (near-lossless, 0.63 GB resident) and `--quantize 4`; streamed weight
-  loading; MLX buffer-cache and memory caps. Resident memory 1.2 GB in bf16, inference peak under 2 GB.
-- **Length-bucketed batching** inside a request, which halves per-decision cost for mixed-length batches.
-- **QLoRA fine-tuning** ([scripts/train_unified_games_mlx.py](scripts/train_unified_games_mlx.py)): the SFT
-  stage with an 8-bit frozen backbone, LoRA on the attention projections, trainable heads, gradient
-  checkpointing and a memory preflight; 2 GB peak on a 16 GB machine. Exports a dense float32
-  `best.safetensors` in the upstream layout. The critic stage is not ported.
-- **Latency benchmark** ([scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py)) with recorded
-  M5 results in [results/mlx/](results/mlx/): 123 ms per ViZDoom Basic decision, 156 ms Snake,
-  254 ms Predict Position, 283 ms Maze (p50, bf16).
-- Tests: [scripts/test_mlx_decisions.py](scripts/test_mlx_decisions.py); pinned stack: [requirements-mlx.txt](requirements-mlx.txt).
-
-Fork maintained by [bigqiao](https://github.com/bigqiao); MLX port written with Claude Code. Please report
-upstream model or data issues to the upstream repository and MLX issues here.
 
 ## Development notes
 
