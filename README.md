@@ -56,14 +56,14 @@ Everything upstream still works as before on CUDA; the changes are additive.
   `--device auto` picks CUDA when present and MLX otherwise, so every existing evaluation script runs on a Mac.
 - **Memory control**: `--quantize 8` (near-lossless, 0.63 GB resident) and `--quantize 4`; streamed weight
   loading; MLX buffer-cache and memory caps. Resident memory 1.2 GB in bf16, inference peak under 2 GB.
-- **Length-bucketed batching** inside a request, which halves per-decision cost for mixed-length batches.
+- **Shared-prefix inference**: the state prefix is encoded once per question and its K/V reused across candidates, 2.5–3.2× faster than the upstream flat scheme with identical results; plus length-bucketed batching inside a request.
 - **QLoRA fine-tuning** ([scripts/train_unified_games_mlx.py](scripts/train_unified_games_mlx.py)): the SFT
   stage with an 8-bit frozen backbone, LoRA on the attention projections, trainable heads, gradient
   checkpointing and a memory preflight; 2 GB peak on a 16 GB machine. Exports a dense float32
   `best.safetensors` in the upstream layout. The critic stage is not ported.
 - **Latency benchmark** ([scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py)) with recorded
-  M5 results in [results/mlx/](results/mlx/): 123 ms per ViZDoom Basic decision, 156 ms Snake,
-  254 ms Predict Position, 283 ms Maze (p50, bf16). See [Test results](#test-results).
+  M5 results in [results/mlx/](results/mlx/): 44 ms per ViZDoom Basic decision, 63 ms Snake,
+  79 ms Predict Position, 110 ms Maze (p50, bf16, shared prefix). See [Test results](#test-results).
 - Tests: [scripts/test_mlx_decisions.py](scripts/test_mlx_decisions.py); pinned stack: [requirements-mlx.txt](requirements-mlx.txt).
 
 Fork maintained by [bigqiao](https://github.com/bigqiao); MLX port written with Claude Code. Please report
@@ -83,16 +83,16 @@ All numbers are from this fork's scripts on an Apple M5 (16 GB), released checkp
 
 The single bf16 disagreement is a Predict Position decision the CUDA service itself scored as an exact tie (left 0.313 vs. right 0.313). Against the torch reference implementation the MLX backbone matches to 1.6e-7 relative on the CPU device; the bf16 GPU path deviates about as much as bf16 autocast does on CUDA.
 
-**Decision latency** — end-to-end `predict()` including tokenization, one decision per request, p50 / p95 ([scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py), [latency_bf16.json](results/mlx/latency_bf16.json), [latency_q8.json](results/mlx/latency_q8.json)):
+**Decision latency** — end-to-end `predict()` including tokenization, one decision per request, p50 / p95, bf16 ([scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py); [latency_bf16_shared_prefix.json](results/mlx/latency_bf16_shared_prefix.json), [latency_bf16.json](results/mlx/latency_bf16.json), [latency_q8.json](results/mlx/latency_q8.json)):
 
-| Task | Candidates | Tokens per path | bf16 | `--quantize 8` |
-|---|---:|---:|---:|---:|
-| ViZDoom Basic | 4.0 | 334 | 123 / 132 ms | 129 / 141 ms |
-| Snake | 3.0 | 521 | 156 / 159 ms | 163 / 165 ms |
-| ViZDoom Predict Position | 4.0 | 776 | 254 / 487 ms | 273 / 518 ms |
-| Maze (8×8 test set) | 2.8 | 1364 | 283 / 684 ms | 315 / 742 ms |
+| Task | Candidates | Tokens per path | Shared prefix (default) | Flat paths (upstream scheme) | Flat, `--quantize 8` |
+|---|---:|---:|---:|---:|---:|
+| ViZDoom Basic | 4.0 | 334 | **44 / 47 ms** | 123 / 132 ms | 129 / 141 ms |
+| Snake | 3.0 | 521 | **63 / 64 ms** | 156 / 159 ms | 163 / 165 ms |
+| ViZDoom Predict Position | 4.0 | 776 | **79 / 131 ms** | 254 / 487 ms | 273 / 518 ms |
+| Maze (8×8 test set) | 2.8 | 1364 | **110 / 248 ms** | 283 / 684 ms | 315 / 742 ms |
 
-Latency is proportional to padded tokens (~13k tokens/s prefill); every candidate repeats the state prefix, as in upstream. Batches of 8 mixed-length decisions cost 125–388 ms per decision thanks to length-bucketed packing.
+Upstream scores every candidate as a full `state + question + candidate` path, so a question with N candidates encodes the state N times. This fork's default **shared-prefix inference** encodes the common prefix of all paths of a state once, keeps its per-layer K/V, and scores the candidate suffixes as one batch against it — mathematically the same causal computation (flat vs. shared logits agree to 8.6e-6 in fp32 on the CPU device; the 96-decision CUDA agreement with sharing is max ∣Δp∣ 0.006, 96/96 argmax). The speed-up is about the candidate count: 2.5–3.2× on the game tasks, and 5.1 s → 1.4 s for a synthetic 8K-token state with 4 candidates. `--no-shared-prefix` restores the flat reference path.
 
 **QLoRA trainer** — preflight on the widest training microbatch (12 paths, 9216 padded tokens): 3.6 GB peak; 2.0 GB peak and ~10 s per 8-question update on the smoke run. Full fine-tuning on this machine peaks above 14 GB and is not recommended under 32 GB.
 

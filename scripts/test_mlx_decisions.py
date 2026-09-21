@@ -70,6 +70,28 @@ class MLXDecisionModelTest(unittest.TestCase):
         mx.eval(base, both)
         self.assertTrue(mx.allclose(base[0], both[0], atol=1e-4, rtol=1e-4).item())
 
+    def test_shared_prefix_matches_flat_reference(self):
+        from mlx_decisions import shared_prefix_length
+        examples = fake_examples()
+        # Two states: the first has three questions sharing one state prefix, the second one question.
+        second = [{**ex, "id": "t:" + ex["qid"], "state_id": "t",
+                   "leaf_tokens": [[20, 21] + ids[2:] for ids in ex["leaf_tokens"]]} for ex in examples[1:]]
+        batch = examples + second
+        self.assertEqual(shared_prefix_length([[5, 6, 7, 1], [5, 6, 8, 1]]), 2)
+        self.assertEqual(shared_prefix_length([[5, 6, 1], [5, 6, 1, 1]]), 2)  # keeps one suffix token
+        previous = mx.default_device()
+        mx.set_default_device(mx.cpu)  # deterministic accumulation order: the two paths must agree exactly
+        try:
+            self.model.shared_prefix = False
+            flat, valid_flat = self.model(batch, pad_token=0)
+            self.model.shared_prefix = True
+            shared, valid_shared = self.model(batch, pad_token=0)
+            mx.eval(flat, shared)
+        finally:
+            mx.set_default_device(previous)
+        self.assertEqual(valid_flat.tolist(), valid_shared.tolist())
+        self.assertTrue(mx.allclose(flat, shared, atol=1e-5, rtol=1e-5).item())
+
     def test_quantized_backbone_still_scores(self):
         from mlx_decisions import quantize_backbone
         report = quantize_backbone(self.model, 8)

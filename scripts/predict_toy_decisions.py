@@ -197,7 +197,7 @@ class DecisionPredictor:
     """
 
     def __init__(self, checkpoint_dir, max_length=None, device_name="auto",
-                 disable_native_triton=False, precision="bf16", quantize=None):
+                 disable_native_triton=False, precision="bf16", quantize=None, shared_prefix=True):
         if precision not in {"fp32", "bf16"}:
             raise ValueError("precision 必须为 fp32 或 bf16")
         device_name = resolve_device_name(device_name)
@@ -208,7 +208,7 @@ class DecisionPredictor:
             # Apple Silicon path: same checkpoint, same contract, no torch/CUDA/triton.
             from mlx_decisions import MLXDecisionPredictor
             engine = MLXDecisionPredictor(checkpoint_dir, max_length=max_length, precision=precision,
-                                          quantize=quantize)
+                                          quantize=quantize, shared_prefix=shared_prefix)
             self._engine = engine
             self.model, self.tokenizer, self.root = engine.model, engine.tokenizer, engine.root
             self.run_config, self.limit, self.device = engine.run_config, engine.limit, engine.device
@@ -330,14 +330,15 @@ class DecisionPredictor:
 
 
 def predict(payload, checkpoint_dir, temperature=1.0, batch_questions=0, max_length=None,
-            device_name="auto", disable_native_triton=False, precision="bf16", quantize=None):
+            device_name="auto", disable_native_triton=False, precision="bf16", quantize=None, shared_prefix=True):
     """兼容原一次性接口；连续调用请复用DecisionPredictor实例。"""
     # Fail on malformed input before loading a checkpoint, as in the original entry point.
     validate_request(payload)
     if not isinstance(temperature, (int, float)) or isinstance(temperature, bool) or not math.isfinite(temperature) or temperature <= 0:
         raise ValueError("temperature 必须为有限正数")
     engine = DecisionPredictor(checkpoint_dir, max_length=max_length, device_name=device_name,
-                               disable_native_triton=disable_native_triton, precision=precision, quantize=quantize)
+                               disable_native_triton=disable_native_triton, precision=precision, quantize=quantize,
+                               shared_prefix=shared_prefix)
     return engine.predict(payload, batch_questions=batch_questions, temperature=temperature)
 
 
@@ -351,6 +352,7 @@ def main():
     parser.add_argument("--max-length", type=int, help="默认使用checkpoint训练配置；超长输入报错，不截断")
     parser.add_argument("--device", default="auto", help="cuda:0 / mlx / auto（有CUDA用CUDA，否则用MLX）")
     parser.add_argument("--quantize", type=int, choices=[4, 8], help="仅MLX：backbone 4/8-bit 量化以降低内存")
+    parser.add_argument("--no-shared-prefix", dest="shared_prefix", action="store_false", help="仅MLX：关闭状态前缀共享，逐候选完整编码")
     parser.add_argument("--precision", choices=["fp32", "bf16"], default="bf16",
                         help="bf16沿用训练评估默认；fp32关闭autocast用于数值参照")
     parser.add_argument("--disable-native-triton", action="store_true", help="沿用trainer的进程内ATen回退开关")
@@ -358,7 +360,7 @@ def main():
     try:
         result = predict(read_json(args.input), args.checkpoint_dir, args.temperature, args.batch_questions,
                          args.max_length, args.device, args.disable_native_triton, precision=args.precision,
-                         quantize=args.quantize)
+                         quantize=args.quantize, shared_prefix=args.shared_prefix)
         text = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
         if args.output:
             destination = Path(args.output)

@@ -63,10 +63,11 @@ if __name__=='__main__':
     p.add_argument('--precision',choices=['fp32','bf16'],default='bf16');p.add_argument('--disable-native-triton',action='store_true')
     p.add_argument('--device',default='auto',help='cuda:0 / mlx / auto (CUDA when available, otherwise MLX on Apple Silicon)')
     p.add_argument('--quantize',type=int,choices=[4,8],help='MLX only: quantize the backbone to 4 or 8 bits to cut memory')
+    p.add_argument('--no-shared-prefix',dest='shared_prefix',action='store_false',help='MLX only: encode every candidate path in full instead of sharing the state prefix')
     a=p.parse_args()
     from predict_toy_decisions import DecisionPredictor
-    engine=DecisionPredictor(a.checkpoint_dir,device_name=a.device,precision=a.precision,disable_native_triton=a.disable_native_triton,quantize=a.quantize)
-    print(json.dumps({'backend':engine.backend,'device':str(engine.device),'precision':engine.precision,'quantize':a.quantize}),flush=True)
+    engine=DecisionPredictor(a.checkpoint_dir,device_name=a.device,precision=a.precision,disable_native_triton=a.disable_native_triton,quantize=a.quantize,shared_prefix=a.shared_prefix)
+    print(json.dumps({'backend':engine.backend,'device':str(engine.device),'precision':engine.precision,'quantize':a.quantize,'shared_prefix':a.shared_prefix if engine.backend=='mlx' else False}),flush=True)
     root=Path(a.web_root).resolve()
     if not (root/'index.html').is_file():raise ValueError('web-root must contain index.html')
     server=HTTPServer((a.host,a.port),server_class(engine,root))

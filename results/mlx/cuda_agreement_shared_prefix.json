@@ -1,0 +1,85 @@
+{
+  "checkpoint": "checkpoints/NanoJev-unified",
+  "episodes": "data/NanoJev-unified/evaluation/experiment/selected_test.jsonl",
+  "decisions_available": {
+    "maze": 3669,
+    "snake": 294,
+    "shooting/basic": 1391,
+    "shooting/predict_position": 5809
+  },
+  "decisions_compared_per_task": 24,
+  "modes": {
+    "bf16": {
+      "precision": "bf16",
+      "quantize": null,
+      "resident_gb": 1.192918032,
+      "peak_gb": 1.894350346,
+      "seconds": 7.530611208174378,
+      "decisions": 96,
+      "argmax_agree": 96,
+      "max_abs_prob_diff": 0.0058307647705078125,
+      "by_task": {
+        "maze": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.0058307647705078125,
+          "mean_abs_prob_diff": 0.0020096192343367473
+        },
+        "shooting/basic": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.0035656094551086426,
+          "mean_abs_prob_diff": 0.0008129838313758834
+        },
+        "shooting/predict_position": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.004535377025604248,
+          "mean_abs_prob_diff": 0.0010103735736871993
+        },
+        "snake": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.0054762959480285645,
+          "mean_abs_prob_diff": 0.0009236684968022419
+        }
+      }
+    },
+    "q8": {
+      "precision": "bf16",
+      "quantize": 8,
+      "resident_gb": 0.634190864,
+      "peak_gb": 1.6877476,
+      "seconds": 9.134746165946126,
+      "decisions": 96,
+      "argmax_agree": 96,
+      "max_abs_prob_diff": 0.009998559951782227,
+      "by_task": {
+        "maze": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.007751286029815674,
+          "mean_abs_prob_diff": 0.0022199788234300087
+        },
+        "shooting/basic": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.006659567356109619,
+          "mean_abs_prob_diff": 0.000981510218650783
+        },
+        "shooting/predict_position": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.009998559951782227,
+          "mean_abs_prob_diff": 0.0014175803680700483
+        },
+        "snake": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.006238460540771484,
+          "mean_abs_prob_diff": 0.0017305915939181838
+        }
+      }
+    }
+  }
+}

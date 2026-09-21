@@ -59,28 +59,47 @@ Right padding plus a causal mask is used instead of an explicit attention mask:
 a real token never attends to later padding, so the last-real-token state is
 identical to the masked torch computation.
 
+### Shared-prefix inference
+
+The upstream reference scores each candidate as a complete `state + question +
+candidate` path, so one question with N candidates encodes the state N times. The
+MLX backend instead groups the paths of one state, encodes their longest common token
+prefix once (keeping every layer's K/V), and scores the suffixes as one right-padded
+batch whose attention keys are the prefix K/V followed by the suffix's own. With
+causal attention the prefix states do not depend on what follows, so this is the
+same computation; SDPA's lower-right-aligned `"causal"` mask gives suffix position i
+exactly the prefix plus suffix positions ≤ i. The shared prefix also covers the
+`Candidate:\n` marker, and several questions on one state (e.g. outcome requests
+with one Boolean per action) share the state part. `--no-shared-prefix` restores
+the flat path; training always uses the flat path.
+
+Verification: flat and shared logits agree to 8.6e-6 (probabilities 4.8e-7) in fp32
+on the CPU device over 18 real questions including multi-Boolean outcome requests;
+on the GPU the bf16 difference is ≤0.011 in probability, the same order as bf16
+itself vs. CUDA. Against the recorded CUDA decisions with sharing on
+(`results/mlx/cuda_agreement_shared_prefix.json`): bf16 max ∣Δp∣ 0.006, 96/96;
+8-bit 0.010, 96/96.
+
 ### Decision latency
 
 `scripts/benchmark_mlx_latency.py` times `predict()` end to end (tokenization, tensor
-assembly, backbone, heads, softmax) on recorded test decisions, 24 per task. Apple M5,
-released checkpoint, bf16 (`results/mlx/latency_bf16.json`; 8-bit in `latency_q8.json`
-is 4–9 % slower and peaks at 1.7 GB instead of 1.9 GB):
+assembly, backbone, heads, softmax) on recorded test decisions, 24 per task, one
+decision per request, Apple M5, released checkpoint, bf16, p50 / p95:
 
-| Task | Candidates | Tokens per path | 1 decision p50 / p95 | 8 decisions per request |
-|---|---:|---:|---:|---:|
-| ViZDoom Basic | 4.0 | 334 | 123 / 132 ms | 125 ms per decision |
-| Snake | 3.0 | 521 | 156 / 159 ms | 164 ms per decision |
-| ViZDoom Predict Position | 4.0 | 776 | 254 / 487 ms | 313 ms per decision |
-| Maze (8×8 test set) | 2.8 | 1364 | 283 / 684 ms | 388 ms per decision |
+| Task | Candidates | Tokens per path | Shared prefix (default) | Flat paths | Flat, 8-bit |
+|---|---:|---:|---:|---:|---:|
+| ViZDoom Basic | 4.0 | 334 | 44 / 47 ms | 123 / 132 ms | 129 / 141 ms |
+| Snake | 3.0 | 521 | 63 / 64 ms | 156 / 159 ms | 163 / 165 ms |
+| ViZDoom Predict Position | 4.0 | 776 | 79 / 131 ms | 254 / 487 ms | 273 / 518 ms |
+| Maze (8×8 test set) | 2.8 | 1364 | 110 / 248 ms | 283 / 684 ms | 315 / 742 ms |
 
-Latency is proportional to padded tokens: the backbone prefills about 13k tokens/s, and
-every candidate repeats the full state prefix (no prefix sharing yet, as in the CUDA
-reference). Within a request `MLXDecisionPredictor` sorts questions by path length and
-packs them under an 8192 padded-token budget (`max_batch_tokens`), so mixed-length
-batches no longer pay the longest state for every path; before this, 8 Maze decisions
-per request cost 720 ms each instead of 388 ms. Shared-prefix scoring (one prefix pass,
-KV cache reused per candidate) would cut Maze and Predict Position cost by roughly the
-candidate count and is the natural next step.
+Files: `results/mlx/latency_bf16_shared_prefix.json`, `latency_bf16.json`, `latency_q8.json`.
+Flat latency is proportional to padded tokens (about 13k tokens/s prefill); sharing
+divides the prefix work by the candidate count, hence 2.5–3.2× here. A synthetic
+8K-token state with 4 candidates drops from 5.1 s to 1.4 s. Within a request, flat
+scoring sorts questions by path length and packs them under an 8192 padded-token
+budget (`max_batch_tokens`) so mixed-length batches do not pay the longest state for
+every path.
 
 ## Fine-tuning with QLoRA
 
@@ -133,5 +152,5 @@ trainer for it; its output loads in the MLX backend unchanged.
 | `scripts/test_mlx_decisions.py` | Structure tests on a tiny random backbone |
 | `scripts/benchmark_mlx_latency.py` | Per-task decision latency (p50/p95, batch scaling) |
 | `scripts/verify_mlx_against_cuda.py` | Re-scores recorded CUDA decisions per mode; agreement and memory |
-| `results/mlx/latency_*.json`, `cuda_agreement.json` | Recorded latency and agreement runs on the M5 |
+| `results/mlx/latency_*.json`, `cuda_agreement*.json` | Recorded latency and agreement runs on the M5 |
 | `requirements-mlx.txt` | Pinned MLX stack |

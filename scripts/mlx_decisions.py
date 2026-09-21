@@ -29,7 +29,8 @@ CACHE_LIMIT_BYTES = 512 * 1024 * 1024  # freed buffers MLX may keep for reuse in
 def limit_mlx_memory(fraction=MEMORY_FRACTION, cache_bytes=CACHE_LIMIT_BYTES):
     """Cap MLX's memory guideline and its buffer cache; return the memory cap in bytes."""
     mx, _ = _mx()
-    limit = int(mx.device_info()["memory_size"] * fraction)
+    physical = mx.device_info().get("memory_size") or os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES")
+    limit = int(physical * fraction)
     mx.set_memory_limit(limit)
     mx.set_cache_limit(cache_bytes)
     return limit
@@ -98,6 +99,7 @@ def build_decision_model(body_config, set_head):
         def __init__(self):
             super().__init__()
             self.backbone = Qwen3Model(_backbone_args(body_config))
+            self.shared_prefix = False  # set by the predictor; training keeps the flat reference path
             hidden = body_config["hidden_size"]
             self.norm = nn.LayerNorm(hidden, eps=1e-5)
             self.scalar = nn.Linear(hidden, 1)
@@ -107,8 +109,9 @@ def build_decision_model(body_config, set_head):
                 self.set_attention = SetAttention(SET_DIM, SET_HEADS)
                 self.set_output = nn.Linear(SET_DIM, 1)
 
-        def __call__(self, examples, pad_token):
-            paths = [ids for ex in examples for ids in ex["leaf_tokens"]]
+        # --- backbone: flat reference path and shared-prefix path -------------------------
+        def _flat_leaves(self, paths, pad_token):
+            """One padded forward over complete paths; returns the last-real-token state per path."""
             lengths = np.array([len(ids) for ids in paths], dtype=np.int32)
             width = int(lengths.max())
             tokens = np.full((len(paths), width), pad_token, dtype=np.int32)
@@ -117,7 +120,73 @@ def build_decision_model(body_config, set_head):
             # Right padding + causal mask: a real position never attends to padding,
             # so the last-real-token state equals the torch attention_mask result.
             hidden = self.backbone(mx.array(tokens))
-            leaves = hidden[mx.array(np.arange(len(paths))), mx.array(lengths - 1)]
+            return hidden[mx.array(np.arange(len(paths))), mx.array(lengths - 1)]
+
+        def _attention_qkv(self, attn, x, offset):
+            B, L, _ = x.shape
+            q = attn.q_norm(attn.q_proj(x).reshape(B, L, attn.n_heads, -1)).transpose(0, 2, 1, 3)
+            k = attn.k_norm(attn.k_proj(x).reshape(B, L, attn.n_kv_heads, -1)).transpose(0, 2, 1, 3)
+            v = attn.v_proj(x).reshape(B, L, attn.n_kv_heads, -1).transpose(0, 2, 1, 3)
+            return attn.rope(q, offset=offset), attn.rope(k, offset=offset), v
+
+        def _shared_leaves(self, paths, prefix_length, pad_token):
+            """Encode the common prefix once, then all suffixes as one batch against its K/V.
+
+            Causal attention makes prefix states independent of what follows, so this is
+            exactly the flat computation with the prefix work done once instead of per path.
+            The suffix batch uses SDPA's lower-right-aligned "causal" mask: query i sees the
+            whole prefix plus suffix positions <= i, i.e. absolute positions <= P + i."""
+            backbone = self.backbone
+            prefix = mx.array(np.array([paths[0][:prefix_length]], dtype=np.int32))
+            h = backbone.embed_tokens(prefix)
+            cache = []
+            for layer in backbone.layers:
+                attn = layer.self_attn
+                q, k, v = self._attention_qkv(attn, layer.input_layernorm(h), 0)
+                cache.append((k, v))
+                o = mx.fast.scaled_dot_product_attention(q, k, v, scale=attn.scale, mask="causal")
+                h = h + attn.o_proj(o.transpose(0, 2, 1, 3).reshape(1, prefix_length, -1))
+                h = h + layer.mlp(layer.post_attention_layernorm(h))
+            suffix_lengths = np.array([len(ids) - prefix_length for ids in paths], dtype=np.int32)
+            width = int(suffix_lengths.max())
+            tokens = np.full((len(paths), width), pad_token, dtype=np.int32)
+            for i, ids in enumerate(paths):
+                tokens[i, :len(ids) - prefix_length] = ids[prefix_length:]
+            h = backbone.embed_tokens(mx.array(tokens))
+            n = len(paths)
+            for layer, (pk, pv) in zip(backbone.layers, cache):
+                attn = layer.self_attn
+                q, k, v = self._attention_qkv(attn, layer.input_layernorm(h), prefix_length)
+                keys = mx.concatenate([mx.broadcast_to(pk, (n,) + pk.shape[1:]), k], axis=2)
+                values = mx.concatenate([mx.broadcast_to(pv, (n,) + pv.shape[1:]), v], axis=2)
+                o = mx.fast.scaled_dot_product_attention(q, keys, values, scale=attn.scale, mask="causal")
+                h = h + attn.o_proj(o.transpose(0, 2, 1, 3).reshape(n, width, -1))
+                h = h + layer.mlp(layer.post_attention_layernorm(h))
+            hidden = backbone.norm(h)
+            return hidden[mx.array(np.arange(n)), mx.array(suffix_lengths - 1)]
+
+        def leaf_states(self, examples, pad_token):
+            """Last-token backbone states for every candidate path, in request order."""
+            if not self.shared_prefix:
+                return self._flat_leaves([ids for ex in examples for ids in ex["leaf_tokens"]], pad_token)
+            leaves = []
+            start = 0
+            while start < len(examples):  # paths of one state are contiguous
+                end = start
+                while end < len(examples) and examples[end]["state_id"] == examples[start]["state_id"]:
+                    end += 1
+                paths = [ids for ex in examples[start:end] for ids in ex["leaf_tokens"]]
+                shared = shared_prefix_length(paths)
+                if len(paths) == 1 or shared == 0:
+                    leaves.append(self._flat_leaves(paths, pad_token))
+                else:
+                    leaves.append(self._shared_leaves(paths, shared, pad_token))
+                start = end
+            return leaves[0] if len(leaves) == 1 else mx.concatenate(leaves, axis=0)
+
+        def __call__(self, examples, pad_token):
+            paths = [ids for ex in examples for ids in ex["leaf_tokens"]]
+            leaves = self.leaf_states(examples, pad_token)
             leaves = mx.concatenate([leaves, mx.zeros((1, leaves.shape[-1]), dtype=leaves.dtype)])
             kmax = max(len(ex["candidate_ids"]) for ex in examples)
             gather = np.full((len(examples), kmax), len(paths), dtype=np.int32)  # -> zero row
@@ -171,6 +240,16 @@ def length_bucketed_batches(examples, max_tokens):
     return batches
 
 
+def shared_prefix_length(paths):
+    """Longest common token prefix over a group of paths, leaving every path >= 1 suffix token."""
+    shortest = min(map(len, paths))
+    first = paths[0]
+    common = 0
+    while common < shortest - 1 and all(ids[common] == first[common] for ids in paths):
+        common += 1
+    return common
+
+
 def torch_key_to_mlx(key):
     if key == "set_attention.in_proj_weight":
         return "set_attention.in_proj.weight"
@@ -208,7 +287,8 @@ def load_decision_weights(model, weights_path, dtype):
 class MLXDecisionPredictor:
     """Persistent MLX inference object: weights load once, each predict scores complete questions."""
 
-    def __init__(self, checkpoint_dir, max_length=None, precision="bf16", quantize=None, max_batch_tokens=8192):
+    def __init__(self, checkpoint_dir, max_length=None, precision="bf16", quantize=None, max_batch_tokens=8192,
+                 shared_prefix=True):
         if precision not in {"fp32", "bf16"}:
             raise ValueError("precision 必须为 fp32 或 bf16")
         if quantize not in {None, 0, 4, 8}:
@@ -238,6 +318,7 @@ class MLXDecisionPredictor:
         model = build_decision_model(body_config, run_config["set_head"])
         self.tensor_count = load_decision_weights(model, paths["weights"], dtype)
         self.quantization = quantize_backbone(model, quantize) if quantize else None
+        model.shared_prefix = bool(shared_prefix)
         model.eval()
         self.model, self.tokenizer, self.root = model, tokenizer, root
         self.run_config, self.limit, self.precision = run_config, limit, precision
@@ -283,7 +364,7 @@ class MLXDecisionPredictor:
                           "candidate_paths": sum(len(ex["leaf_tokens"]) for ex in examples),
                           "forward_passes": len(batches),
                           "batch_questions_limit": batch_questions or f"length-bucketed, {self.max_batch_tokens} padded tokens",
-                          "autoregressive_decode_steps": 0, "prefix_sharing": False,
+                          "autoregressive_decode_steps": 0, "prefix_sharing": self.model.shared_prefix,
                           "max_length": self.limit, "disable_native_triton": None,
                           "network_model_calls": 0, "persistent_model_load_count": 1,
                           "inference_call_index": self.inference_calls},
@@ -301,13 +382,15 @@ def main():
     parser.add_argument("--max-length", type=int)
     parser.add_argument("--precision", choices=["fp32", "bf16"], default="bf16")
     parser.add_argument("--quantize", type=int, choices=[4, 8], help="Quantize the backbone to 4 or 8 bits (group size 64)")
+    parser.add_argument("--no-shared-prefix", dest="shared_prefix", action="store_false",
+                        help="Encode every candidate path in full (reference behaviour) instead of sharing the state prefix")
     args = parser.parse_args()
     try:
         payload = read_json(args.input)
         validate_request(payload)
         started = time.perf_counter()
         engine = MLXDecisionPredictor(args.checkpoint_dir, max_length=args.max_length, precision=args.precision,
-                                      quantize=args.quantize)
+                                      quantize=args.quantize, shared_prefix=args.shared_prefix)
         load_seconds = time.perf_counter() - started
         started = time.perf_counter()
         result = engine.predict(payload, batch_questions=args.batch_questions, temperature=args.temperature)
