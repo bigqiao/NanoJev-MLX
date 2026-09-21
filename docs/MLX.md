@@ -30,20 +30,21 @@ python scripts/serve_decisions.py \
 `evaluate_game_policy.py` and the other `DecisionPredictor` callers need no changes.
 `--device mlx` forces the backend; `--disable-native-triton` is accepted and ignored.
 
-Memory options, measured on the released checkpoint (resident weights after load /
-peak while scoring 18 questions, 44 candidate paths):
+Memory and agreement with the CUDA service, measured on the released checkpoint over
+96 recorded test decisions (24 each: Maze, Snake, ViZDoom Basic, Predict Position) that
+`scripts/verify_mlx_against_cuda.py` rebuilds from `evaluation/experiment/selected_test.jsonl`
+and re-scores locally (`results/mlx/cuda_agreement.json`):
 
-| Mode | Resident | Peak | Max ∣Δp∣ vs. the CUDA run | Argmax agreement |
+| Mode | Resident | Inference peak | Max ∣Δp∣ vs. the CUDA run | Argmax agreement |
 |---|---:|---:|---:|---:|
-| `--precision bf16` (default) | 1.19 GB | 1.86 GB | 0.009 | 48/48 |
-| `--quantize 8` | 0.63 GB | 1.39 GB | 0.014 | 48/48 |
-| `--quantize 4` | 0.37 GB | 1.15 GB | 0.16 | 48/48 |
+| `--precision bf16` (default) | 1.19 GB | 1.91 GB | 0.011 | 95/96 |
+| `--quantize 8` | 0.63 GB | 1.69 GB | 0.012 | 96/96 |
+| `--quantize 4` | 0.37 GB | 1.45 GB | 0.092 | 95/96 |
 
 `--quantize 8` (affine, group size 64) is effectively lossless and is the recommended
-low-memory setting. `--quantize 4` uses group size 32 and still shifts some
-probabilities noticeably; use it only when memory matters more than calibration.
-Comparison data: 48 recorded Maze, Snake and ViZDoom decisions from
-`evaluation/experiment/selected_test.jsonl` in the released dataset, re-scored locally.
+low-memory setting. `--quantize 4` uses group size 32 and still shifts probabilities by
+up to 0.09; use it only when memory matters more than calibration. The bf16 and 4-bit
+disagreements are the same Predict Position decision, which the CUDA service scored as an exact tie (left 0.313 vs. right 0.313).
 
 The backend caps MLX's buffer cache at 512 MB and its memory guideline at 60 % of
 physical memory, so a long-running service does not accumulate freed buffers.
@@ -131,5 +132,6 @@ trainer for it; its output loads in the MLX backend unchanged.
 | `scripts/train_unified_games_mlx.py` | QLoRA SFT trainer |
 | `scripts/test_mlx_decisions.py` | Structure tests on a tiny random backbone |
 | `scripts/benchmark_mlx_latency.py` | Per-task decision latency (p50/p95, batch scaling) |
-| `results/mlx/latency_*.json` | Recorded latency runs on the M5 |
+| `scripts/verify_mlx_against_cuda.py` | Re-scores recorded CUDA decisions per mode; agreement and memory |
+| `results/mlx/latency_*.json`, `cuda_agreement.json` | Recorded latency and agreement runs on the M5 |
 | `requirements-mlx.txt` | Pinned MLX stack |

@@ -60,10 +60,37 @@ python scripts/benchmark_mlx_latency.py --checkpoint-dir checkpoints/NanoJev-uni
   backbone + 注意力投影 LoRA + 决策头全量训练 + 梯度检查点 + 内存预检，16 GB 机器上峰值 2 GB；导出与上游布局一致的
   fp32 `best.safetensors`。critic 阶段未移植。
 - **延迟基准**（[scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py)），M5 实测结果在
-  [results/mlx/](results/mlx/)：ViZDoom Basic 单决策 123 ms、Snake 156 ms、Predict Position 254 ms、Maze 283 ms（p50，bf16）。
+  [results/mlx/](results/mlx/)：ViZDoom Basic 单决策 123 ms、Snake 156 ms、Predict Position 254 ms、Maze 283 ms（p50，bf16）。见 [测试结果](#测试结果)。
 - 测试：[scripts/test_mlx_decisions.py](scripts/test_mlx_decisions.py)；依赖锁定：[requirements-mlx.txt](requirements-mlx.txt)。
 
 分支由 [bigqiao](https://github.com/bigqiao) 维护，MLX 移植借助 Claude Code 完成。模型与数据相关问题请反馈到上游仓库，MLX 相关问题在本仓库提出。
+
+## 测试结果
+
+以下数字均由本分支脚本在 Apple M5（16 GB）上、使用发布的 `unified-games-v1` checkpoint 测得，原始结果存放在 [results/mlx/](results/mlx/)。
+
+**与 CUDA 服务的一致性**——从发布的 `selected_test.jsonl` 取 96 个真实测试决策（Maze、Snake、ViZDoom Basic、Predict Position 各 24 个），重建同样的请求在本地重新打分（[scripts/verify_mlx_against_cuda.py](scripts/verify_mlx_against_cuda.py)，[cuda_agreement.json](results/mlx/cuda_agreement.json)）：
+
+| 模式 | 常驻权重 | 推理峰值 | 最大概率偏差 | argmax 一致 |
+|---|---:|---:|---:|---:|
+| bf16（默认） | 1.19 GB | 1.91 GB | 0.011 | 95/96 |
+| `--quantize 8` | 0.63 GB | 1.69 GB | 0.012 | 96/96 |
+| `--quantize 4` | 0.37 GB | 1.45 GB | 0.092 | 95/96 |
+
+bf16 唯一不一致的是一个 Predict Position 决策，CUDA 服务本身就给出了完全平局（left 0.313 vs right 0.313）。与 torch 参考实现对比，MLX backbone 在 CPU 设备上相对误差 1.6e-7；bf16 GPU 路径的偏差与 CUDA 上 bf16 autocast 的偏差同量级。
+
+**决策延迟**——端到端 `predict()` 含分词，每请求一个决策，p50 / p95（[scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py)，[latency_bf16.json](results/mlx/latency_bf16.json)，[latency_q8.json](results/mlx/latency_q8.json)）：
+
+| 任务 | 候选数 | 每条路径 token | bf16 | `--quantize 8` |
+|---|---:|---:|---:|---:|
+| ViZDoom Basic | 4.0 | 334 | 123 / 132 ms | 129 / 141 ms |
+| Snake | 3.0 | 521 | 156 / 159 ms | 163 / 165 ms |
+| ViZDoom Predict Position | 4.0 | 776 | 254 / 487 ms | 273 / 518 ms |
+| Maze（8×8 测试集） | 2.8 | 1364 | 283 / 684 ms | 315 / 742 ms |
+
+延迟与 padded token 数成正比（prefill 约 13k token/s）；每个候选都重复状态前缀，与上游相同。8 个混合长度决策一批时，得益于按长度分桶打包，均摊为 125–388 ms/决策。
+
+**QLoRA 训练器**——在最宽训练 microbatch（12 条路径、9216 padded token）上预检峰值 3.6 GB；冒烟运行峰值 2.0 GB、每 8 题更新约 10 s。全参数微调在本机峰值超过 14 GB，32 GB 以下不建议。
 
 ---
 

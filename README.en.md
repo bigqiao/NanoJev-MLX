@@ -63,11 +63,38 @@ Everything upstream still works as before on CUDA; the changes are additive.
   `best.safetensors` in the upstream layout. The critic stage is not ported.
 - **Latency benchmark** ([scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py)) with recorded
   M5 results in [results/mlx/](results/mlx/): 123 ms per ViZDoom Basic decision, 156 ms Snake,
-  254 ms Predict Position, 283 ms Maze (p50, bf16).
+  254 ms Predict Position, 283 ms Maze (p50, bf16). See [Test results](#test-results).
 - Tests: [scripts/test_mlx_decisions.py](scripts/test_mlx_decisions.py); pinned stack: [requirements-mlx.txt](requirements-mlx.txt).
 
 Fork maintained by [bigqiao](https://github.com/bigqiao); MLX port written with Claude Code. Please report
 upstream model or data issues to the upstream repository and MLX issues here.
+
+## Test results
+
+All numbers are from this fork's scripts on an Apple M5 (16 GB), released checkpoint `unified-games-v1`, and are stored in [results/mlx/](results/mlx/).
+
+**Agreement with the CUDA service** — 96 recorded test decisions (24 each: Maze, Snake, ViZDoom Basic, Predict Position) from the released `selected_test.jsonl`, rebuilt as the same requests and re-scored locally ([scripts/verify_mlx_against_cuda.py](scripts/verify_mlx_against_cuda.py), [cuda_agreement.json](results/mlx/cuda_agreement.json)):
+
+| Mode | Resident weights | Inference peak | Max ∣Δ probability∣ | Argmax agreement |
+|---|---:|---:|---:|---:|
+| bf16 (default) | 1.19 GB | 1.91 GB | 0.011 | 95/96 |
+| `--quantize 8` | 0.63 GB | 1.69 GB | 0.012 | 96/96 |
+| `--quantize 4` | 0.37 GB | 1.45 GB | 0.092 | 95/96 |
+
+The single bf16 disagreement is a Predict Position decision the CUDA service itself scored as an exact tie (left 0.313 vs. right 0.313). Against the torch reference implementation the MLX backbone matches to 1.6e-7 relative on the CPU device; the bf16 GPU path deviates about as much as bf16 autocast does on CUDA.
+
+**Decision latency** — end-to-end `predict()` including tokenization, one decision per request, p50 / p95 ([scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py), [latency_bf16.json](results/mlx/latency_bf16.json), [latency_q8.json](results/mlx/latency_q8.json)):
+
+| Task | Candidates | Tokens per path | bf16 | `--quantize 8` |
+|---|---:|---:|---:|---:|
+| ViZDoom Basic | 4.0 | 334 | 123 / 132 ms | 129 / 141 ms |
+| Snake | 3.0 | 521 | 156 / 159 ms | 163 / 165 ms |
+| ViZDoom Predict Position | 4.0 | 776 | 254 / 487 ms | 273 / 518 ms |
+| Maze (8×8 test set) | 2.8 | 1364 | 283 / 684 ms | 315 / 742 ms |
+
+Latency is proportional to padded tokens (~13k tokens/s prefill); every candidate repeats the state prefix, as in upstream. Batches of 8 mixed-length decisions cost 125–388 ms per decision thanks to length-bucketed packing.
+
+**QLoRA trainer** — preflight on the widest training microbatch (12 paths, 9216 padded tokens): 3.6 GB peak; 2.0 GB peak and ~10 s per 8-question update on the smoke run. Full fine-tuning on this machine peaks above 14 GB and is not recommended under 32 GB.
 
 ---
 

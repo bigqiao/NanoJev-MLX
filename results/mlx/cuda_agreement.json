@@ -1,0 +1,121 @@
+{
+  "checkpoint": "checkpoints/NanoJev-unified",
+  "episodes": "data/NanoJev-unified/evaluation/experiment/selected_test.jsonl",
+  "decisions_available": {
+    "maze": 3669,
+    "snake": 294,
+    "shooting/basic": 1391,
+    "shooting/predict_position": 5809
+  },
+  "decisions_compared_per_task": 24,
+  "modes": {
+    "bf16": {
+      "precision": "bf16",
+      "quantize": null,
+      "resident_gb": 1.192918032,
+      "peak_gb": 1.908079935,
+      "seconds": 20.51779895881191,
+      "decisions": 96,
+      "argmax_agree": 95,
+      "max_abs_prob_diff": 0.010736078023910522,
+      "by_task": {
+        "maze": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.009123355150222778,
+          "mean_abs_prob_diff": 0.0018424565593401592
+        },
+        "shooting/basic": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.007033169269561768,
+          "mean_abs_prob_diff": 0.0009491871870560923
+        },
+        "shooting/predict_position": {
+          "decisions": 24,
+          "argmax_agree": 23,
+          "max_abs_prob_diff": 0.010736078023910522,
+          "mean_abs_prob_diff": 0.0011822887093633956
+        },
+        "snake": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.005010545253753662,
+          "mean_abs_prob_diff": 0.0009613359935529946
+        }
+      }
+    },
+    "q8": {
+      "precision": "bf16",
+      "quantize": 8,
+      "resident_gb": 0.634190864,
+      "peak_gb": 1.6877476,
+      "seconds": 23.1870012502186,
+      "decisions": 96,
+      "argmax_agree": 96,
+      "max_abs_prob_diff": 0.011996924877166748,
+      "by_task": {
+        "maze": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.009739398956298828,
+          "mean_abs_prob_diff": 0.002231336095266872
+        },
+        "shooting/basic": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.011996924877166748,
+          "mean_abs_prob_diff": 0.0011760314465429171
+        },
+        "shooting/predict_position": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.0066495537757873535,
+          "mean_abs_prob_diff": 0.0013313044231229771
+        },
+        "snake": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.005785644054412842,
+          "mean_abs_prob_diff": 0.0016686948187675122
+        }
+      }
+    },
+    "q4": {
+      "precision": "bf16",
+      "quantize": 4,
+      "resident_gb": 0.373455888,
+      "peak_gb": 1.452440592,
+      "seconds": 23.464274666737765,
+      "decisions": 96,
+      "argmax_agree": 95,
+      "max_abs_prob_diff": 0.0915924608707428,
+      "by_task": {
+        "maze": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.03389859199523926,
+          "mean_abs_prob_diff": 0.01316287720368968
+        },
+        "shooting/basic": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.06823557615280151,
+          "mean_abs_prob_diff": 0.007806579088850185
+        },
+        "shooting/predict_position": {
+          "decisions": 24,
+          "argmax_agree": 23,
+          "max_abs_prob_diff": 0.0915924608707428,
+          "mean_abs_prob_diff": 0.012184545055788476
+        },
+        "snake": {
+          "decisions": 24,
+          "argmax_agree": 24,
+          "max_abs_prob_diff": 0.041769444942474365,
+          "mean_abs_prob_diff": 0.009554522278550496
+        }
+      }
+    }
+  }
+}
