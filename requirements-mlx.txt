@@ -1,0 +1,8 @@
+# Apple Silicon inference backend (scripts/mlx_decisions.py); no torch or CUDA required.
+# Verified on macOS 26 / Apple M5 / Python 3.12.
+mlx==0.32.2
+mlx-lm==0.31.3
+transformers==5.17.0
+safetensors==0.8.0
+numpy==2.5.3
+huggingface_hub

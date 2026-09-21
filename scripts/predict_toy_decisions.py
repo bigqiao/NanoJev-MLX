@@ -173,13 +173,47 @@ def load_decision_model_class():
     return module.DecisionModel
 
 
-class DecisionPredictor:
-    """本地持久推理对象：构造时加载一次权重，每次predict批量计算完整问题。"""
+def resolve_device_name(device_name):
+    """'auto' picks cuda:0 when a CUDA device exists, otherwise the MLX backend on Apple Silicon."""
+    if device_name != "auto":
+        return device_name
+    try:
+        import torch
+        if torch.cuda.is_available():
+            return "cuda:0"
+    except ImportError:
+        pass
+    try:
+        import mlx.core  # noqa: F401
+        return "mlx"
+    except ImportError:
+        raise ValueError("未找到可用CUDA设备，且未安装MLX；请安装 requirements-mlx.txt 或使用CUDA主机") from None
 
-    def __init__(self, checkpoint_dir, max_length=None, device_name="cuda:0",
-                 disable_native_triton=False, precision="bf16"):
+
+class DecisionPredictor:
+    """本地持久推理对象：构造时加载一次权重，每次predict批量计算完整问题。
+
+    device_name: "cuda:N"（torch）、"mlx"（Apple Silicon）或 "auto"。
+    """
+
+    def __init__(self, checkpoint_dir, max_length=None, device_name="auto",
+                 disable_native_triton=False, precision="bf16", quantize=None):
         if precision not in {"fp32", "bf16"}:
             raise ValueError("precision 必须为 fp32 或 bf16")
+        device_name = resolve_device_name(device_name)
+        self.backend = "mlx" if device_name == "mlx" else "torch"
+        if quantize and self.backend != "mlx":
+            raise ValueError("quantize 仅支持 MLX 后端")
+        if self.backend == "mlx":
+            # Apple Silicon path: same checkpoint, same contract, no torch/CUDA/triton.
+            from mlx_decisions import MLXDecisionPredictor
+            engine = MLXDecisionPredictor(checkpoint_dir, max_length=max_length, precision=precision,
+                                          quantize=quantize)
+            self._engine = engine
+            self.model, self.tokenizer, self.root = engine.model, engine.tokenizer, engine.root
+            self.run_config, self.limit, self.device = engine.run_config, engine.limit, engine.device
+            self.precision, self.disable_native_triton = precision, False
+            return
         root, paths = local_checkpoint_files(checkpoint_dir)
         run_config = read_json(paths["run_config"])
         if not isinstance(run_config, dict) or run_config.get("set_head") not in {"none", "attention"}:
@@ -235,10 +269,23 @@ class DecisionPredictor:
         self.device = device
         self.precision = precision
         self.disable_native_triton = disable_native_triton
-        self.inference_calls = 0
+        self._inference_calls = 0
         self._torch = torch
 
+    @property
+    def inference_calls(self):
+        return self._engine.inference_calls if self.backend == "mlx" else self._inference_calls
+
+    @inference_calls.setter
+    def inference_calls(self, value):
+        if self.backend == "mlx":
+            self._engine.inference_calls = value
+        else:
+            self._inference_calls = value
+
     def predict(self, payload, batch_questions=0, temperature=1.0):
+        if self.backend == "mlx":
+            return self._engine.predict(payload, batch_questions=batch_questions, temperature=temperature)
         states = validate_request(payload)
         if not isinstance(temperature, (int, float)) or isinstance(temperature, bool) or not math.isfinite(temperature) or temperature <= 0:
             raise ValueError("temperature 必须为有限正数")
@@ -283,14 +330,14 @@ class DecisionPredictor:
 
 
 def predict(payload, checkpoint_dir, temperature=1.0, batch_questions=0, max_length=None,
-            device_name="cuda:0", disable_native_triton=False, precision="bf16"):
+            device_name="auto", disable_native_triton=False, precision="bf16", quantize=None):
     """兼容原一次性接口；连续调用请复用DecisionPredictor实例。"""
     # Fail on malformed input before loading a checkpoint, as in the original entry point.
     validate_request(payload)
     if not isinstance(temperature, (int, float)) or isinstance(temperature, bool) or not math.isfinite(temperature) or temperature <= 0:
         raise ValueError("temperature 必须为有限正数")
     engine = DecisionPredictor(checkpoint_dir, max_length=max_length, device_name=device_name,
-                               disable_native_triton=disable_native_triton, precision=precision)
+                               disable_native_triton=disable_native_triton, precision=precision, quantize=quantize)
     return engine.predict(payload, batch_questions=batch_questions, temperature=temperature)
 
 
@@ -302,14 +349,16 @@ def main():
     parser.add_argument("--temperature", type=float, default=1.0)
     parser.add_argument("--batch-questions", type=int, default=0, help="0=全部问题一次前向；其他值按完整问题分批")
     parser.add_argument("--max-length", type=int, help="默认使用checkpoint训练配置；超长输入报错，不截断")
-    parser.add_argument("--device", default="cuda:0")
+    parser.add_argument("--device", default="auto", help="cuda:0 / mlx / auto（有CUDA用CUDA，否则用MLX）")
+    parser.add_argument("--quantize", type=int, choices=[4, 8], help="仅MLX：backbone 4/8-bit 量化以降低内存")
     parser.add_argument("--precision", choices=["fp32", "bf16"], default="bf16",
                         help="bf16沿用训练评估默认；fp32关闭autocast用于数值参照")
     parser.add_argument("--disable-native-triton", action="store_true", help="沿用trainer的进程内ATen回退开关")
     args = parser.parse_args()
     try:
         result = predict(read_json(args.input), args.checkpoint_dir, args.temperature, args.batch_questions,
-                         args.max_length, args.device, args.disable_native_triton, precision=args.precision)
+                         args.max_length, args.device, args.disable_native_triton, precision=args.precision,
+                         quantize=args.quantize)
         text = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
         if args.output:
             destination = Path(args.output)

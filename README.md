@@ -2,6 +2,12 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
+> **This is the Apple Silicon / MLX fork of [TianyuCodings/NanoJev](https://github.com/TianyuCodings/NanoJev).**
+> The model, dataset, training recipe, game environments, browser demos and all results below are the upstream
+> authors' work (MIT License, Copyright (c) 2026 OpenJev contributors, kept verbatim in [LICENSE](LICENSE)).
+> This fork adds an MLX backend so the released checkpoint runs on a Mac without CUDA; see
+> [What this fork changes](#what-this-fork-changes) and [docs/MLX.md](docs/MLX.md).
+
 **A 0.6B parallel decision model: states and questions in, complete probability distributions out. Zero output-token decoding.**
 
 [Play ViZDoom](https://nanojev-dev.tianyuchen99.chatgpt.site/?autoplay=1) · [Maze & Snake](https://nanojev-dev.tianyuchen99.chatgpt.site/side-by-side?autoplay=1#maze) · [Model](https://huggingface.co/C-Tianyu/NanoJev) · [Dataset](https://huggingface.co/datasets/C-Tianyu/NanoJev-Data)
@@ -129,6 +135,17 @@ python scripts/serve_decisions.py \
 
 The service loads the model once. Send state/question batches to **`POST http://127.0.0.1:8765/api/evaluate`**.
 
+**Apple Silicon (no CUDA):** the same checkpoint runs natively through [MLX](docs/MLX.md). Install `requirements-mlx.txt` instead of `requirements-toy.txt`, then start the same service; `--device auto` picks MLX when no CUDA device exists, and `--quantize 8` cuts resident weights to 0.63 GB with no measurable change in decisions:
+
+```bash
+python -m pip install -r requirements-mlx.txt
+python scripts/serve_decisions.py \
+  --checkpoint-dir checkpoints/NanoJev-unified \
+  --web-root web --port 8765 --quantize 8
+```
+
+A QLoRA fine-tuning path for 16 GB machines is in `scripts/train_unified_games_mlx.py`; see [docs/MLX.md](docs/MLX.md).
+
 To explore the recorded games locally:
 
 ```bash
@@ -137,9 +154,35 @@ python3 -m http.server 8080 --bind 127.0.0.1 --directory web
 
 Open **http://127.0.0.1:8080/dev/?autoplay=1** for ViZDoom Basic or **http://127.0.0.1:8080/dev/side-by-side.html?autoplay=1#maze** for Maze.
 
+## What this fork changes
+
+Everything upstream still works as before on CUDA; the changes are additive.
+
+- **MLX inference backend** ([scripts/mlx_decisions.py](scripts/mlx_decisions.py)): the same `DecisionModel`
+  (Qwen3-0.6B backbone + LayerNorm + scalar head + set-attention head) rebuilt on `mlx-lm`, loading the
+  released `best.safetensors` unchanged. Verified against the torch reference (CPU fp32 relative error
+  1.6e-7) and against the released CUDA decision recordings (max probability difference 0.009, argmax
+  agreement 72/72 on Maze, Snake and ViZDoom).
+- **Backend selection** in `DecisionPredictor`, `serve_decisions.py` and `predict_toy_decisions.py`:
+  `--device auto` picks CUDA when present and MLX otherwise, so every existing evaluation script runs on a Mac.
+- **Memory control**: `--quantize 8` (near-lossless, 0.63 GB resident) and `--quantize 4`; streamed weight
+  loading; MLX buffer-cache and memory caps. Resident memory 1.2 GB in bf16, inference peak under 2 GB.
+- **Length-bucketed batching** inside a request, which halves per-decision cost for mixed-length batches.
+- **QLoRA fine-tuning** ([scripts/train_unified_games_mlx.py](scripts/train_unified_games_mlx.py)): the SFT
+  stage with an 8-bit frozen backbone, LoRA on the attention projections, trainable heads, gradient
+  checkpointing and a memory preflight; 2 GB peak on a 16 GB machine. Exports a dense float32
+  `best.safetensors` in the upstream layout. The critic stage is not ported.
+- **Latency benchmark** ([scripts/benchmark_mlx_latency.py](scripts/benchmark_mlx_latency.py)) with recorded
+  M5 results in [results/mlx/](results/mlx/): 123 ms per ViZDoom Basic decision, 156 ms Snake,
+  254 ms Predict Position, 283 ms Maze (p50, bf16).
+- Tests: [scripts/test_mlx_decisions.py](scripts/test_mlx_decisions.py); pinned stack: [requirements-mlx.txt](requirements-mlx.txt).
+
+Fork maintained by [bigqiao](https://github.com/bigqiao); MLX port written with Claude Code. Please report
+upstream model or data issues to the upstream repository and MLX issues here.
+
 ## Development notes
 
-[Release contents and reproduction](docs/UNIFIED_DEVELOPMENT_RELEASE.md) · [Input contract](docs/TYPESAFE_CONTRACT.md) · [Unified environments](docs/UNIFIED_GAMES.md) · [Atomic planning](docs/ATOMIC_PLANNING.md) · [Predict Position replay](docs/PREDICT_POSITION_DEMO.md) · [Shooting replay](docs/SHOOTING_DEMO.md)
+[Release contents and reproduction](docs/UNIFIED_DEVELOPMENT_RELEASE.md) · [Apple Silicon / MLX](docs/MLX.md) · [Input contract](docs/TYPESAFE_CONTRACT.md) · [Unified environments](docs/UNIFIED_GAMES.md) · [Atomic planning](docs/ATOMIC_PLANNING.md) · [Predict Position replay](docs/PREDICT_POSITION_DEMO.md) · [Shooting replay](docs/SHOOTING_DEMO.md)
 
 ## Roadmap
 

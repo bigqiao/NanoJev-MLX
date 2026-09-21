@@ -1,0 +1,138 @@
+{
+  "checkpoint": "checkpoints/NanoJev-unified",
+  "precision": "bf16",
+  "quantize": 8,
+  "device": "mlx:gpu",
+  "scope": "predict() end to end incl. tokenization; excludes HTTP",
+  "results": {
+    "maze": {
+      "decisions": 24,
+      "mean_candidates": 2.75,
+      "mean_path_tokens": 1364.25,
+      "max_path_tokens": 2476,
+      "by_batch": {
+        "1": {
+          "requests": 24,
+          "p50_ms": 314.81749983504415,
+          "p95_ms": 741.6290421970189,
+          "mean_ms": 378.2664583801913,
+          "per_decision_ms": 378.2664583801913,
+          "decisions_per_second": 2.643639101077557
+        },
+        "4": {
+          "requests": 6,
+          "p50_ms": 1511.308082845062,
+          "p95_ms": 1976.929625030607,
+          "mean_ms": 1617.9675760989387,
+          "per_decision_ms": 404.4918940247347,
+          "decisions_per_second": 2.472237428666123
+        },
+        "8": {
+          "requests": 3,
+          "p50_ms": 3251.6399580053985,
+          "p95_ms": 3594.234290998429,
+          "mean_ms": 3298.428610743334,
+          "per_decision_ms": 412.30357634291676,
+          "decisions_per_second": 2.4253973464646608
+        }
+      }
+    },
+    "shooting/basic": {
+      "decisions": 24,
+      "mean_candidates": 4,
+      "mean_path_tokens": 334.3333333333333,
+      "max_path_tokens": 399,
+      "by_batch": {
+        "1": {
+          "requests": 24,
+          "p50_ms": 128.59537499025464,
+          "p95_ms": 141.18450041860342,
+          "mean_ms": 125.00719450569402,
+          "per_decision_ms": 125.00719450569402,
+          "decisions_per_second": 7.999539578135645
+        },
+        "4": {
+          "requests": 6,
+          "p50_ms": 515.8153339289129,
+          "p95_ms": 601.5627086162567,
+          "mean_ms": 535.6634652707726,
+          "per_decision_ms": 133.91586631769314,
+          "decisions_per_second": 7.4673750579163345
+        },
+        "8": {
+          "requests": 3,
+          "p50_ms": 1057.4367078952491,
+          "p95_ms": 1090.9214578568935,
+          "mean_ms": 1061.2447772485514,
+          "per_decision_ms": 132.65559715606892,
+          "decisions_per_second": 7.5383174282763425
+        }
+      }
+    },
+    "shooting/predict_position": {
+      "decisions": 24,
+      "mean_candidates": 4,
+      "mean_path_tokens": 775.625,
+      "max_path_tokens": 1288,
+      "by_batch": {
+        "1": {
+          "requests": 24,
+          "p50_ms": 272.71270798519254,
+          "p95_ms": 517.7651247940958,
+          "mean_ms": 306.6881474029894,
+          "per_decision_ms": 306.6881474029894,
+          "decisions_per_second": 3.260641170739462
+        },
+        "4": {
+          "requests": 6,
+          "p50_ms": 1314.2132922075689,
+          "p95_ms": 1669.3766666576266,
+          "mean_ms": 1324.6175488457084,
+          "per_decision_ms": 331.1543872114271,
+          "decisions_per_second": 3.019739549340608
+        },
+        "8": {
+          "requests": 3,
+          "p50_ms": 2695.03725040704,
+          "p95_ms": 2985.977666452527,
+          "mean_ms": 2641.278250298152,
+          "per_decision_ms": 330.159781287269,
+          "decisions_per_second": 3.0288365109192665
+        }
+      }
+    },
+    "snake": {
+      "decisions": 24,
+      "mean_candidates": 3,
+      "mean_path_tokens": 520.625,
+      "max_path_tokens": 573,
+      "by_batch": {
+        "1": {
+          "requests": 24,
+          "p50_ms": 163.23625016957521,
+          "p95_ms": 164.85233278945088,
+          "mean_ms": 150.6703228224069,
+          "per_decision_ms": 150.6703228224069,
+          "decisions_per_second": 6.637007084525111
+        },
+        "4": {
+          "requests": 6,
+          "p50_ms": 649.7768331319094,
+          "p95_ms": 663.2266668602824,
+          "mean_ms": 651.9547360173116,
+          "per_decision_ms": 162.9886840043279,
+          "decisions_per_second": 6.135395264455578
+        },
+        "8": {
+          "requests": 3,
+          "p50_ms": 1289.2362498678267,
+          "p95_ms": 1295.0989161618054,
+          "mean_ms": 1288.683388537417,
+          "per_decision_ms": 161.08542356717712,
+          "decisions_per_second": 6.207886336673859
+        }
+      }
+    }
+  },
+  "peak_memory_gb": 1.6877476
+}
