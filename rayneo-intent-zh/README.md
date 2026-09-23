@@ -9,14 +9,14 @@
 [accepted-model.json](accepted-model.json) 记录选定的中文 v5 元数据适配分类头（权重 SHA-256 `87909e384605bbced586af58dc3a198886aebc30c712c2e47a0ea62079e706fd`）。权重超过 GitHub 单个 LFS 对象 2 GB 上限，[bundle/manifest.json](bundle/manifest.json) 记录三个 LFS 分片、各自 SHA-256 以及运行所需的配置／分词器文件。还原并启动：
 
 ```bash
-git lfs pull --include="rayneo-intent-zh/bundle/weights.part-*"
+git lfs pull --include="rayneo-intent-zh/bundle/weights.part-*" --exclude=""
 .venv/bin/python rayneo-intent-zh/model_bundle.py restore
 .venv/bin/python -B scripts/serve_decisions.py \
   --checkpoint-dir rayneo-intent-zh/models/nanojev-intent-zh-metadata-robust-head-v5 \
   --host 127.0.0.1 --port 8765 --device mlx --quantize 8
 ```
 
-`restore` 校验每个分片和整份权重的 SHA-256，不一致即失败，不会换用别的权重。维护者更换已选模型时用 `model_bundle.py pack`／`verify`。权重基于 [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B)，其 [Apache-2.0 许可证](bundle/LICENSE-QWEN3) 随包保留。服务自身没有鉴权，只监听本机；跨机器访问请放在自己的 HTTPS 反向代理后面，然后在 RayNeoRemaster 的 `backend.env` 设置 `NANOJEV_URL`（需要时再设 `NANOJEV_API_TOKEN`）。
+仓库的 `.lfsconfig` 让默认 clone 跳过这些权重，所以要带 `--exclude=""` 显式下载。`restore` 校验每个分片和整份权重的 SHA-256，不一致即失败，不会换用别的权重。维护者更换已选模型时用 `model_bundle.py pack`／`verify`。权重基于 [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B)，其 [Apache-2.0 许可证](bundle/LICENSE-QWEN3) 随包保留。服务自身没有鉴权，只监听本机；跨机器访问请放在自己的 HTTPS 反向代理后面，然后在 RayNeoRemaster 的 `backend.env` 设置 `NANOJEV_URL`（需要时再设 `NANOJEV_API_TOKEN`）。
 
 自动发现默认关闭，用户可在手机设置中单独开启；明确求助／记日程指令不依赖模型。RayNeoRemaster 现用策略同时要求模型分数和保守文本证据，见 [v5 元数据形状复核](results/nanojev-v5-metadata-robust-2026-09-23.md)。该复核有条件抽样与合成正例限制，不能写成生产准确率；服务健康与领域准确率也是两个独立状态。原版 `unified-games-v1`、早期分类头和 QLoRA 候选均是历史实验。
 

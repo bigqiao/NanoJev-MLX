@@ -1,4 +1,4 @@
 [lfs]
 	# Do not download the RayNeo intent weights (2.4 GB) on a default clone.
-	# Fetch them explicitly: git lfs pull --include="rayneo-intent-zh/bundle/weights.part-*"
+	# Fetch them explicitly: git lfs pull --include="rayneo-intent-zh/bundle/weights.part-*" --exclude=""
 	fetchexclude = rayneo-intent-zh/bundle/*
