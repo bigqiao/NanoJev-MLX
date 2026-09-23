@@ -1,0 +1,1187 @@
+{
+  "method": "Original NanoJev encoder and LayerNorm frozen; original scalar linear head supervised with BCE.",
+  "encoderQuantization": 8,
+  "encoderPrecision": "bf16",
+  "headPrecision": "float32",
+  "trainOnlyStandardization": true,
+  "trainCases": 240,
+  "devCases": 80,
+  "testUsedForSelection": false,
+  "selection": "Minimum dev BCE including the unchanged initial head; no threshold fitting.",
+  "seed": 20260922,
+  "learningRate": 0.003,
+  "maxEpochs": 180,
+  "bestEpoch": 55,
+  "initialDevLoss": 1.4068405628204346,
+  "selectedDevLoss": 0.43596386909484863,
+  "encodingSeconds": 33.633886917028576,
+  "trainingSeconds": 0.32677699998021126,
+  "peakMlxMemoryGb": 1.6877476,
+  "headParameters": 1025,
+  "baseWeightsSha256": "f68c47d66998231b86b7e91b4ed5e82ae23acf104c8b7cd6d165c3ac7b7ffe1b",
+  "dataSha256": {
+    "train": "c43b725d564286e21b08eb86764e169df22feabf089a5d90387f3139492d8c8f",
+    "dev": "d0ebbacc1c16c8885fc5aaa0e01b127d6a7e6aeae2eff4f891d672c56ad2b73e"
+  },
+  "scriptSha256": "496657eebfd3d938b9202f19616295d45429051661bbc93261d2ed4d27791798",
+  "questions": {
+    "assist": {
+      "type": "boolean",
+      "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。"
+    },
+    "schedule": {
+      "type": "boolean",
+      "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。"
+    }
+  },
+  "devMetrics": {
+    "0.85": {
+      "assist": {
+        "tp": 16,
+        "fp": 5,
+        "fn": 8,
+        "tn": 51,
+        "accuracy": 0.8375,
+        "precision": 0.7619047619047619,
+        "recall": 0.6666666666666666,
+        "falsePositiveRate": 0.08928571428571429
+      },
+      "schedule": {
+        "tp": 17,
+        "fp": 1,
+        "fn": 7,
+        "tn": 55,
+        "accuracy": 0.9,
+        "precision": 0.9444444444444444,
+        "recall": 0.7083333333333334,
+        "falsePositiveRate": 0.017857142857142856
+      }
+    },
+    "0.5": {
+      "assist": {
+        "tp": 19,
+        "fp": 8,
+        "fn": 5,
+        "tn": 48,
+        "accuracy": 0.8375,
+        "precision": 0.7037037037037037,
+        "recall": 0.7916666666666666,
+        "falsePositiveRate": 0.14285714285714285
+      },
+      "schedule": {
+        "tp": 20,
+        "fp": 8,
+        "fn": 4,
+        "tn": 48,
+        "accuracy": 0.85,
+        "precision": 0.7142857142857143,
+        "recall": 0.8333333333333334,
+        "falsePositiveRate": 0.14285714285714285
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 5,
+      "trainLoss": 0.6704634428024292,
+      "devLoss": 0.7090444564819336,
+      "bestEpoch": 5,
+      "elapsedSeconds": 0.0301014999859035
+    },
+    {
+      "epoch": 10,
+      "trainLoss": 0.41238364204764366,
+      "devLoss": 0.5729357600212097,
+      "bestEpoch": 10,
+      "elapsedSeconds": 0.0478126248344779
+    },
+    {
+      "epoch": 15,
+      "trainLoss": 0.24218733981251717,
+      "devLoss": 0.5156804919242859,
+      "bestEpoch": 15,
+      "elapsedSeconds": 0.06420195894315839
+    },
+    {
+      "epoch": 20,
+      "trainLoss": 0.18575857300311327,
+      "devLoss": 0.48550960421562195,
+      "bestEpoch": 20,
+      "elapsedSeconds": 0.08022508397698402
+    },
+    {
+      "epoch": 25,
+      "trainLoss": 0.14179621543735266,
+      "devLoss": 0.46544620394706726,
+      "bestEpoch": 25,
+      "elapsedSeconds": 0.09614058397710323
+    },
+    {
+      "epoch": 30,
+      "trainLoss": 0.11538898292928934,
+      "devLoss": 0.46120309829711914,
+      "bestEpoch": 30,
+      "elapsedSeconds": 0.11218787496909499
+    },
+    {
+      "epoch": 35,
+      "trainLoss": 0.0999491848051548,
+      "devLoss": 0.4380263388156891,
+      "bestEpoch": 35,
+      "elapsedSeconds": 0.12807474983856082
+    },
+    {
+      "epoch": 40,
+      "trainLoss": 0.08181179594248533,
+      "devLoss": 0.4456382393836975,
+      "bestEpoch": 35,
+      "elapsedSeconds": 0.1441261670552194
+    },
+    {
+      "epoch": 45,
+      "trainLoss": 0.075382134411484,
+      "devLoss": 0.4407843053340912,
+      "bestEpoch": 35,
+      "elapsedSeconds": 0.16038716677576303
+    },
+    {
+      "epoch": 50,
+      "trainLoss": 0.06592494435608387,
+      "devLoss": 0.4365556836128235,
+      "bestEpoch": 50,
+      "elapsedSeconds": 0.1764708338305354
+    },
+    {
+      "epoch": 55,
+      "trainLoss": 0.06212028255686164,
+      "devLoss": 0.43596386909484863,
+      "bestEpoch": 55,
+      "elapsedSeconds": 0.19243766693398356
+    },
+    {
+      "epoch": 60,
+      "trainLoss": 0.056711743120104074,
+      "devLoss": 0.4382675588130951,
+      "bestEpoch": 55,
+      "elapsedSeconds": 0.20851479191333055
+    },
+    {
+      "epoch": 65,
+      "trainLoss": 0.05036055343225598,
+      "devLoss": 0.44187411665916443,
+      "bestEpoch": 55,
+      "elapsedSeconds": 0.23057474987581372
+    },
+    {
+      "epoch": 70,
+      "trainLoss": 0.04780491744168103,
+      "devLoss": 0.4442313611507416,
+      "bestEpoch": 55,
+      "elapsedSeconds": 0.24646987486630678
+    },
+    {
+      "epoch": 75,
+      "trainLoss": 0.04366221046075225,
+      "devLoss": 0.45359429717063904,
+      "bestEpoch": 55,
+      "elapsedSeconds": 0.2622572500258684
+    },
+    {
+      "epoch": 80,
+      "trainLoss": 0.04132331139408052,
+      "devLoss": 0.45487552881240845,
+      "bestEpoch": 55,
+      "elapsedSeconds": 0.27823224989697337
+    },
+    {
+      "epoch": 85,
+      "trainLoss": 0.03812368935905397,
+      "devLoss": 0.452217161655426,
+      "bestEpoch": 55,
+      "elapsedSeconds": 0.29445858392864466
+    },
+    {
+      "epoch": 90,
+      "trainLoss": 0.03556606639176607,
+      "devLoss": 0.4600774347782135,
+      "bestEpoch": 55,
+      "elapsedSeconds": 0.31044533383101225
+    },
+    {
+      "epoch": 95,
+      "trainLoss": 0.03492387640289962,
+      "devLoss": 0.45853391289711,
+      "bestEpoch": 55,
+      "elapsedSeconds": 0.32632899982854724
+    }
+  ],
+  "devPredictions": [
+    {
+      "id": "dev-00-00",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9745468497276306,
+        "schedule": 0.42531800270080566
+      }
+    },
+    {
+      "id": "dev-00-01",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9997683763504028,
+        "schedule": 0.569913387298584
+      }
+    },
+    {
+      "id": "dev-00-02",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.991261899471283,
+        "schedule": 0.049544405192136765
+      }
+    },
+    {
+      "id": "dev-00-03",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9992461204528809,
+        "schedule": 0.8459718823432922
+      }
+    },
+    {
+      "id": "dev-00-04",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.7390106916427612,
+        "schedule": 0.008051706477999687
+      }
+    },
+    {
+      "id": "dev-00-05",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9990301132202148,
+        "schedule": 0.7768566012382507
+      }
+    },
+    {
+      "id": "dev-00-06",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9924558401107788,
+        "schedule": 0.0007752827950753272
+      }
+    },
+    {
+      "id": "dev-00-07",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.997799277305603,
+        "schedule": 0.020437266677618027
+      }
+    },
+    {
+      "id": "dev-00-08",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.3184952139854431,
+        "schedule": 0.015164786949753761
+      }
+    },
+    {
+      "id": "dev-00-09",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.014686296693980694,
+        "schedule": 0.03201237693428993
+      }
+    },
+    {
+      "id": "dev-00-10",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.40993213653564453,
+        "schedule": 0.01631833054125309
+      }
+    },
+    {
+      "id": "dev-00-11",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.7237225770950317,
+        "schedule": 0.004074558615684509
+      }
+    },
+    {
+      "id": "dev-00-12",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.17614339292049408,
+        "schedule": 0.9884975552558899
+      }
+    },
+    {
+      "id": "dev-00-13",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.1803363859653473,
+        "schedule": 0.9988583326339722
+      }
+    },
+    {
+      "id": "dev-00-14",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.21546950936317444,
+        "schedule": 0.9568848013877869
+      }
+    },
+    {
+      "id": "dev-00-15",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.4729241132736206,
+        "schedule": 0.9992911219596863
+      }
+    },
+    {
+      "id": "dev-00-16",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.727791965007782,
+        "schedule": 0.9995577931404114
+      }
+    },
+    {
+      "id": "dev-00-17",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9077118635177612,
+        "schedule": 0.9908918738365173
+      }
+    },
+    {
+      "id": "dev-00-18",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.988242506980896,
+        "schedule": 0.30950048565864563
+      }
+    },
+    {
+      "id": "dev-00-19",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.31876057386398315,
+        "schedule": 0.0988754853606224
+      }
+    },
+    {
+      "id": "dev-00-20",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.01702241785824299,
+        "schedule": 0.6422016024589539
+      }
+    },
+    {
+      "id": "dev-00-21",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.02094654180109501,
+        "schedule": 0.9111801385879517
+      }
+    },
+    {
+      "id": "dev-00-22",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1272830069065094,
+        "schedule": 0.003774201264604926
+      }
+    },
+    {
+      "id": "dev-00-23",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.10727085918188095,
+        "schedule": 0.0829908475279808
+      }
+    },
+    {
+      "id": "dev-00-24",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0021396391093730927,
+        "schedule": 0.00040876606362871826
+      }
+    },
+    {
+      "id": "dev-00-25",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.13187351822853088,
+        "schedule": 0.012362707406282425
+      }
+    },
+    {
+      "id": "dev-00-26",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.004275158513337374,
+        "schedule": 0.012917255982756615
+      }
+    },
+    {
+      "id": "dev-00-27",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.03919908404350281,
+        "schedule": 0.00010688816837500781
+      }
+    },
+    {
+      "id": "dev-00-28",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0048539843410253525,
+        "schedule": 0.051102686673402786
+      }
+    },
+    {
+      "id": "dev-00-29",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.029341168701648712,
+        "schedule": 0.5535652041435242
+      }
+    },
+    {
+      "id": "dev-00-30",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.009402364492416382,
+        "schedule": 0.001034758985042572
+      }
+    },
+    {
+      "id": "dev-00-31",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.070960633456707,
+        "schedule": 0.056948915123939514
+      }
+    },
+    {
+      "id": "dev-00-32",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9996101260185242,
+        "schedule": 0.9999998807907104
+      }
+    },
+    {
+      "id": "dev-00-33",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9997146129608154,
+        "schedule": 1.0
+      }
+    },
+    {
+      "id": "dev-00-34",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9112431406974792,
+        "schedule": 1.0
+      }
+    },
+    {
+      "id": "dev-00-35",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.0004188762977719307,
+        "schedule": 0.0495811365544796
+      }
+    },
+    {
+      "id": "dev-00-36",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.19862300157546997,
+        "schedule": 0.15601356327533722
+      }
+    },
+    {
+      "id": "dev-00-37",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.13785621523857117,
+        "schedule": 0.0011123291915282607
+      }
+    },
+    {
+      "id": "dev-00-38",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.003520703874528408,
+        "schedule": 0.027787644416093826
+      }
+    },
+    {
+      "id": "dev-00-39",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.05610032007098198,
+        "schedule": 0.798531711101532
+      }
+    },
+    {
+      "id": "dev-01-00",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9972525835037231,
+        "schedule": 0.26744163036346436
+      }
+    },
+    {
+      "id": "dev-01-01",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9867315292358398,
+        "schedule": 0.11244566738605499
+      }
+    },
+    {
+      "id": "dev-01-02",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.49403077363967896,
+        "schedule": 0.0017286899965256453
+      }
+    },
+    {
+      "id": "dev-01-03",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9691192507743835,
+        "schedule": 0.01161968894302845
+      }
+    },
+    {
+      "id": "dev-01-04",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.008379712700843811,
+        "schedule": 0.06313633918762207
+      }
+    },
+    {
+      "id": "dev-01-05",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.8625119924545288,
+        "schedule": 0.23315958678722382
+      }
+    },
+    {
+      "id": "dev-01-06",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.4517771899700165,
+        "schedule": 2.7561909519135952e-05
+      }
+    },
+    {
+      "id": "dev-01-07",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9668795466423035,
+        "schedule": 0.3066500127315521
+      }
+    },
+    {
+      "id": "dev-01-08",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.12658929824829102,
+        "schedule": 0.004236999899148941
+      }
+    },
+    {
+      "id": "dev-01-09",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.11746110767126083,
+        "schedule": 0.19367605447769165
+      }
+    },
+    {
+      "id": "dev-01-10",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6073827743530273,
+        "schedule": 0.005734836682677269
+      }
+    },
+    {
+      "id": "dev-01-11",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0006323197740130126,
+        "schedule": 0.008214077912271023
+      }
+    },
+    {
+      "id": "dev-01-12",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.0035990187898278236,
+        "schedule": 0.48540276288986206
+      }
+    },
+    {
+      "id": "dev-01-13",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.03783024102449417,
+        "schedule": 0.7854206562042236
+      }
+    },
+    {
+      "id": "dev-01-14",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.006896620150655508,
+        "schedule": 0.8147188425064087
+      }
+    },
+    {
+      "id": "dev-01-15",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.49413996934890747,
+        "schedule": 0.9664528369903564
+      }
+    },
+    {
+      "id": "dev-01-16",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.5062322616577148,
+        "schedule": 0.9154385328292847
+      }
+    },
+    {
+      "id": "dev-01-17",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9152404069900513,
+        "schedule": 0.994519829750061
+      }
+    },
+    {
+      "id": "dev-01-18",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9009174704551697,
+        "schedule": 0.9999904632568359
+      }
+    },
+    {
+      "id": "dev-01-19",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.058793965727090836,
+        "schedule": 0.7771862149238586
+      }
+    },
+    {
+      "id": "dev-01-20",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.05933265760540962,
+        "schedule": 0.10617062449455261
+      }
+    },
+    {
+      "id": "dev-01-21",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.055843550711870193,
+        "schedule": 0.07375631481409073
+      }
+    },
+    {
+      "id": "dev-01-22",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.09825285524129868,
+        "schedule": 0.13001197576522827
+      }
+    },
+    {
+      "id": "dev-01-23",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.006981035694479942,
+        "schedule": 0.2276766300201416
+      }
+    },
+    {
+      "id": "dev-01-24",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0017332762945443392,
+        "schedule": 0.0016309049678966403
+      }
+    },
+    {
+      "id": "dev-01-25",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.04158323258161545,
+        "schedule": 0.23598696291446686
+      }
+    },
+    {
+      "id": "dev-01-26",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2035341113805771,
+        "schedule": 0.3860184848308563
+      }
+    },
+    {
+      "id": "dev-01-27",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.5049702525138855,
+        "schedule": 0.00010330109216738492
+      }
+    },
+    {
+      "id": "dev-01-28",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0006579981418326497,
+        "schedule": 0.05500045791268349
+      }
+    },
+    {
+      "id": "dev-01-29",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9828133583068848,
+        "schedule": 0.5296368598937988
+      }
+    },
+    {
+      "id": "dev-01-30",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.17681050300598145,
+        "schedule": 0.0104317432269454
+      }
+    },
+    {
+      "id": "dev-01-31",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00019032075942959636,
+        "schedule": 1.191331375594018e-05
+      }
+    },
+    {
+      "id": "dev-01-32",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.11264529824256897,
+        "schedule": 0.9997687339782715
+      }
+    },
+    {
+      "id": "dev-01-33",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.03548835590481758,
+        "schedule": 0.9999794363975525
+      }
+    },
+    {
+      "id": "dev-01-34",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9420458078384399,
+        "schedule": 0.9999779462814331
+      }
+    },
+    {
+      "id": "dev-01-35",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.4796017110347748,
+        "schedule": 0.9995813369750977
+      }
+    },
+    {
+      "id": "dev-01-36",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.29959940910339355,
+        "schedule": 0.028736980631947517
+      }
+    },
+    {
+      "id": "dev-01-37",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0009241587249562144,
+        "schedule": 0.0002759410417638719
+      }
+    },
+    {
+      "id": "dev-01-38",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.24843041598796844,
+        "schedule": 0.08117584884166718
+      }
+    },
+    {
+      "id": "dev-01-39",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0022430450189858675,
+        "schedule": 0.015660863369703293
+      }
+    }
+  ],
+  "limitations": [
+    "Synthetic supervision with category-conditioned LLM labels; limited manual audit only.",
+    "Only a linear decision head is adapted; no encoder/LoRA training in this run.",
+    "Test remains unseen until the exported checkpoint is selected and served."
+  ],
+  "weightsSha256": "4cc9362ca559990c41fc5d5b61b857c4907e3cdab545cf0dec529540075ba253",
+  "outputName": "nanojev-intent-zh-head-v2"
+}

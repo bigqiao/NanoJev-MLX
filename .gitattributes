@@ -1,0 +1,2 @@
+# RayNeoRemaster v5 intent checkpoint, split below GitHub's 2 GB per-object LFS limit.
+rayneo-intent-zh/bundle/weights.part-* filter=lfs diff=lfs merge=lfs -text

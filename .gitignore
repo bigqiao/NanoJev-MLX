@@ -22,3 +22,6 @@ publish/
 *.pt
 *.pth
 .DS_Store
+
+# RayNeoRemaster intent checkpoints and caches
+rayneo-intent-zh/models/

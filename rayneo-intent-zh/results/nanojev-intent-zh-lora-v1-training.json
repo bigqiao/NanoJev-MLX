@@ -1,0 +1,1385 @@
+{
+  "method": {
+    "kind": "qlora",
+    "rank": 4,
+    "layers": 2,
+    "scale": 8,
+    "projections": [
+      "q_proj",
+      "v_proj"
+    ],
+    "selected_on": "dev_bce",
+    "best_step": 240,
+    "seed": 20260922,
+    "source_weights_sha256": "f68c47d66998231b86b7e91b4ed5e82ae23acf104c8b7cd6d165c3ac7b7ffe1b"
+  },
+  "preflight": {
+    "parameters": 41985,
+    "trainableKeys": [
+      "backbone.layers.26.self_attn.q_proj.lora_a",
+      "backbone.layers.26.self_attn.q_proj.lora_b",
+      "backbone.layers.26.self_attn.v_proj.lora_a",
+      "backbone.layers.26.self_attn.v_proj.lora_b",
+      "backbone.layers.27.self_attn.q_proj.lora_a",
+      "backbone.layers.27.self_attn.q_proj.lora_b",
+      "backbone.layers.27.self_attn.v_proj.lora_a",
+      "backbone.layers.27.self_attn.v_proj.lora_b",
+      "scalar.weight",
+      "scalar.bias"
+    ],
+    "changedKeys": [
+      "backbone.layers.26.self_attn.q_proj.lora_a",
+      "backbone.layers.26.self_attn.q_proj.lora_b",
+      "backbone.layers.26.self_attn.v_proj.lora_a",
+      "backbone.layers.26.self_attn.v_proj.lora_b",
+      "backbone.layers.27.self_attn.q_proj.lora_a",
+      "backbone.layers.27.self_attn.q_proj.lora_b",
+      "backbone.layers.27.self_attn.v_proj.lora_a",
+      "backbone.layers.27.self_attn.v_proj.lora_b",
+      "scalar.weight",
+      "scalar.bias"
+    ],
+    "loss": 1.2585179805755615,
+    "gradientNorm": 15.195515632629395,
+    "stepSeconds": 0.27675112476572394,
+    "peakMlxMemoryGb": 1.6877476,
+    "loadAndProbeSeconds": 13.891292374581099,
+    "rank": 4,
+    "layers": 2,
+    "projections": [
+      "q_proj",
+      "v_proj"
+    ]
+  },
+  "completedSteps": 240,
+  "bestStep": 240,
+  "trainCases": 240,
+  "devCases": 80,
+  "testUsed": false,
+  "initialDevLoss": 1.4065554780511345,
+  "selectedDevLoss": 0.5335971522469924,
+  "trainingSeconds": 134.9506801669486,
+  "dataSha256": {
+    "train": "c43b725d564286e21b08eb86764e169df22feabf089a5d90387f3139492d8c8f",
+    "dev": "d0ebbacc1c16c8885fc5aaa0e01b127d6a7e6aeae2eff4f891d672c56ad2b73e"
+  },
+  "scriptSha256": "f9408e5e8eaf9c38946be1ff42aff70387de13fbd5afa04b64f38523f6c9f56c",
+  "weightsSha256": "0c065a349d20e35f08023007c6c31596f7441e8602681ae9c095d019e0799bb8",
+  "devMetrics": {
+    "0.85": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 24,
+        "tn": 56,
+        "accuracy": 0.7,
+        "precision": null,
+        "recall": 0.0,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 24,
+        "tn": 56,
+        "accuracy": 0.7,
+        "precision": null,
+        "recall": 0.0,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "0.5": {
+      "assist": {
+        "tp": 8,
+        "fp": 8,
+        "fn": 16,
+        "tn": 48,
+        "accuracy": 0.7,
+        "precision": 0.5,
+        "recall": 0.3333333333333333,
+        "falsePositiveRate": 0.14285714285714285
+      },
+      "schedule": {
+        "tp": 7,
+        "fp": 6,
+        "fn": 17,
+        "tn": 50,
+        "accuracy": 0.7125,
+        "precision": 0.5384615384615384,
+        "recall": 0.2916666666666667,
+        "falsePositiveRate": 0.10714285714285714
+      }
+    }
+  },
+  "devPredictions": [
+    {
+      "id": "dev-00-00",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2352232187986374,
+        "schedule": 0.19596445560455322
+      }
+    },
+    {
+      "id": "dev-00-01",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.26706594228744507,
+        "schedule": 0.24667809903621674
+      }
+    },
+    {
+      "id": "dev-00-02",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.21830834448337555,
+        "schedule": 0.258955180644989
+      }
+    },
+    {
+      "id": "dev-00-03",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.26532602310180664,
+        "schedule": 0.21220140159130096
+      }
+    },
+    {
+      "id": "dev-00-04",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.5677053332328796,
+        "schedule": 0.52511066198349
+      }
+    },
+    {
+      "id": "dev-00-05",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.5357732176780701,
+        "schedule": 0.5090385675430298
+      }
+    },
+    {
+      "id": "dev-00-06",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6130753755569458,
+        "schedule": 0.5665748715400696
+      }
+    },
+    {
+      "id": "dev-00-07",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6622251272201538,
+        "schedule": 0.5494543313980103
+      }
+    },
+    {
+      "id": "dev-00-08",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.11863034218549728,
+        "schedule": 0.1859964281320572
+      }
+    },
+    {
+      "id": "dev-00-09",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.18284480273723602,
+        "schedule": 0.20546741783618927
+      }
+    },
+    {
+      "id": "dev-00-10",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1689373254776001,
+        "schedule": 0.19284452497959137
+      }
+    },
+    {
+      "id": "dev-00-11",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.22938272356987,
+        "schedule": 0.1796097457408905
+      }
+    },
+    {
+      "id": "dev-00-12",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2715264856815338,
+        "schedule": 0.3225562274456024
+      }
+    },
+    {
+      "id": "dev-00-13",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.26226404309272766,
+        "schedule": 0.3094008266925812
+      }
+    },
+    {
+      "id": "dev-00-14",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.25670143961906433,
+        "schedule": 0.2931247353553772
+      }
+    },
+    {
+      "id": "dev-00-15",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2741416394710541,
+        "schedule": 0.25995147228240967
+      }
+    },
+    {
+      "id": "dev-00-16",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.25126373767852783,
+        "schedule": 0.31134435534477234
+      }
+    },
+    {
+      "id": "dev-00-17",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2558603286743164,
+        "schedule": 0.28325438499450684
+      }
+    },
+    {
+      "id": "dev-00-18",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2596791088581085,
+        "schedule": 0.30347853899002075
+      }
+    },
+    {
+      "id": "dev-00-19",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.21374157071113586,
+        "schedule": 0.1814766228199005
+      }
+    },
+    {
+      "id": "dev-00-20",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.251050740480423,
+        "schedule": 0.26516085863113403
+      }
+    },
+    {
+      "id": "dev-00-21",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.20408739149570465,
+        "schedule": 0.1976357400417328
+      }
+    },
+    {
+      "id": "dev-00-22",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1266283541917801,
+        "schedule": 0.13747641444206238
+      }
+    },
+    {
+      "id": "dev-00-23",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.23601025342941284,
+        "schedule": 0.2687559425830841
+      }
+    },
+    {
+      "id": "dev-00-24",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.11725353449583054,
+        "schedule": 0.20620280504226685
+      }
+    },
+    {
+      "id": "dev-00-25",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.19781069457530975,
+        "schedule": 0.19022901356220245
+      }
+    },
+    {
+      "id": "dev-00-26",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.10169143974781036,
+        "schedule": 0.12146303802728653
+      }
+    },
+    {
+      "id": "dev-00-27",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.10630771517753601,
+        "schedule": 0.13097958266735077
+      }
+    },
+    {
+      "id": "dev-00-28",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.11227291077375412,
+        "schedule": 0.15974754095077515
+      }
+    },
+    {
+      "id": "dev-00-29",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2459115833044052,
+        "schedule": 0.2739039361476898
+      }
+    },
+    {
+      "id": "dev-00-30",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1007348969578743,
+        "schedule": 0.14073894917964935
+      }
+    },
+    {
+      "id": "dev-00-31",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.15962424874305725,
+        "schedule": 0.12674930691719055
+      }
+    },
+    {
+      "id": "dev-00-32",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6233745813369751,
+        "schedule": 0.6308992505073547
+      }
+    },
+    {
+      "id": "dev-00-33",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6531217098236084,
+        "schedule": 0.5384750962257385
+      }
+    },
+    {
+      "id": "dev-00-34",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.7149543762207031,
+        "schedule": 0.5700073838233948
+      }
+    },
+    {
+      "id": "dev-00-35",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6509823203086853,
+        "schedule": 0.565019428730011
+      }
+    },
+    {
+      "id": "dev-00-36",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.19750794768333435,
+        "schedule": 0.1382436603307724
+      }
+    },
+    {
+      "id": "dev-00-37",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.108257956802845,
+        "schedule": 0.11224920302629471
+      }
+    },
+    {
+      "id": "dev-00-38",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.10211008787155151,
+        "schedule": 0.08920498937368393
+      }
+    },
+    {
+      "id": "dev-00-39",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.21790778636932373,
+        "schedule": 0.1699938178062439
+      }
+    },
+    {
+      "id": "dev-01-00",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2361810803413391,
+        "schedule": 0.21095071732997894
+      }
+    },
+    {
+      "id": "dev-01-01",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2175336629152298,
+        "schedule": 0.27086010575294495
+      }
+    },
+    {
+      "id": "dev-01-02",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.21251434087753296,
+        "schedule": 0.23686687648296356
+      }
+    },
+    {
+      "id": "dev-01-03",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2259572148323059,
+        "schedule": 0.21578796207904816
+      }
+    },
+    {
+      "id": "dev-01-04",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.693516194820404,
+        "schedule": 0.4703294336795807
+      }
+    },
+    {
+      "id": "dev-01-05",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6753050088882446,
+        "schedule": 0.5282683968544006
+      }
+    },
+    {
+      "id": "dev-01-06",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6987283229827881,
+        "schedule": 0.4970703125
+      }
+    },
+    {
+      "id": "dev-01-07",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6713362336158752,
+        "schedule": 0.5438662171363831
+      }
+    },
+    {
+      "id": "dev-01-08",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.15738408267498016,
+        "schedule": 0.185317724943161
+      }
+    },
+    {
+      "id": "dev-01-09",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.22630575299263,
+        "schedule": 0.1464042067527771
+      }
+    },
+    {
+      "id": "dev-01-10",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.20811918377876282,
+        "schedule": 0.16673853993415833
+      }
+    },
+    {
+      "id": "dev-01-11",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.22094498574733734,
+        "schedule": 0.22106392681598663
+      }
+    },
+    {
+      "id": "dev-01-12",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.26348191499710083,
+        "schedule": 0.27405062317848206
+      }
+    },
+    {
+      "id": "dev-01-13",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.26121485233306885,
+        "schedule": 0.3094485104084015
+      }
+    },
+    {
+      "id": "dev-01-14",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2883780896663666,
+        "schedule": 0.3681970536708832
+      }
+    },
+    {
+      "id": "dev-01-15",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2754174768924713,
+        "schedule": 0.3280892074108124
+      }
+    },
+    {
+      "id": "dev-01-16",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.26246312260627747,
+        "schedule": 0.25561046600341797
+      }
+    },
+    {
+      "id": "dev-01-17",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.26971733570098877,
+        "schedule": 0.32156258821487427
+      }
+    },
+    {
+      "id": "dev-01-18",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.26574668288230896,
+        "schedule": 0.23349182307720184
+      }
+    },
+    {
+      "id": "dev-01-19",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.22399216890335083,
+        "schedule": 0.23259495198726654
+      }
+    },
+    {
+      "id": "dev-01-20",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.21712276339530945,
+        "schedule": 0.22812990844249725
+      }
+    },
+    {
+      "id": "dev-01-21",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.09726560860872269,
+        "schedule": 0.10818331688642502
+      }
+    },
+    {
+      "id": "dev-01-22",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1728174239397049,
+        "schedule": 0.2226448655128479
+      }
+    },
+    {
+      "id": "dev-01-23",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1990417093038559,
+        "schedule": 0.1795797497034073
+      }
+    },
+    {
+      "id": "dev-01-24",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.09656044095754623,
+        "schedule": 0.11340468376874924
+      }
+    },
+    {
+      "id": "dev-01-25",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.10245749354362488,
+        "schedule": 0.16265332698822021
+      }
+    },
+    {
+      "id": "dev-01-26",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.20363780856132507,
+        "schedule": 0.26346758008003235
+      }
+    },
+    {
+      "id": "dev-01-27",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.21069760620594025,
+        "schedule": 0.1842658519744873
+      }
+    },
+    {
+      "id": "dev-01-28",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.14797772467136383,
+        "schedule": 0.18145981431007385
+      }
+    },
+    {
+      "id": "dev-01-29",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.21400924026966095,
+        "schedule": 0.14223740994930267
+      }
+    },
+    {
+      "id": "dev-01-30",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1257946640253067,
+        "schedule": 0.17025138437747955
+      }
+    },
+    {
+      "id": "dev-01-31",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.19182062149047852,
+        "schedule": 0.20582979917526245
+      }
+    },
+    {
+      "id": "dev-01-32",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6285922527313232,
+        "schedule": 0.6320163607597351
+      }
+    },
+    {
+      "id": "dev-01-33",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6335514783859253,
+        "schedule": 0.5930247902870178
+      }
+    },
+    {
+      "id": "dev-01-34",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6694086194038391,
+        "schedule": 0.4880991280078888
+      }
+    },
+    {
+      "id": "dev-01-35",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6913676857948303,
+        "schedule": 0.5628286600112915
+      }
+    },
+    {
+      "id": "dev-01-36",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.21737989783287048,
+        "schedule": 0.2057848870754242
+      }
+    },
+    {
+      "id": "dev-01-37",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.11668765544891357,
+        "schedule": 0.10356685519218445
+      }
+    },
+    {
+      "id": "dev-01-38",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.22771872580051422,
+        "schedule": 0.20255781710147858
+      }
+    },
+    {
+      "id": "dev-01-39",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.09053326398134232,
+        "schedule": 0.0850868821144104
+      }
+    }
+  ],
+  "history": [
+    {
+      "step": 10,
+      "loss": 0.86366868019104,
+      "gradientNorm": 9.609440803527832,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 4.287950333207846
+    },
+    {
+      "step": 20,
+      "loss": 0.7020506858825684,
+      "gradientNorm": 4.064947605133057,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 6.629308708012104
+    },
+    {
+      "step": 30,
+      "loss": 0.6654772162437439,
+      "gradientNorm": 2.005671739578247,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 8.806007000152022
+    },
+    {
+      "step": 40,
+      "loss": 0.6318609714508057,
+      "gradientNorm": 4.172175884246826,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 11.081692082807422,
+      "devLoss": 0.7234399117988966,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 50,
+      "loss": 0.5774509906768799,
+      "gradientNorm": 9.240918159484863,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 20.566965292207897
+    },
+    {
+      "step": 60,
+      "loss": 0.6231854557991028,
+      "gradientNorm": 4.282370090484619,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 22.83856699988246
+    },
+    {
+      "step": 70,
+      "loss": 0.896258533000946,
+      "gradientNorm": 12.726101875305176,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 25.02668479178101
+    },
+    {
+      "step": 80,
+      "loss": 1.1719131469726562,
+      "gradientNorm": 10.360461235046387,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 30.161130791995674,
+      "devLoss": 0.8677388910316314,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 90,
+      "loss": 0.633222222328186,
+      "gradientNorm": 5.573894500732422,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 40.88302691699937
+    },
+    {
+      "step": 100,
+      "loss": 0.7718280553817749,
+      "gradientNorm": 7.259420871734619,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 43.513290542177856
+    },
+    {
+      "step": 110,
+      "loss": 0.7291219830513,
+      "gradientNorm": 5.371880531311035,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 46.387770750094205
+    },
+    {
+      "step": 120,
+      "loss": 0.8410348892211914,
+      "gradientNorm": 8.057805061340332,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 48.8954204171896,
+      "devLoss": 0.6050150544307581,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 130,
+      "loss": 0.4752218723297119,
+      "gradientNorm": 6.191105365753174,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 62.506300542037934
+    },
+    {
+      "step": 140,
+      "loss": 0.17732951045036316,
+      "gradientNorm": 5.143265247344971,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 65.19540308276191
+    },
+    {
+      "step": 150,
+      "loss": 0.3757099509239197,
+      "gradientNorm": 2.0072567462921143,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 67.80447845812887
+    },
+    {
+      "step": 160,
+      "loss": 0.754409670829773,
+      "gradientNorm": 6.637110233306885,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 70.29844787484035,
+      "devLoss": 0.5973523572631725,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 170,
+      "loss": 0.6195328235626221,
+      "gradientNorm": 3.9606380462646484,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 83.11853225016966
+    },
+    {
+      "step": 180,
+      "loss": 0.8716423511505127,
+      "gradientNorm": 8.510210990905762,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 86.93584699975327
+    },
+    {
+      "step": 190,
+      "loss": 0.39052751660346985,
+      "gradientNorm": 3.340294599533081,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 90.17053962498903
+    },
+    {
+      "step": 200,
+      "loss": 1.0367251634597778,
+      "gradientNorm": 11.118891716003418,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 93.2615577080287,
+      "devLoss": 0.5888724376101295,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 210,
+      "loss": 0.7196391224861145,
+      "gradientNorm": 9.905903816223145,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 105.88572512520477
+    },
+    {
+      "step": 220,
+      "loss": 0.3938632607460022,
+      "gradientNorm": 4.619396686553955,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 108.55210354179144
+    },
+    {
+      "step": 230,
+      "loss": 0.4881806969642639,
+      "gradientNorm": 0.7875103950500488,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 111.2884095418267
+    },
+    {
+      "step": 240,
+      "loss": 0.5413734912872314,
+      "gradientNorm": 4.409538269042969,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 113.94320791680366,
+      "devLoss": 0.5335971522469924,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    }
+  ],
+  "notes": "Synthetic supervised prototype. The old 64-case set is regression only; fresh held-out evaluation follows selection."
+}

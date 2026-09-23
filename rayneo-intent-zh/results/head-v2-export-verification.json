@@ -1,0 +1,8 @@
+{
+  "sameKeysShapesDtypes": true,
+  "changedTensors": [
+    "scalar.bias",
+    "scalar.weight"
+  ],
+  "backboneLayerNormAndSetAttentionByteIdentical": true
+}

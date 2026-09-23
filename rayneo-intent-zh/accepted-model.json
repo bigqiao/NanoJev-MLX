@@ -1,0 +1,6 @@
+{
+  "checkpoint": "models/nanojev-intent-zh-metadata-robust-head-v5",
+  "weightsSha256": "87909e384605bbced586af58dc3a198886aebc30c712c2e47a0ea62079e706fd",
+  "promptProfile": "baseline",
+  "note": "Metadata-robust Chinese intent head selected for opt-in conservative proactive discovery. Model scores alone are not sufficient for actions; see results/nanojev-v5-metadata-robust-2026-09-23.md."
+}

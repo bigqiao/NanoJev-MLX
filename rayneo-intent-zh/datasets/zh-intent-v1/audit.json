@@ -1,0 +1,36 @@
+{
+  "synthetic": true,
+  "normalizedExactDuplicatesAcrossSplits": 0,
+  "lexicalSimilarity": [
+    {
+      "pair": [
+        "train",
+        "dev"
+      ],
+      "maxFiveGramJaccard": 0.2,
+      "caseIds": [
+        "train-04-32",
+        "dev-01-32"
+      ]
+    },
+    {
+      "pair": [
+        "train",
+        "test"
+      ],
+      "maxFiveGramJaccard": 0.05555555555555555,
+      "caseIds": [
+        "train-05-12",
+        "h021"
+      ]
+    }
+  ],
+  "limitedManualAudit": {
+    "trainCount": 20,
+    "devCount": 20,
+    "sampling": "Random(17), two per category",
+    "finding": "Checked category intent and context. No label edits needed in this sample."
+  },
+  "test": "64 separately hand-authored cases fixed before training",
+  "limitations": "Low lexical overlap does not prove semantic-template independence; synthetic labels require later human/real-ASR validation."
+}

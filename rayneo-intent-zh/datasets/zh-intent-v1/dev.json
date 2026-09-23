@@ -1,0 +1,840 @@
+{
+  "version": "zh-intent-v1",
+  "split": "dev",
+  "recordedAt": 1790042400000,
+  "timeZone": "Asia/Singapore",
+  "cases": [
+    {
+      "id": "dev-00-00",
+      "family": "dev-0-assist_explicit-0",
+      "group": "assist_explicit",
+      "text": "眼镜助手，解释一下间歇跑中“组间恢复”和“完全休息”的区别。",
+      "context": [],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-01",
+      "family": "dev-0-assist_explicit-1",
+      "group": "assist_explicit",
+      "text": "眼镜助手，帮我把每公里六分二十秒换算成跑步机时速。",
+      "context": [],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-02",
+      "family": "dev-0-assist_explicit-2",
+      "group": "assist_explicit",
+      "text": "眼镜助手，查清楚空腹抽血前为什么通常只能喝少量白水。",
+      "context": [],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-03",
+      "family": "dev-0-assist_explicit-3",
+      "group": "assist_explicit",
+      "text": "眼镜助手，教我怎样用节拍器把八分音符三连音拆开练习。",
+      "context": [],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-04",
+      "family": "dev-0-assist_question-4",
+      "group": "assist_question",
+      "text": "这个差值算明显吗，我下一组应该先调整哪一侧？",
+      "context": [
+        "我戴着眼镜做完三组深蹲，屏幕显示左右重心相差百分之八。"
+      ],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-05",
+      "family": "dev-0-assist_question-5",
+      "group": "assist_question",
+      "text": "这里的“复诊报到”应该点哪个入口才对？",
+      "context": [
+        "眼镜助手先别退出识图，我正站在诊所的自助服务机前。"
+      ],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-06",
+      "family": "dev-0-assist_question-6",
+      "group": "assist_question",
+      "text": "红色标签和蓝色标签分别贴在哪两类箱子上？",
+      "context": [
+        "请继续看志愿站的分装说明，我已经走到物资桌旁了。"
+      ],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-07",
+      "family": "dev-0-assist_question-7",
+      "group": "assist_question",
+      "text": "刚才第二小节总是抢拍，我应该从哪一拍重新数？",
+      "context": [
+        "眼镜助手正在听我跟着节拍器练习这段旋律。"
+      ],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-08",
+      "family": "dev-0-chat-8",
+      "group": "chat",
+      "text": "今天的游泳训练比预想轻松，最后两趟竟然也没乱节奏。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-09",
+      "family": "dev-0-chat-9",
+      "group": "chat",
+      "text": "诊所候诊区那幅蓝色海报很醒目，远远就能看到。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-10",
+      "family": "dev-0-chat-10",
+      "group": "chat",
+      "text": "志愿者们把旧纸箱叠得整整齐齐，看起来特别解压。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-11",
+      "family": "dev-0-chat-11",
+      "group": "chat",
+      "text": "那段和声为什么听着发飘？原来是我自己把低音哼高了。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-12",
+      "family": "dev-0-confirmed-12",
+      "group": "confirmed",
+      "text": "本周六上午九点，我会参加训练馆的核心力量小组课。",
+      "context": [],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-13",
+      "family": "dev-0-confirmed-13",
+      "group": "confirmed",
+      "text": "下周二下午三点，我确定去社区诊所参加复诊。",
+      "context": [],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-14",
+      "family": "dev-0-confirmed-14",
+      "group": "confirmed",
+      "text": "周日上午八点半，我会参加河岸步道的垃圾清理活动。",
+      "context": [],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-15",
+      "family": "dev-0-confirmed-15",
+      "group": "confirmed",
+      "text": "星期四晚上七点，我确定到排练室参加弦乐合奏。",
+      "context": [],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-16",
+      "family": "dev-0-schedule_request-16",
+      "group": "schedule_request",
+      "text": "请提醒我周三早上六点半参加操场的间歇跑训练。",
+      "context": [],
+      "assist": true,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-17",
+      "family": "dev-0-schedule_request-17",
+      "group": "schedule_request",
+      "text": "记下我下周一下午两点要去诊所做已约好的视力复查。",
+      "context": [],
+      "assist": true,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-18",
+      "family": "dev-0-schedule_request-18",
+      "group": "schedule_request",
+      "text": "帮我安排提醒，周六上午我要参加社区物资整理志愿活动。",
+      "context": [],
+      "assist": true,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-19",
+      "family": "dev-0-schedule_request-19",
+      "group": "schedule_request",
+      "text": "请把星期五晚上的乐队排练记下来，我已经确认会参加。",
+      "context": [],
+      "assist": true,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-20",
+      "family": "dev-0-hypothetical-20",
+      "group": "hypothetical",
+      "text": "如果周日下午不下雨，我也许会去参加户外体能训练。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-21",
+      "family": "dev-0-hypothetical-21",
+      "group": "hypothetical",
+      "text": "护士刚才举例说“你可以下周三来复诊”，那不是给我约号。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-22",
+      "family": "dev-0-hypothetical-22",
+      "group": "hypothetical",
+      "text": "假如志愿站临时缺人，我可能过去帮忙，但现在没有决定。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-23",
+      "family": "dev-0-hypothetical-23",
+      "group": "hypothetical",
+      "text": "剧本里的角色说“提醒我晚上参加排练”，这只是引用台词。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-24",
+      "family": "dev-0-cancellation-24",
+      "group": "cancellation",
+      "text": "原定周五晚上的篮球训练已经取消，我不会再去场馆。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-25",
+      "family": "dev-0-cancellation-25",
+      "group": "cancellation",
+      "text": "我不参加下周二上午的诊所复查了，那次预约已经作废。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-26",
+      "family": "dev-0-cancellation-26",
+      "group": "cancellation",
+      "text": "周日的公园引导志愿活动取消了，我当天不会到场。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-27",
+      "family": "dev-0-cancellation-27",
+      "group": "cancellation",
+      "text": "我已经退出星期三晚上的合唱排练，这次确定不参加。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-28",
+      "family": "dev-0-other_person-28",
+      "group": "other_person",
+      "text": "室友周六早上七点参加长跑训练，我不会跟他一起去。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-29",
+      "family": "dev-0-other_person-29",
+      "group": "other_person",
+      "text": "同事下周四下午预约了诊所检查，那是她自己的安排。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-30",
+      "family": "dev-0-other_person-30",
+      "group": "other_person",
+      "text": "邻居周日上午要参加社区助老活动，我没有报名也不出席。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-31",
+      "family": "dev-0-other_person-31",
+      "group": "other_person",
+      "text": "鼓手今晚八点去排练室练习，我不参加，也没替他安排。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-32",
+      "family": "dev-0-correction-32",
+      "group": "correction",
+      "text": "更正一下，我确定参加的是周三晚上七点，训练地点仍在北厅。",
+      "context": [
+        "我刚才误说成周二晚上七点参加力量训练。"
+      ],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-33",
+      "family": "dev-0-correction-33",
+      "group": "correction",
+      "text": "不是上午十点，我已确认的诊所复诊时间是下周五下午两点。",
+      "context": [
+        "我先前说下周五上午十点去诊所复诊。"
+      ],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-34",
+      "family": "dev-0-correction-34",
+      "group": "correction",
+      "text": "志愿活动地点改成河畔广场，我周六九点仍会准时参加。",
+      "context": [
+        "我之前确认周六九点到社区东门参加环境清理。"
+      ],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-35",
+      "family": "dev-0-correction-35",
+      "group": "correction",
+      "text": "我确定参加周四的排练，不过正确时间是晚上八点半，不是七点。",
+      "context": [
+        "刚才我说周四晚上七点参加管乐排练。"
+      ],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-36",
+      "family": "dev-0-asr_noise-36",
+      "group": "asr_noise",
+      "text": "今天练完折返跑，教练说我的步服稳定，我听着还挺开心。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-37",
+      "family": "dev-0-asr_noise-37",
+      "group": "asr_noise",
+      "text": "如果检查结果没改善，我也许再去复振，现在还不能确定。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-38",
+      "family": "dev-0-asr_noise-38",
+      "group": "asr_noise",
+      "text": "原定周日的河岸捡拾活动已经取笑，我当天不会到场。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-00-39",
+      "family": "dev-0-asr_noise-39",
+      "group": "asr_noise",
+      "text": "要是以后真组乐队，我可能参加排链，不过目前只是随口设想。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-00",
+      "family": "dev-1-assist_explicit-0",
+      "group": "assist_explicit",
+      "text": "眼镜助手，请解释博物馆说明牌上的“临时闭展”是什么意思。",
+      "context": [],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-01",
+      "family": "dev-1-assist_explicit-1",
+      "group": "assist_explicit",
+      "text": "帮我把园艺手册里的三点五升换算成大约多少毫升。",
+      "context": [],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-02",
+      "family": "dev-1-assist_explicit-2",
+      "group": "assist_explicit",
+      "text": "请告诉我体检报告中空腹血糖和餐后血糖有什么区别。",
+      "context": [],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-03",
+      "family": "dev-1-assist_explicit-3",
+      "group": "assist_explicit",
+      "text": "眼镜助手，教我怎么把朋友聚会的合照调亮一些。",
+      "context": [],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-04",
+      "family": "dev-1-assist_question-4",
+      "group": "assist_question",
+      "text": "上面写的“策展人导赏”到底是什么意思，能直接进去吗？",
+      "context": [
+        "我正在博物馆入口查看今天的活动牌。"
+      ],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-05",
+      "family": "dev-1-assist_question-5",
+      "group": "assist_question",
+      "text": "这些白点是在长虫吗，现在应该先剪叶子还是先隔离？",
+      "context": [
+        "我正对着阳台花盆检查叶片背面。"
+      ],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-06",
+      "family": "dev-1-assist_question-6",
+      "group": "assist_question",
+      "text": "这里的数值单位和旁边不一样，应该怎么比较才准确？",
+      "context": [
+        "我正在看刚拿到的两页体检结果。"
+      ],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-07",
+      "family": "dev-1-assist_question-7",
+      "group": "assist_question",
+      "text": "这句话是让大家各自带菜，还是到了以后一起点餐？",
+      "context": [
+        "朋友群里刚发来一句“今晚吃的各自准备”。"
+      ],
+      "assist": true,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-08",
+      "family": "dev-1-chat-8",
+      "group": "chat",
+      "text": "博物馆大厅那面光影墙变化得很慢，看久了反而特别安静。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-09",
+      "family": "dev-1-chat-9",
+      "group": "chat",
+      "text": "这次园艺展的多肉配色真大胆，我一路看下来心情很好。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-10",
+      "family": "dev-1-chat-10",
+      "group": "chat",
+      "text": "体检前为什么总觉得饿呢，大概是越不能吃越惦记吧。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-11",
+      "family": "dev-1-chat-11",
+      "group": "chat",
+      "text": "朋友们聚在一起聊旧事，话题绕来绕去又回到了学生时代。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-12",
+      "family": "dev-1-confirmed-12",
+      "group": "confirmed",
+      "text": "本周日上午十点，我确定参加博物馆的陶俑修复体验活动。",
+      "context": [],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-13",
+      "family": "dev-1-confirmed-13",
+      "group": "confirmed",
+      "text": "明早七点半我会去体检中心完成已经预约好的基础检查。",
+      "context": [],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-14",
+      "family": "dev-1-confirmed-14",
+      "group": "confirmed",
+      "text": "周五晚上七点，我要参加朋友们定好的火锅聚会。",
+      "context": [],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-15",
+      "family": "dev-1-confirmed-15",
+      "group": "confirmed",
+      "text": "周六上午九点我已报名参加社区花园的春季栽培课。",
+      "context": [],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-16",
+      "family": "dev-1-schedule_request-16",
+      "group": "schedule_request",
+      "text": "请提醒我周日下午两点去博物馆参加已经报名的版画工坊。",
+      "context": [],
+      "assist": true,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-17",
+      "family": "dev-1-schedule_request-17",
+      "group": "schedule_request",
+      "text": "帮我记下周三早上八点参加社区园艺换盆实践课。",
+      "context": [],
+      "assist": true,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-18",
+      "family": "dev-1-schedule_request-18",
+      "group": "schedule_request",
+      "text": "我已确认下周一上午九点做年度体检，替我设个提醒。",
+      "context": [],
+      "assist": true,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-19",
+      "family": "dev-1-schedule_request-19",
+      "group": "schedule_request",
+      "text": "记一下周六晚上六点半的朋友聚餐，我已经答应会到场。",
+      "context": [],
+      "assist": true,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-20",
+      "family": "dev-1-hypothetical-20",
+      "group": "hypothetical",
+      "text": "要是博物馆周末还有夜游活动，我也许会考虑去看看。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-21",
+      "family": "dev-1-hypothetical-21",
+      "group": "hypothetical",
+      "text": "我还没决定要不要报名园艺讲座，得先看看那天忙不忙。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-22",
+      "family": "dev-1-hypothetical-22",
+      "group": "hypothetical",
+      "text": "朋友开玩笑说：“明天八点全员体检”，那不是真安排。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-23",
+      "family": "dev-1-hypothetical-23",
+      "group": "hypothetical",
+      "text": "排练时我的台词是“提醒我晚上去聚会”，并不是在下指令。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-24",
+      "family": "dev-1-cancellation-24",
+      "group": "cancellation",
+      "text": "原定周日下午参加的博物馆摄影活动已经取消，我不会去了。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-25",
+      "family": "dev-1-cancellation-25",
+      "group": "cancellation",
+      "text": "我退出了周六的园艺交流会，那天不再过去参加。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-26",
+      "family": "dev-1-cancellation-26",
+      "group": "cancellation",
+      "text": "下周二的体检预约已由机构取消，目前没有新的检查时间。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-27",
+      "family": "dev-1-cancellation-27",
+      "group": "cancellation",
+      "text": "今晚那场朋友聚会我已经明确不参加，其他人的计划照旧。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-28",
+      "family": "dev-1-other_person-28",
+      "group": "other_person",
+      "text": "室友周六下午要参加博物馆讲座，我不会陪他一起去。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-29",
+      "family": "dev-1-other_person-29",
+      "group": "other_person",
+      "text": "邻居明早九点参加社区园艺培训，这件事和我的安排无关。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-30",
+      "family": "dev-1-other_person-30",
+      "group": "other_person",
+      "text": "同事下周三上午去做入职体检，不是我去，也没让我代办。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-31",
+      "family": "dev-1-other_person-31",
+      "group": "other_person",
+      "text": "两位朋友周五晚上约在咖啡馆聚会，我没有参与这次碰面。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-32",
+      "family": "dev-1-correction-32",
+      "group": "correction",
+      "text": "刚才日期说错了，我确定参加的是周日下午两点的博物馆导览。",
+      "context": [
+        "我周六下午两点会参加博物馆导览。"
+      ],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-33",
+      "family": "dev-1-correction-33",
+      "group": "correction",
+      "text": "园艺课改正为周四早上八点，我会按这个新时间到场。",
+      "context": [
+        "我已确认周二早上八点参加园艺栽培课。"
+      ],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-34",
+      "family": "dev-1-correction-34",
+      "group": "correction",
+      "text": "不是上午，我的体检复查确定在下周一下午两点半进行。",
+      "context": [
+        "下周一上午十点我会去做体检复查。"
+      ],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-35",
+      "family": "dev-1-correction-35",
+      "group": "correction",
+      "text": "朋友聚餐改正为周五晚上七点在西门集合，我确定参加。",
+      "context": [
+        "周五晚上六点，我们在东门集合参加朋友聚餐。"
+      ],
+      "assist": false,
+      "schedule": true,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-36",
+      "family": "dev-1-asr_noise-36",
+      "group": "asr_noise",
+      "text": "博物馆那场导揽已经取消，我今天不会再过去，正好在家休息。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-37",
+      "family": "dev-1-asr_noise-37",
+      "group": "asr_noise",
+      "text": "如果周末有空，我也许会种点薄和，不过现在完全没决定。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-38",
+      "family": "dev-1-asr_noise-38",
+      "group": "asr_noise",
+      "text": "体检单上的胆固纯数值看着挺复杂，我只是随口感叹一下。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    },
+    {
+      "id": "dev-01-39",
+      "family": "dev-1-asr_noise-39",
+      "group": "asr_noise",
+      "text": "朋友们说聚会改到路台，我听完觉得有趣，但我本来就不参加。",
+      "context": [],
+      "assist": false,
+      "schedule": false,
+      "labelSource": "synthetic_category_conditioned_llm"
+    }
+  ]
+}

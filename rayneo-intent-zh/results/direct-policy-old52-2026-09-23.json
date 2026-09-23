@@ -1,0 +1,52 @@
+{
+  "sourceSha256": "3871a2ce3be19ec72116f1cb0db59d09b67745292e8c3511cf51e0d58dfa2fe6",
+  "policySha256": "ad6cd640d02c91f7adeb1aa1d997ba101c2e437e9cab20b4c9e9b64a563c84b3",
+  "checkpointWeightsSha256": "4032c670cab8319130ec148beef14386aa518b09cc5196c08ef379cc5180726c",
+  "synthetic": true,
+  "suiteVersion": "zh-intent-v2-frozen-before-lora",
+  "sampleCount": 52,
+  "threshold": 0.85,
+  "note": "Direct commands use backend explicitIntent; other samples use frozen NanoJev p_true at 0.85. This does not evaluate LLM, audio, or deployment.",
+  "metrics": {
+    "assist": {
+      "modelOnly": {
+        "tp": 6,
+        "fp": 0,
+        "fn": 6,
+        "tn": 40
+      },
+      "directThenModel": {
+        "tp": 10,
+        "fp": 0,
+        "fn": 2,
+        "tn": 40
+      }
+    },
+    "schedule": {
+      "modelOnly": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 6,
+        "tn": 38
+      },
+      "directThenModel": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 6,
+        "tn": 38
+      }
+    }
+  },
+  "directCaseIds": [
+    "n001",
+    "n004",
+    "n008",
+    "n021",
+    "n022",
+    "n046"
+  ],
+  "directFalsePositiveIds": {
+    "assist": [],
+    "schedule": []
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "createdAt": "2026-09-23T01:55:48.268711+00:00",
+  "suite": "dev80 synthetic only",
+  "threshold": 0.85,
+  "selectionRule": "Both intents: candidate FP <= baseline FP, TP >= baseline TP, at least one greater TP; same frozen v2 weights and threshold.",
+  "qualifiedProfiles": [],
+  "selectedProfile": null,
+  "models": {
+    "v1": {
+      "baseline": {
+        "checkpointSha256": "dacb8030616ce9163d2a154cab15a8e21f89ba284b326a91e6a7a968ce72180b",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。"
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。"
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 8,
+            "fp": 2,
+            "fn": 16,
+            "tn": 54
+          },
+          "schedule": {
+            "tp": 13,
+            "fp": 2,
+            "fn": 11,
+            "tn": 54
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v1-prompt-baseline.json"
+      },
+      "boundary_compact": {
+        "checkpointSha256": "dacb8030616ce9163d2a154cab15a8e21f89ba284b326a91e6a7a968ce72180b",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "结合上下文，只判断当前说话者这句话：是否明确向助手求助，或直接提出此刻需要助手回答的事实或解释问题？普通闲聊的疑问、自问自答、转述、已作决定或单纯更正为否。"
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "结合上下文，只判断当前说话者这句话：本人未来已确定参加，或明确要求记下、提醒的安排，是否值得先确认再保存？假设、待定、取消、他人的安排和普通时间数字为否。"
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 14,
+            "fp": 25,
+            "fn": 10,
+            "tn": 31
+          },
+          "schedule": {
+            "tp": 18,
+            "fp": 43,
+            "fn": 6,
+            "tn": 13
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v1-prompt-boundary_compact.json"
+      },
+      "action_contrast": {
+        "checkpointSha256": "dacb8030616ce9163d2a154cab15a8e21f89ba284b326a91e6a7a968ce72180b",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "判断当前发言是否要助手现在帮忙：明确求助、直接询问事实或解释为是；聊天中的随口疑问、已有结论、复述他人、假设或更正为否。上下文只帮助理解当前发言。"
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "判断当前发言是否值得生成待确认日程卡：本人已约定或报名且未取消，或明确请助手记下、提醒具体安排为是；可能性讨论、他人的事、取消或普通问时间为否。"
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 2,
+            "fp": 0,
+            "fn": 22,
+            "tn": 56
+          },
+          "schedule": {
+            "tp": 4,
+            "fp": 3,
+            "fn": 20,
+            "tn": 53
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v1-prompt-action_contrast.json"
+      },
+      "boolean_criteria": {
+        "checkpointSha256": "dacb8030616ce9163d2a154cab15a8e21f89ba284b326a91e6a7a968ce72180b",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "当前说话者是否正在请助手帮助或回答此刻的问题？",
+            "criteria": {
+              "true": "明确求助或直接要求助手回答事实、解释。",
+              "false": "普通聊天疑问、自问自答、已作决定、转述、假设或更正。"
+            }
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "当前发言是否值得先确认再保存为本人的日程？",
+            "criteria": {
+              "true": "本人未来已确定的安排，或明确要求记下、提醒且尚未取消。",
+              "false": "假设、待定、取消、他人事项或无关的时间数字。"
+            }
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 23,
+            "fp": 51,
+            "fn": 1,
+            "tn": 5
+          },
+          "schedule": {
+            "tp": 19,
+            "fp": 45,
+            "fn": 5,
+            "tn": 11
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v1-prompt-boolean_criteria.json"
+      },
+      "baseline_plus_guard": {
+        "checkpointSha256": "dacb8030616ce9163d2a154cab15a8e21f89ba284b326a91e6a7a968ce72180b",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。只判断当前一句；已作出的决定或单纯更正不算求助。"
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。只判断当前一句；没有确定参加意图的时间数字不算。"
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 10,
+            "fp": 2,
+            "fn": 14,
+            "tn": 54
+          },
+          "schedule": {
+            "tp": 13,
+            "fp": 7,
+            "fn": 11,
+            "tn": 49
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v1-prompt-baseline_plus_guard.json"
+      }
+    },
+    "v2": {
+      "baseline": {
+        "checkpointSha256": "4032c670cab8319130ec148beef14386aa518b09cc5196c08ef379cc5180726c",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。"
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。"
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 14,
+            "fp": 1,
+            "fn": 10,
+            "tn": 55
+          },
+          "schedule": {
+            "tp": 18,
+            "fp": 0,
+            "fn": 6,
+            "tn": 56
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v2-prompt-baseline.json"
+      },
+      "boundary_compact": {
+        "checkpointSha256": "4032c670cab8319130ec148beef14386aa518b09cc5196c08ef379cc5180726c",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "结合上下文，只判断当前说话者这句话：是否明确向助手求助，或直接提出此刻需要助手回答的事实或解释问题？普通闲聊的疑问、自问自答、转述、已作决定或单纯更正为否。"
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "结合上下文，只判断当前说话者这句话：本人未来已确定参加，或明确要求记下、提醒的安排，是否值得先确认再保存？假设、待定、取消、他人的安排和普通时间数字为否。"
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 5,
+            "fp": 1,
+            "fn": 19,
+            "tn": 55
+          },
+          "schedule": {
+            "tp": 15,
+            "fp": 20,
+            "fn": 9,
+            "tn": 36
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v2-prompt-boundary_compact.json"
+      },
+      "action_contrast": {
+        "checkpointSha256": "4032c670cab8319130ec148beef14386aa518b09cc5196c08ef379cc5180726c",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "判断当前发言是否要助手现在帮忙：明确求助、直接询问事实或解释为是；聊天中的随口疑问、已有结论、复述他人、假设或更正为否。上下文只帮助理解当前发言。"
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "判断当前发言是否值得生成待确认日程卡：本人已约定或报名且未取消，或明确请助手记下、提醒具体安排为是；可能性讨论、他人的事、取消或普通问时间为否。"
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 5,
+            "fp": 3,
+            "fn": 19,
+            "tn": 53
+          },
+          "schedule": {
+            "tp": 2,
+            "fp": 2,
+            "fn": 22,
+            "tn": 54
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v2-prompt-action_contrast.json"
+      },
+      "boolean_criteria": {
+        "checkpointSha256": "4032c670cab8319130ec148beef14386aa518b09cc5196c08ef379cc5180726c",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "当前说话者是否正在请助手帮助或回答此刻的问题？",
+            "criteria": {
+              "true": "明确求助或直接要求助手回答事实、解释。",
+              "false": "普通聊天疑问、自问自答、已作决定、转述、假设或更正。"
+            }
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "当前发言是否值得先确认再保存为本人的日程？",
+            "criteria": {
+              "true": "本人未来已确定的安排，或明确要求记下、提醒且尚未取消。",
+              "false": "假设、待定、取消、他人事项或无关的时间数字。"
+            }
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 1,
+            "fp": 5,
+            "fn": 23,
+            "tn": 51
+          },
+          "schedule": {
+            "tp": 10,
+            "fp": 24,
+            "fn": 14,
+            "tn": 32
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v2-prompt-boolean_criteria.json"
+      },
+      "baseline_plus_guard": {
+        "checkpointSha256": "4032c670cab8319130ec148beef14386aa518b09cc5196c08ef379cc5180726c",
+        "questions": {
+          "assist": {
+            "type": "boolean",
+            "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。只判断当前一句；已作出的决定或单纯更正不算求助。"
+          },
+          "schedule": {
+            "type": "boolean",
+            "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。只判断当前一句；没有确定参加意图的时间数字不算。"
+          }
+        },
+        "metrics": {
+          "assist": {
+            "tp": 19,
+            "fp": 23,
+            "fn": 5,
+            "tn": 33
+          },
+          "schedule": {
+            "tp": 10,
+            "fp": 9,
+            "fn": 14,
+            "tn": 47
+          }
+        },
+        "sourceResult": ".runtime/intent/dev80-v2-prompt-baseline_plus_guard.json"
+      }
+    }
+  },
+  "heldoutUsedForPromptSelection": false,
+  "productionPromptChanged": false
+}

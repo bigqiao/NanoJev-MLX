@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "weights": {
+    "size": 2385039312,
+    "sha256": "87909e384605bbced586af58dc3a198886aebc30c712c2e47a0ea62079e706fd"
+  },
+  "parts": [
+    {
+      "name": "weights.part-000",
+      "size": 1073741824,
+      "sha256": "90ba8356c8ae309886bcab93b8eaf70a0871d382733859892b5714a75ee59943"
+    },
+    {
+      "name": "weights.part-001",
+      "size": 1073741824,
+      "sha256": "dfea4be6383fe51c63fcbd56a0e66ed3b37461082ff7f834478a5048892bd44f"
+    },
+    {
+      "name": "weights.part-002",
+      "size": 237555664,
+      "sha256": "d9deadacf9467d399c10f9924c45d6fc44ae814c743013a62b4526316e057025"
+    }
+  ],
+  "files": [
+    {
+      "name": "config.json",
+      "size": 9002,
+      "sha256": "33bbab6e6b39c84e2fca0d10c9e5e7b215e43cf1be1cc7da78ea47786542d689"
+    },
+    {
+      "name": "backbone_config/config.json",
+      "size": 1417,
+      "sha256": "30c011854471509747858ac07ffb8a4dab2bc6c04035b184729b69500c557c54"
+    },
+    {
+      "name": "tokenizer/chat_template.jinja",
+      "size": 4168,
+      "sha256": "a55ee1b1660128b7098723e0abcd92caa0788061051c62d51cbe87d9cf1974d8"
+    },
+    {
+      "name": "tokenizer/tokenizer.json",
+      "size": 11422650,
+      "sha256": "be75606093db2094d7cd20f3c2f385c212750648bd6ea4fb2bf507a6a4c55506"
+    },
+    {
+      "name": "tokenizer/tokenizer_config.json",
+      "size": 692,
+      "sha256": "1cc816812993bff176eb4f7495433b736f06fba9b6e7b05cac7b4a1780650c95"
+    }
+  ]
+}

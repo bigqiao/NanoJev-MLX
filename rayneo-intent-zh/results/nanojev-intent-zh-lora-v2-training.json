@@ -1,0 +1,1589 @@
+{
+  "method": {
+    "kind": "qlora",
+    "rank": 4,
+    "layers": 2,
+    "scale": 8,
+    "projections": [
+      "q_proj",
+      "v_proj"
+    ],
+    "selected_on": "dev_bce",
+    "best_step": 360,
+    "seed": 20260922,
+    "source_weights_sha256": "f68c47d66998231b86b7e91b4ed5e82ae23acf104c8b7cd6d165c3ac7b7ffe1b"
+  },
+  "preflight": {
+    "parameters": 41985,
+    "trainableKeys": [
+      "backbone.layers.26.self_attn.q_proj.lora_a",
+      "backbone.layers.26.self_attn.q_proj.lora_b",
+      "backbone.layers.26.self_attn.v_proj.lora_a",
+      "backbone.layers.26.self_attn.v_proj.lora_b",
+      "backbone.layers.27.self_attn.q_proj.lora_a",
+      "backbone.layers.27.self_attn.q_proj.lora_b",
+      "backbone.layers.27.self_attn.v_proj.lora_a",
+      "backbone.layers.27.self_attn.v_proj.lora_b",
+      "scalar.weight",
+      "scalar.bias"
+    ],
+    "changedKeys": [
+      "backbone.layers.26.self_attn.q_proj.lora_a",
+      "backbone.layers.26.self_attn.q_proj.lora_b",
+      "backbone.layers.26.self_attn.v_proj.lora_a",
+      "backbone.layers.26.self_attn.v_proj.lora_b",
+      "backbone.layers.27.self_attn.q_proj.lora_a",
+      "backbone.layers.27.self_attn.q_proj.lora_b",
+      "backbone.layers.27.self_attn.v_proj.lora_a",
+      "backbone.layers.27.self_attn.v_proj.lora_b",
+      "scalar.weight",
+      "scalar.bias"
+    ],
+    "loss": 1.2585179805755615,
+    "gradientNorm": 15.195515632629395,
+    "stepSeconds": 0.1830040831118822,
+    "peakMlxMemoryGb": 1.6877476,
+    "loadAndProbeSeconds": 9.100337457843125,
+    "rank": 4,
+    "layers": 2,
+    "projections": [
+      "q_proj",
+      "v_proj"
+    ]
+  },
+  "completedSteps": 400,
+  "bestStep": 360,
+  "trainCases": 240,
+  "devCases": 80,
+  "testUsed": false,
+  "initialDevLoss": 1.4065554780511345,
+  "selectedDevLoss": 0.33815459144724136,
+  "trainingSeconds": 131.11724499985576,
+  "dataSha256": {
+    "train": "c43b725d564286e21b08eb86764e169df22feabf089a5d90387f3139492d8c8f",
+    "dev": "d0ebbacc1c16c8885fc5aaa0e01b127d6a7e6aeae2eff4f891d672c56ad2b73e"
+  },
+  "scriptSha256": "f9408e5e8eaf9c38946be1ff42aff70387de13fbd5afa04b64f38523f6c9f56c",
+  "weightsSha256": "61ffccc693c4bc48a1820c442fa0e6291fedc2d64544e224151f4d9cae001630",
+  "devMetrics": {
+    "0.85": {
+      "assist": {
+        "tp": 1,
+        "fp": 3,
+        "fn": 23,
+        "tn": 53,
+        "accuracy": 0.675,
+        "precision": 0.25,
+        "recall": 0.041666666666666664,
+        "falsePositiveRate": 0.05357142857142857
+      },
+      "schedule": {
+        "tp": 8,
+        "fp": 0,
+        "fn": 16,
+        "tn": 56,
+        "accuracy": 0.8,
+        "precision": 1.0,
+        "recall": 0.3333333333333333,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "0.5": {
+      "assist": {
+        "tp": 14,
+        "fp": 11,
+        "fn": 10,
+        "tn": 45,
+        "accuracy": 0.7375,
+        "precision": 0.56,
+        "recall": 0.5833333333333334,
+        "falsePositiveRate": 0.19642857142857142
+      },
+      "schedule": {
+        "tp": 19,
+        "fp": 1,
+        "fn": 5,
+        "tn": 55,
+        "accuracy": 0.925,
+        "precision": 0.95,
+        "recall": 0.7916666666666666,
+        "falsePositiveRate": 0.017857142857142856
+      }
+    }
+  },
+  "devPredictions": [
+    {
+      "id": "dev-00-00",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.20807531476020813,
+        "schedule": 0.03502347692847252
+      }
+    },
+    {
+      "id": "dev-00-01",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.577505886554718,
+        "schedule": 0.6252914667129517
+      }
+    },
+    {
+      "id": "dev-00-02",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.12159404158592224,
+        "schedule": 0.06149731203913689
+      }
+    },
+    {
+      "id": "dev-00-03",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.48271945118904114,
+        "schedule": 0.33179569244384766
+      }
+    },
+    {
+      "id": "dev-00-04",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.7128775119781494,
+        "schedule": 0.41986092925071716
+      }
+    },
+    {
+      "id": "dev-00-05",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6274169087409973,
+        "schedule": 0.1491461545228958
+      }
+    },
+    {
+      "id": "dev-00-06",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6494773626327515,
+        "schedule": 0.34522444009780884
+      }
+    },
+    {
+      "id": "dev-00-07",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.776189923286438,
+        "schedule": 0.20278501510620117
+      }
+    },
+    {
+      "id": "dev-00-08",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.002001237589865923,
+        "schedule": 5.187015267438255e-05
+      }
+    },
+    {
+      "id": "dev-00-09",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.09731238335371017,
+        "schedule": 0.007822378538548946
+      }
+    },
+    {
+      "id": "dev-00-10",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.10907837748527527,
+        "schedule": 0.010587673634290695
+      }
+    },
+    {
+      "id": "dev-00-11",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.206870436668396,
+        "schedule": 0.026968320831656456
+      }
+    },
+    {
+      "id": "dev-00-12",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.7896327972412109,
+        "schedule": 0.8819229602813721
+      }
+    },
+    {
+      "id": "dev-00-13",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.48676201701164246,
+        "schedule": 0.5867737531661987
+      }
+    },
+    {
+      "id": "dev-00-14",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6444369554519653,
+        "schedule": 0.8111586570739746
+      }
+    },
+    {
+      "id": "dev-00-15",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6178199052810669,
+        "schedule": 0.8250458240509033
+      }
+    },
+    {
+      "id": "dev-00-16",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.8465613126754761,
+        "schedule": 0.9657126665115356
+      }
+    },
+    {
+      "id": "dev-00-17",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.44219446182250977,
+        "schedule": 0.4696335792541504
+      }
+    },
+    {
+      "id": "dev-00-18",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.5639883279800415,
+        "schedule": 0.7308401465415955
+      }
+    },
+    {
+      "id": "dev-00-19",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.21994972229003906,
+        "schedule": 0.04476261883974075
+      }
+    },
+    {
+      "id": "dev-00-20",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.25894075632095337,
+        "schedule": 0.06468823552131653
+      }
+    },
+    {
+      "id": "dev-00-21",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.04351423308253288,
+        "schedule": 0.005407767836004496
+      }
+    },
+    {
+      "id": "dev-00-22",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0009150755940936506,
+        "schedule": 0.00011631098459474742
+      }
+    },
+    {
+      "id": "dev-00-23",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2606935501098633,
+        "schedule": 0.12349668890237808
+      }
+    },
+    {
+      "id": "dev-00-24",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0013383622281253338,
+        "schedule": 0.0005191034870222211
+      }
+    },
+    {
+      "id": "dev-00-25",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0517914704978466,
+        "schedule": 0.015922831371426582
+      }
+    },
+    {
+      "id": "dev-00-26",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.001266466686502099,
+        "schedule": 0.00011902635014848784
+      }
+    },
+    {
+      "id": "dev-00-27",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.000564331654459238,
+        "schedule": 0.00020547566236928105
+      }
+    },
+    {
+      "id": "dev-00-28",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.004342406522482634,
+        "schedule": 0.0035006599500775337
+      }
+    },
+    {
+      "id": "dev-00-29",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.4100615680217743,
+        "schedule": 0.41367581486701965
+      }
+    },
+    {
+      "id": "dev-00-30",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0007557540666311979,
+        "schedule": 0.00015833077486604452
+      }
+    },
+    {
+      "id": "dev-00-31",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.001449542585760355,
+        "schedule": 0.001378529821522534
+      }
+    },
+    {
+      "id": "dev-00-32",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.24375903606414795,
+        "schedule": 0.7770465016365051
+      }
+    },
+    {
+      "id": "dev-00-33",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6538320779800415,
+        "schedule": 0.4974394142627716
+      }
+    },
+    {
+      "id": "dev-00-34",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.657676637172699,
+        "schedule": 0.9323811531066895
+      }
+    },
+    {
+      "id": "dev-00-35",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.37061306834220886,
+        "schedule": 0.8688620924949646
+      }
+    },
+    {
+      "id": "dev-00-36",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.07433304190635681,
+        "schedule": 0.002030543750151992
+      }
+    },
+    {
+      "id": "dev-00-37",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0013151903403922915,
+        "schedule": 0.00012599813635461032
+      }
+    },
+    {
+      "id": "dev-00-38",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.001099378103390336,
+        "schedule": 0.0001120010347221978
+      }
+    },
+    {
+      "id": "dev-00-39",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.170456200838089,
+        "schedule": 0.011995228007435799
+      }
+    },
+    {
+      "id": "dev-01-00",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.43971580266952515,
+        "schedule": 0.08992300927639008
+      }
+    },
+    {
+      "id": "dev-01-01",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.28435105085372925,
+        "schedule": 0.16190935671329498
+      }
+    },
+    {
+      "id": "dev-01-02",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2657524049282074,
+        "schedule": 0.0603618361055851
+      }
+    },
+    {
+      "id": "dev-01-03",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.289213091135025,
+        "schedule": 0.031577594578266144
+      }
+    },
+    {
+      "id": "dev-01-04",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.7680956125259399,
+        "schedule": 0.10928115248680115
+      }
+    },
+    {
+      "id": "dev-01-05",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.687213122844696,
+        "schedule": 0.09955115616321564
+      }
+    },
+    {
+      "id": "dev-01-06",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6406069993972778,
+        "schedule": 0.07874134927988052
+      }
+    },
+    {
+      "id": "dev-01-07",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6495868563652039,
+        "schedule": 0.2091265320777893
+      }
+    },
+    {
+      "id": "dev-01-08",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.03436775878071785,
+        "schedule": 0.0017775933956727386
+      }
+    },
+    {
+      "id": "dev-01-09",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.20222781598567963,
+        "schedule": 0.00949609000235796
+      }
+    },
+    {
+      "id": "dev-01-10",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.030350947752594948,
+        "schedule": 0.00031330069759860635
+      }
+    },
+    {
+      "id": "dev-01-11",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.15822672843933105,
+        "schedule": 0.030939050018787384
+      }
+    },
+    {
+      "id": "dev-01-12",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.629788875579834,
+        "schedule": 0.8842136859893799
+      }
+    },
+    {
+      "id": "dev-01-13",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6429516673088074,
+        "schedule": 0.7530859708786011
+      }
+    },
+    {
+      "id": "dev-01-14",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9150375127792358,
+        "schedule": 0.9436953663825989
+      }
+    },
+    {
+      "id": "dev-01-15",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.8748053908348083,
+        "schedule": 0.9291055798530579
+      }
+    },
+    {
+      "id": "dev-01-16",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.47776657342910767,
+        "schedule": 0.41241341829299927
+      }
+    },
+    {
+      "id": "dev-01-17",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.904586136341095,
+        "schedule": 0.9740890264511108
+      }
+    },
+    {
+      "id": "dev-01-18",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6803984045982361,
+        "schedule": 0.8439997434616089
+      }
+    },
+    {
+      "id": "dev-01-19",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.5721117258071899,
+        "schedule": 0.6757209897041321
+      }
+    },
+    {
+      "id": "dev-01-20",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1365947127342224,
+        "schedule": 0.011338596232235432
+      }
+    },
+    {
+      "id": "dev-01-21",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0006735408096574247,
+        "schedule": 4.032814103993587e-05
+      }
+    },
+    {
+      "id": "dev-01-22",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.042867258191108704,
+        "schedule": 0.0853826031088829
+      }
+    },
+    {
+      "id": "dev-01-23",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.05447229743003845,
+        "schedule": 0.007695990614593029
+      }
+    },
+    {
+      "id": "dev-01-24",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00037435954436659813,
+        "schedule": 6.1709841247648e-05
+      }
+    },
+    {
+      "id": "dev-01-25",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0012039466528221965,
+        "schedule": 0.00029154637013562024
+      }
+    },
+    {
+      "id": "dev-01-26",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.021317506209015846,
+        "schedule": 0.0037496050354093313
+      }
+    },
+    {
+      "id": "dev-01-27",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.009911040775477886,
+        "schedule": 0.00019640769460238516
+      }
+    },
+    {
+      "id": "dev-01-28",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0036235107108950615,
+        "schedule": 0.0012497440911829472
+      }
+    },
+    {
+      "id": "dev-01-29",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2408255785703659,
+        "schedule": 0.06228708103299141
+      }
+    },
+    {
+      "id": "dev-01-30",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00134084012825042,
+        "schedule": 0.00037556394818238914
+      }
+    },
+    {
+      "id": "dev-01-31",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.01237785816192627,
+        "schedule": 0.0023063470143824816
+      }
+    },
+    {
+      "id": "dev-01-32",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.5789098739624023,
+        "schedule": 0.8383161425590515
+      }
+    },
+    {
+      "id": "dev-01-33",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.36159268021583557,
+        "schedule": 0.7286584377288818
+      }
+    },
+    {
+      "id": "dev-01-34",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9225389361381531,
+        "schedule": 0.6601969599723816
+      }
+    },
+    {
+      "id": "dev-01-35",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2905130386352539,
+        "schedule": 0.2522784471511841
+      }
+    },
+    {
+      "id": "dev-01-36",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.01655557006597519,
+        "schedule": 0.0004921254585497081
+      }
+    },
+    {
+      "id": "dev-01-37",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0005189717630855739,
+        "schedule": 9.643236990086734e-05
+      }
+    },
+    {
+      "id": "dev-01-38",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.20080353319644928,
+        "schedule": 0.017760850489139557
+      }
+    },
+    {
+      "id": "dev-01-39",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0001572377805132419,
+        "schedule": 1.189764134323923e-05
+      }
+    }
+  ],
+  "history": [
+    {
+      "step": 10,
+      "loss": 0.86366868019104,
+      "gradientNorm": 9.609440803527832,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 1.4817826668731868
+    },
+    {
+      "step": 20,
+      "loss": 0.7020506858825684,
+      "gradientNorm": 4.064947605133057,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 3.0690395827405155
+    },
+    {
+      "step": 30,
+      "loss": 0.6654772162437439,
+      "gradientNorm": 2.005671739578247,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 4.62457333272323
+    },
+    {
+      "step": 40,
+      "loss": 0.6318609714508057,
+      "gradientNorm": 4.172175884246826,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 6.133363707922399,
+      "devLoss": 0.7234399117988966,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 50,
+      "loss": 0.5774509906768799,
+      "gradientNorm": 9.240918159484863,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 13.066788499709219
+    },
+    {
+      "step": 60,
+      "loss": 0.6231854557991028,
+      "gradientNorm": 4.282370090484619,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 14.605643457733095
+    },
+    {
+      "step": 70,
+      "loss": 0.896258533000946,
+      "gradientNorm": 12.726101875305176,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 16.212279541883618
+    },
+    {
+      "step": 80,
+      "loss": 1.1719131469726562,
+      "gradientNorm": 10.360461235046387,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 18.09429608285427,
+      "devLoss": 0.8677388910316314,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 90,
+      "loss": 0.633222222328186,
+      "gradientNorm": 5.573894500732422,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 29.882964874617755
+    },
+    {
+      "step": 100,
+      "loss": 0.7718280553817749,
+      "gradientNorm": 7.259420871734619,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 31.644709416665137
+    },
+    {
+      "step": 110,
+      "loss": 0.7291219830513,
+      "gradientNorm": 5.371880531311035,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 33.45204341690987
+    },
+    {
+      "step": 120,
+      "loss": 0.8410348892211914,
+      "gradientNorm": 8.057805061340332,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 35.22625345783308,
+      "devLoss": 0.6050150544307581,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 130,
+      "loss": 0.4752218723297119,
+      "gradientNorm": 6.191105365753174,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 43.27812008280307
+    },
+    {
+      "step": 140,
+      "loss": 0.17732951045036316,
+      "gradientNorm": 5.143265247344971,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 45.08310395805165
+    },
+    {
+      "step": 150,
+      "loss": 0.3757099509239197,
+      "gradientNorm": 2.0072567462921143,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 46.828282583039254
+    },
+    {
+      "step": 160,
+      "loss": 0.754409670829773,
+      "gradientNorm": 6.637110233306885,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 48.529389541596174,
+      "devLoss": 0.5973523572631725,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 170,
+      "loss": 0.6195328235626221,
+      "gradientNorm": 3.9606380462646484,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 56.44566299999133
+    },
+    {
+      "step": 180,
+      "loss": 0.8716423511505127,
+      "gradientNorm": 8.510210990905762,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 57.977150416933
+    },
+    {
+      "step": 190,
+      "loss": 0.39052751660346985,
+      "gradientNorm": 3.340294599533081,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 59.319618832785636
+    },
+    {
+      "step": 200,
+      "loss": 1.0367251634597778,
+      "gradientNorm": 11.118891716003418,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 60.81770037487149,
+      "devLoss": 0.5888724376101295,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 210,
+      "loss": 0.7196391224861145,
+      "gradientNorm": 9.905903816223145,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 67.40397470770404
+    },
+    {
+      "step": 220,
+      "loss": 0.3938632607460022,
+      "gradientNorm": 4.619396686553955,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 68.91190137481317
+    },
+    {
+      "step": 230,
+      "loss": 0.4881806969642639,
+      "gradientNorm": 0.7875103950500488,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 70.36133066704497
+    },
+    {
+      "step": 240,
+      "loss": 0.5413734912872314,
+      "gradientNorm": 4.409538269042969,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 71.78697762498632,
+      "devLoss": 0.5335971522469924,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 250,
+      "loss": 0.6901823282241821,
+      "gradientNorm": 4.969947338104248,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 78.39010462490842
+    },
+    {
+      "step": 260,
+      "loss": 0.9130063056945801,
+      "gradientNorm": 12.238053321838379,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 79.76740824989974
+    },
+    {
+      "step": 270,
+      "loss": 1.0453484058380127,
+      "gradientNorm": 12.147676467895508,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 81.22780654160306
+    },
+    {
+      "step": 280,
+      "loss": 0.3495493233203888,
+      "gradientNorm": 1.346714735031128,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 82.64637270802632,
+      "devLoss": 0.4589113101773057,
+      "devMetrics": {
+        "assist": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        },
+        "schedule": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 24,
+          "tn": 56,
+          "accuracy": 0.7,
+          "precision": null,
+          "recall": 0.0,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 290,
+      "loss": 0.14350903034210205,
+      "gradientNorm": 0.7233503460884094,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 89.14007716672495
+    },
+    {
+      "step": 300,
+      "loss": 0.6545274257659912,
+      "gradientNorm": 5.562661647796631,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 90.5339077077806
+    },
+    {
+      "step": 310,
+      "loss": 0.4580118656158447,
+      "gradientNorm": 2.7934374809265137,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 91.88987354189157
+    },
+    {
+      "step": 320,
+      "loss": 0.5551940202713013,
+      "gradientNorm": 4.335184097290039,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 93.42431641696021,
+      "devLoss": 0.38264351423194376,
+      "devMetrics": {
+        "assist": {
+          "tp": 3,
+          "fp": 4,
+          "fn": 21,
+          "tn": 52,
+          "accuracy": 0.6875,
+          "precision": 0.42857142857142855,
+          "recall": 0.125,
+          "falsePositiveRate": 0.07142857142857142
+        },
+        "schedule": {
+          "tp": 10,
+          "fp": 0,
+          "fn": 14,
+          "tn": 56,
+          "accuracy": 0.825,
+          "precision": 1.0,
+          "recall": 0.4166666666666667,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 330,
+      "loss": 0.6111025810241699,
+      "gradientNorm": 5.243967533111572,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 100.08723308285698
+    },
+    {
+      "step": 340,
+      "loss": 0.09321746975183487,
+      "gradientNorm": 0.9124360084533691,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 101.54752941662446
+    },
+    {
+      "step": 350,
+      "loss": 0.31421831250190735,
+      "gradientNorm": 4.782947063446045,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 103.26406504167244
+    },
+    {
+      "step": 360,
+      "loss": 0.332273006439209,
+      "gradientNorm": 2.345736265182495,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 105.00863579194993,
+      "devLoss": 0.33815459144724136,
+      "devMetrics": {
+        "assist": {
+          "tp": 1,
+          "fp": 3,
+          "fn": 23,
+          "tn": 53,
+          "accuracy": 0.675,
+          "precision": 0.25,
+          "recall": 0.041666666666666664,
+          "falsePositiveRate": 0.05357142857142857
+        },
+        "schedule": {
+          "tp": 8,
+          "fp": 0,
+          "fn": 16,
+          "tn": 56,
+          "accuracy": 0.8,
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "falsePositiveRate": 0.0
+        }
+      }
+    },
+    {
+      "step": 370,
+      "loss": 0.01062839850783348,
+      "gradientNorm": 0.49384066462516785,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 112.1220699166879
+    },
+    {
+      "step": 380,
+      "loss": 0.17250032722949982,
+      "gradientNorm": 5.70551061630249,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 113.71019345801324
+    },
+    {
+      "step": 390,
+      "loss": 0.18778784573078156,
+      "gradientNorm": 4.254768371582031,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 115.16216358263046
+    },
+    {
+      "step": 400,
+      "loss": 0.08055824786424637,
+      "gradientNorm": 1.978210210800171,
+      "peakMlxMemoryGb": 1.6877476,
+      "elapsedSeconds": 116.70771504193544,
+      "devLoss": 0.3746876894259679,
+      "devMetrics": {
+        "assist": {
+          "tp": 4,
+          "fp": 1,
+          "fn": 20,
+          "tn": 55,
+          "accuracy": 0.7375,
+          "precision": 0.8,
+          "recall": 0.16666666666666666,
+          "falsePositiveRate": 0.017857142857142856
+        },
+        "schedule": {
+          "tp": 2,
+          "fp": 0,
+          "fn": 22,
+          "tn": 56,
+          "accuracy": 0.725,
+          "precision": 1.0,
+          "recall": 0.08333333333333333,
+          "falsePositiveRate": 0.0
+        }
+      }
+    }
+  ],
+  "notes": "Synthetic supervised prototype. The old 64-case set is regression only; fresh held-out evaluation follows selection."
+}

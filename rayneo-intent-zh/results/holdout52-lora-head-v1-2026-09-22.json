@@ -1,0 +1,4470 @@
+{
+  "createdAt": "2026-09-22T03:08:49.510404+00:00",
+  "suiteVersion": "zh-intent-v2-frozen-before-lora",
+  "synthetic": true,
+  "caseCount": 52,
+  "repeats": 2,
+  "batchSize": 8,
+  "endpoint": "http://127.0.0.1:8765/api/evaluate",
+  "thresholdPolicy": "0.85 is the initial backend threshold; 0.5 is diagnostic only. No threshold is fitted on this suite.",
+  "questions": {
+    "assist": {
+      "type": "boolean",
+      "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。"
+    },
+    "schedule": {
+      "type": "boolean",
+      "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。"
+    }
+  },
+  "backend": "mlx",
+  "checkpoint": {
+    "base_model": "Qwen/Qwen3-0.6B",
+    "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "set_head": "attention",
+    "name": "nanojev-intent-zh-lora-head-v1",
+    "weightsSha256": "dacb8030616ce9163d2a154cab15a8e21f89ba284b326a91e6a7a968ce72180b",
+    "configSha256": "b4e5ac628ed259783b400da7fbd614ff4cd82076008dd179a115f1d30e8845d6",
+    "trainingSchema": "rayneo-intent-zh-head-v1",
+    "adaptation": {
+      "kind": "frozen_encoder_scalar_head",
+      "selected_on": "dev_bce",
+      "best_epoch": 70,
+      "parent_adaptation": {
+        "kind": "qlora",
+        "rank": 4,
+        "layers": 2,
+        "scale": 8,
+        "projections": [
+          "q_proj",
+          "v_proj"
+        ],
+        "selected_on": "dev_bce",
+        "best_step": 240,
+        "seed": 20260922,
+        "source_weights_sha256": "f68c47d66998231b86b7e91b4ed5e82ae23acf104c8b7cd6d165c3ac7b7ffe1b"
+      },
+      "train_only_preconditioning_folded_into_head": true,
+      "base_weights_sha256": "0c065a349d20e35f08023007c6c31596f7441e8602681ae9c095d019e0799bb8",
+      "seed": 20260922
+    }
+  },
+  "source": {
+    "commit": "441b4fa69d21856f12f26773801f146ba41cf2d7",
+    "scriptSha256": {
+      "serve_decisions.py": "9aa818130f33fcce66e07cb67f30efe9b38010a1df2654cb180d0d38afaf18ba",
+      "predict_toy_decisions.py": "abe7b9104baa8d21208e835c0295788858d67184081510265309da873af49b7c",
+      "mlx_decisions.py": "f3c5ba1bc9a5af5eba56f5f5eaaf1e34ffff5942b3c0407140bb0e1319d6f170"
+    }
+  },
+  "repeatScoresIdentical": true,
+  "requestLatencyMs": {
+    "samples": [
+      870.068667,
+      678.563916,
+      731.5968329999998,
+      659.1541250000001,
+      655.0364170000003,
+      680.9424169999998,
+      320.46187500000036,
+      676.4184580000006,
+      661.1970830000002,
+      665.1089160000004,
+      643.3065000000005,
+      659.1228330000005,
+      757.3957080000007,
+      352.0872080000004
+    ],
+    "median": 663.1529995000003,
+    "max": 870.068667,
+    "note": "Batch HTTP latency; not per-case or end-to-end glasses latency. First request may be cold."
+  },
+  "metrics": {
+    "0.85": {
+      "assist": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 7,
+        "tn": 40,
+        "accuracy": 0.8653846153846154,
+        "precision": 1.0,
+        "recall": 0.4166666666666667,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 10,
+        "tn": 38,
+        "accuracy": 0.8076923076923077,
+        "precision": 1.0,
+        "recall": 0.2857142857142857,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "0.5": {
+      "assist": {
+        "tp": 9,
+        "fp": 3,
+        "fn": 3,
+        "tn": 37,
+        "accuracy": 0.8846153846153846,
+        "precision": 0.75,
+        "recall": 0.75,
+        "falsePositiveRate": 0.075
+      },
+      "schedule": {
+        "tp": 10,
+        "fp": 0,
+        "fn": 4,
+        "tn": 38,
+        "accuracy": 0.9230769230769231,
+        "precision": 1.0,
+        "recall": 0.7142857142857143,
+        "falsePositiveRate": 0.0
+      }
+    }
+  },
+  "groups": {
+    "asr_noise": {
+      "assist": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6,
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 2,
+        "tn": 6,
+        "accuracy": 0.75,
+        "precision": null,
+        "recall": 0.0,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "assist": {
+      "assist": {
+        "tp": 2,
+        "fp": 0,
+        "fn": 6,
+        "tn": 0,
+        "accuracy": 0.25,
+        "precision": 1.0,
+        "recall": 0.25,
+        "falsePositiveRate": null
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "cancellation": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "chat": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "confirmed": {
+      "assist": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 1,
+        "tn": 6,
+        "accuracy": 0.875,
+        "precision": 1.0,
+        "recall": 0.5,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 3,
+        "fp": 0,
+        "fn": 5,
+        "tn": 0,
+        "accuracy": 0.375,
+        "precision": 1.0,
+        "recall": 0.375,
+        "falsePositiveRate": null
+      }
+    },
+    "correction": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 4,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 3,
+        "tn": 0,
+        "accuracy": 0.25,
+        "precision": 1.0,
+        "recall": 0.25,
+        "falsePositiveRate": null
+      }
+    },
+    "hypothetical": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "other_person": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 6,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "n001",
+      "group": "assist",
+      "text": "助手，照片里的焦距二十四毫米是什么意思，能说明一下吗？",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9480210542678833,
+        "schedule": 0.492616206407547
+      }
+    },
+    {
+      "id": "n002",
+      "group": "assist",
+      "text": "这台复印机一直显示双面卡纸，我不会处理，请指导我第一步怎么做。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.13161557912826538,
+        "schedule": 0.0007715508691035211
+      }
+    },
+    {
+      "id": "n003",
+      "group": "assist",
+      "text": "总共一百三十五元，三个人均摊，每个人应该付多少？",
+      "context": [
+        "我在跟眼镜里的助手说话，想让它帮我算一笔。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.8108419179916382,
+        "schedule": 0.03650866076350212
+      }
+    },
+    {
+      "id": "n004",
+      "group": "assist",
+      "text": "眼镜助手，dehumidifier这个单词指的是什么设备？",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6717751622200012,
+        "schedule": 0.2618533670902252
+      }
+    },
+    {
+      "id": "n005",
+      "group": "assist",
+      "text": "帮我简短解释下固态硬盘和机械硬盘的区别，我要讲给家人听。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.5470312237739563,
+        "schedule": 0.2988949120044708
+      }
+    },
+    {
+      "id": "n006",
+      "group": "assist",
+      "text": "我现在不明白这两种纸张大小差多少，请把A3和A4的关系讲一下。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.008619206957519054,
+        "schedule": 0.00013224538997747004
+      }
+    },
+    {
+      "id": "n007",
+      "group": "assist",
+      "text": "那连接超时具体是什么意思，我还能重新试吗？",
+      "context": [
+        "刚才你这个助手说可以继续解释报错信息。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9569959044456482,
+        "schedule": 0.00607448723167181
+      }
+    },
+    {
+      "id": "n008",
+      "group": "assist",
+      "text": "请帮我把十五摄氏度换成华氏度，只告诉我计算结果。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.011928772553801537,
+        "schedule": 0.004505000077188015
+      }
+    },
+    {
+      "id": "n009",
+      "group": "chat",
+      "text": "复印件已经弄好了，刚才的故障也排除了，不用继续帮我查。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.015307219699025154,
+        "schedule": 0.004098689183592796
+      }
+    },
+    {
+      "id": "n010",
+      "group": "chat",
+      "text": "朋友用相机拍的云层真好看，我看了好一会儿。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.025401422753930092,
+        "schedule": 0.0012500808807089925
+      }
+    },
+    {
+      "id": "n011",
+      "group": "chat",
+      "text": "奇怪，会员卡跑哪去了？啊，我已经放回钱包了，不必找了。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 2.550869567130576e-06,
+        "schedule": 7.842128979973495e-06
+      }
+    },
+    {
+      "id": "n012",
+      "group": "chat",
+      "text": "以前我星期二总来这个书店，但今年没有固定来的日子。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.000267681636614725,
+        "schedule": 0.0012873064260929823
+      }
+    },
+    {
+      "id": "n013",
+      "group": "chat",
+      "text": "我刚是在复述客服的话，不是在问眼镜什么问题。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.019949624314904213,
+        "schedule": 0.0016887825913727283
+      }
+    },
+    {
+      "id": "n014",
+      "group": "chat",
+      "text": "那个计算方法我刚自己想明白了，算出来是四十五，没有疑问了。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00010586460120975971,
+        "schedule": 9.4697876193095e-05
+      }
+    },
+    {
+      "id": "n015",
+      "group": "confirmed",
+      "text": "维修师傅和我说定了，明天上午八点半上门，我会在家等他。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6251217126846313,
+        "schedule": 0.9065055251121521
+      }
+    },
+    {
+      "id": "n016",
+      "group": "confirmed",
+      "text": "租房交接已经签好时间，本周六下午两点我在公寓大堂见房东。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.42618727684020996,
+        "schedule": 0.8520610332489014
+      }
+    },
+    {
+      "id": "n017",
+      "group": "confirmed",
+      "text": "我报名参加了下周二晚七点的读书讨论，组织者已经给我留位。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.1460639387369156,
+        "schedule": 0.5977895259857178
+      }
+    },
+    {
+      "id": "n018",
+      "group": "confirmed",
+      "text": "相机清洁取件定在后天中午一点，店里和我都确认了这个时段。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.20462797582149506,
+        "schedule": 0.502809464931488
+      }
+    },
+    {
+      "id": "n019",
+      "group": "confirmed",
+      "text": "我周日下午三点到舞蹈教室试听，预约成功的短信刚到了。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.09284412860870361,
+        "schedule": 0.5932521820068359
+      }
+    },
+    {
+      "id": "n020",
+      "group": "confirmed",
+      "text": "周四十点我和设计师在门店选材料，双方都答应按时到。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2507149875164032,
+        "schedule": 0.3284957706928253
+      }
+    },
+    {
+      "id": "n021",
+      "group": "confirmed",
+      "text": "助手，替我记下明早八点把车送去保养这件事，门店已经安排好了。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.7858451008796692,
+        "schedule": 0.5085612535476685
+      }
+    },
+    {
+      "id": "n022",
+      "group": "confirmed",
+      "text": "请提醒我下周六下午四点参加社区消防培训，我已确认报名。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9260841012001038,
+        "schedule": 0.9982972741127014
+      }
+    },
+    {
+      "id": "n023",
+      "group": "hypothetical",
+      "text": "计划还没落定，所谓周日三点只是候选时间，不代表我们约好了。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.01189420185983181,
+        "schedule": 0.13140252232551575
+      }
+    },
+    {
+      "id": "n024",
+      "group": "hypothetical",
+      "text": "假设我要换房东，会不会又得重新办手续？只是随口设想，不用帮我查询。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00032820572960190475,
+        "schedule": 0.00033803159021772444
+      }
+    },
+    {
+      "id": "n025",
+      "group": "hypothetical",
+      "text": "她写了一句台词“周四十点见”，排练时我要念出来，并非自己的安排。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0038837091997265816,
+        "schedule": 0.019194001331925392
+      }
+    },
+    {
+      "id": "n026",
+      "group": "hypothetical",
+      "text": "如果这周忙完，就考虑星期天去看展，目前连票都没买。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.003548335749655962,
+        "schedule": 0.028158288449048996
+      }
+    },
+    {
+      "id": "n027",
+      "group": "hypothetical",
+      "text": "能不能周二见面还得等对方回复，我没有接受任何邀请。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00030342373065650463,
+        "schedule": 0.00030747096752747893
+      }
+    },
+    {
+      "id": "n028",
+      "group": "hypothetical",
+      "text": "这是教学案例里的问题：假如助手收到换算请求会怎么办；我没有提出换算请求。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.4942953586578369,
+        "schedule": 0.017864663153886795
+      }
+    },
+    {
+      "id": "n029",
+      "group": "cancellation",
+      "text": "师傅明天不上门了，我和他已经取消维修预约，新时间还没商量。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.03780560567975044,
+        "schedule": 0.01629512570798397
+      }
+    },
+    {
+      "id": "n030",
+      "group": "cancellation",
+      "text": "后来我决定不试了，退了那个名额，也没报名别的课。",
+      "context": [
+        "我说过周日会去试舞蹈课。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.3714759051799774,
+        "schedule": 0.21386869251728058
+      }
+    },
+    {
+      "id": "n031",
+      "group": "cancellation",
+      "text": "选材料那次碰面双方都撤销了，周四十点不用去门店。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.04089177027344704,
+        "schedule": 0.15778109431266785
+      }
+    },
+    {
+      "id": "n032",
+      "group": "cancellation",
+      "text": "不是改期，是整个读书活动取消了，所以我现在没有下周的安排。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.03924257308244705,
+        "schedule": 0.0380358025431633
+      }
+    },
+    {
+      "id": "n033",
+      "group": "cancellation",
+      "text": "我说下周参加消防培训是旧消息，名单中已经去掉我的名字。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.11592555046081543,
+        "schedule": 0.24799951910972595
+      }
+    },
+    {
+      "id": "n034",
+      "group": "cancellation",
+      "text": "那张试驾预约单早已作废，我不打算按上面的日期去。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.01609123684465885,
+        "schedule": 0.00117854168638587
+      }
+    },
+    {
+      "id": "n035",
+      "group": "other_person",
+      "text": "隔壁住户约了明早修空调，师傅进的是他家，不需要我在家等。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.006820672191679478,
+        "schedule": 0.02491837553679943
+      }
+    },
+    {
+      "id": "n036",
+      "group": "other_person",
+      "text": "同学将在周末读书会上主持，我只听他介绍，并不参加。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 3.7291144963091938e-06,
+        "schedule": 4.877776063949568e-06
+      }
+    },
+    {
+      "id": "n037",
+      "group": "other_person",
+      "text": "门店给上一位顾客约了后天下午取货，与我的订单没有关系。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.06829509139060974,
+        "schedule": 0.012218190357089043
+      }
+    },
+    {
+      "id": "n038",
+      "group": "other_person",
+      "text": "小周提醒他爸星期二去保养汽车，这不是对我说的。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00029776274459436536,
+        "schedule": 0.0031623856630176306
+      }
+    },
+    {
+      "id": "n039",
+      "group": "other_person",
+      "text": "纪录片的摄影师明早进山取景，我在家看节目就行。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.5983543395996094,
+        "schedule": 0.30594921112060547
+      }
+    },
+    {
+      "id": "n040",
+      "group": "other_person",
+      "text": "群里通知另一栋楼周六开住户大会，我不住那栋，也没受邀。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 2.80454787571216e-05,
+        "schedule": 0.0001505989785073325
+      }
+    },
+    {
+      "id": "n041",
+      "group": "correction",
+      "text": "改正一下，钥匙交接提前到本周五下午两点，房东已经同意，我确定去。",
+      "context": [
+        "我和房东周六下午两点交接钥匙。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2656363248825073,
+        "schedule": 0.9005352258682251
+      }
+    },
+    {
+      "id": "n042",
+      "group": "correction",
+      "text": "明天上门维修没有取消，只是由上午八点半改到十点，我已确认能在家。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.0781872496008873,
+        "schedule": 0.3528539538383484
+      }
+    },
+    {
+      "id": "n043",
+      "group": "correction",
+      "text": "店家刚跟我敲定是后天下午两点取相机，之前的一点说错了。",
+      "context": [
+        "后天我一点去取清洁好的相机。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.026314763352274895,
+        "schedule": 0.022787511348724365
+      }
+    },
+    {
+      "id": "n044",
+      "group": "correction",
+      "text": "下周二读书讨论照常参加，集合地点更正为三楼，我已经收到并接受通知。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.0007233400829136372,
+        "schedule": 0.020098211243748665
+      }
+    },
+    {
+      "id": "n045",
+      "group": "asr_noise",
+      "text": "眼睛助手，帮我解释空气加湿气和除湿气分别是干什么的。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9356746673583984,
+        "schedule": 0.06822910904884338
+      }
+    },
+    {
+      "id": "n046",
+      "group": "asr_noise",
+      "text": "请帮我算九乘以七再减十，是多稍？",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9872796535491943,
+        "schedule": 0.09643089771270752
+      }
+    },
+    {
+      "id": "n047",
+      "group": "asr_noise",
+      "text": "我明天上午九点做汽车保洋，店里已经确认时段了。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2481553703546524,
+        "schedule": 0.5518190264701843
+      }
+    },
+    {
+      "id": "n048",
+      "group": "asr_noise",
+      "text": "换钥匙约在周六拾一点，房东答应了，我会去公遇大堂。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.7207431197166443,
+        "schedule": 0.8099245429039001
+      }
+    },
+    {
+      "id": "n049",
+      "group": "asr_noise",
+      "text": "周五那场读书会已取肖了，暂时不办，也没有改期。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 5.504143700818531e-06,
+        "schedule": 1.2500490811362397e-05
+      }
+    },
+    {
+      "id": "n050",
+      "group": "asr_noise",
+      "text": "邻居说他周末去十驾，我只听他说说，不陪他去。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00046219659270718694,
+        "schedule": 0.0007314085378311574
+      }
+    },
+    {
+      "id": "n051",
+      "group": "asr_noise",
+      "text": "如果有时间也许去跳舞，先看看再说，还没有报明。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.005492459051311016,
+        "schedule": 0.014963438734412193
+      }
+    },
+    {
+      "id": "n052",
+      "group": "asr_noise",
+      "text": "我以前觉得复印鸡很难用，现在已经会操作，不需要帮助。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00017287657829001546,
+        "schedule": 7.649590406799689e-05
+      }
+    }
+  ],
+  "executions": [
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 1,
+      "server_evaluation_seconds": 0.8673738748766482
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 2,
+      "server_evaluation_seconds": 0.6746057090349495
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 3,
+      "server_evaluation_seconds": 0.7297854581847787
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 4,
+      "server_evaluation_seconds": 0.6572342081926763
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 5,
+      "server_evaluation_seconds": 0.653545374982059
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 6,
+      "server_evaluation_seconds": 0.6792622082866728
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 4,
+      "questions": 8,
+      "candidate_paths": 8,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 7,
+      "server_evaluation_seconds": 0.318918792065233
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 8,
+      "server_evaluation_seconds": 0.6748015000484884
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 9,
+      "server_evaluation_seconds": 0.659594583325088
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 10,
+      "server_evaluation_seconds": 0.6632943749427795
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 11,
+      "server_evaluation_seconds": 0.6416540420614183
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 12,
+      "server_evaluation_seconds": 0.6575247081927955
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 13,
+      "server_evaluation_seconds": 0.7557567078620195
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 4,
+      "questions": 8,
+      "candidate_paths": 8,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 14,
+      "server_evaluation_seconds": 0.350490250159055
+    }
+  ],
+  "rawResponses": [
+    {
+      "repeat": 1,
+      "firstCase": 0,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 1,
+          "server_evaluation_seconds": 0.8673738748766482
+        },
+        "states": [
+          {
+            "id": "n001",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5073837637901306,
+                  "true": 0.492616206407547
+                },
+                "p_true": 0.492616206407547,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.051978956907987595,
+                  "true": 0.9480210542678833
+                },
+                "p_true": 0.9480210542678833,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n002",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9992284774780273,
+                  "true": 0.0007715508691035211
+                },
+                "p_true": 0.0007715508691035211,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8683844208717346,
+                  "true": 0.13161557912826538
+                },
+                "p_true": 0.13161557912826538,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n003",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9634912610054016,
+                  "true": 0.03650866076350212
+                },
+                "p_true": 0.03650866076350212,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.18915808200836182,
+                  "true": 0.8108419179916382
+                },
+                "p_true": 0.8108419179916382,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n004",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7381466031074524,
+                  "true": 0.2618533670902252
+                },
+                "p_true": 0.2618533670902252,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.32822489738464355,
+                  "true": 0.6717751622200012
+                },
+                "p_true": 0.6717751622200012,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n005",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7011050581932068,
+                  "true": 0.2988949120044708
+                },
+                "p_true": 0.2988949120044708,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4529688358306885,
+                  "true": 0.5470312237739563
+                },
+                "p_true": 0.5470312237739563,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n006",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998676776885986,
+                  "true": 0.00013224538997747004
+                },
+                "p_true": 0.00013224538997747004,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9913807511329651,
+                  "true": 0.008619206957519054
+                },
+                "p_true": 0.008619206957519054,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n007",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9939255118370056,
+                  "true": 0.00607448723167181
+                },
+                "p_true": 0.00607448723167181,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.043004050850868225,
+                  "true": 0.9569959044456482
+                },
+                "p_true": 0.9569959044456482,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n008",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9954949617385864,
+                  "true": 0.004505000077188015
+                },
+                "p_true": 0.004505000077188015,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9880712032318115,
+                  "true": 0.011928772553801537
+                },
+                "p_true": 0.011928772553801537,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 8,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 2,
+          "server_evaluation_seconds": 0.6746057090349495
+        },
+        "states": [
+          {
+            "id": "n009",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9959012866020203,
+                  "true": 0.004098689183592796
+                },
+                "p_true": 0.004098689183592796,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9846928119659424,
+                  "true": 0.015307219699025154
+                },
+                "p_true": 0.015307219699025154,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n010",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.998749852180481,
+                  "true": 0.0012500808807089925
+                },
+                "p_true": 0.0012500808807089925,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9745985865592957,
+                  "true": 0.025401422753930092
+                },
+                "p_true": 0.025401422753930092,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n011",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999921321868896,
+                  "true": 7.842128979973495e-06
+                },
+                "p_true": 7.842128979973495e-06,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999974966049194,
+                  "true": 2.550869567130576e-06
+                },
+                "p_true": 2.550869567130576e-06,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n012",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9987126588821411,
+                  "true": 0.0012873064260929823
+                },
+                "p_true": 0.0012873064260929823,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9997323155403137,
+                  "true": 0.000267681636614725
+                },
+                "p_true": 0.000267681636614725,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n013",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9983111619949341,
+                  "true": 0.0016887825913727283
+                },
+                "p_true": 0.0016887825913727283,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9800503849983215,
+                  "true": 0.019949624314904213
+                },
+                "p_true": 0.019949624314904213,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n014",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999053478240967,
+                  "true": 9.4697876193095e-05
+                },
+                "p_true": 9.4697876193095e-05,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998941421508789,
+                  "true": 0.00010586460120975971
+                },
+                "p_true": 0.00010586460120975971,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n015",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.09349454194307327,
+                  "true": 0.9065055251121521
+                },
+                "p_true": 0.9065055251121521,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.37487831711769104,
+                  "true": 0.6251217126846313
+                },
+                "p_true": 0.6251217126846313,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n016",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.14793898165225983,
+                  "true": 0.8520610332489014
+                },
+                "p_true": 0.8520610332489014,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5738127827644348,
+                  "true": 0.42618727684020996
+                },
+                "p_true": 0.42618727684020996,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 16,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 3,
+          "server_evaluation_seconds": 0.7297854581847787
+        },
+        "states": [
+          {
+            "id": "n017",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4022105038166046,
+                  "true": 0.5977895259857178
+                },
+                "p_true": 0.5977895259857178,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8539360165596008,
+                  "true": 0.1460639387369156
+                },
+                "p_true": 0.1460639387369156,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n018",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4971905052661896,
+                  "true": 0.502809464931488
+                },
+                "p_true": 0.502809464931488,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7953720092773438,
+                  "true": 0.20462797582149506
+                },
+                "p_true": 0.20462797582149506,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n019",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.40674781799316406,
+                  "true": 0.5932521820068359
+                },
+                "p_true": 0.5932521820068359,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9071558713912964,
+                  "true": 0.09284412860870361
+                },
+                "p_true": 0.09284412860870361,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n020",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6715041995048523,
+                  "true": 0.3284957706928253
+                },
+                "p_true": 0.3284957706928253,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7492850422859192,
+                  "true": 0.2507149875164032
+                },
+                "p_true": 0.2507149875164032,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n021",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.49143874645233154,
+                  "true": 0.5085612535476685
+                },
+                "p_true": 0.5085612535476685,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.21415488421916962,
+                  "true": 0.7858451008796692
+                },
+                "p_true": 0.7858451008796692,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n022",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.001702698995359242,
+                  "true": 0.9982972741127014
+                },
+                "p_true": 0.9982972741127014,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.07391583174467087,
+                  "true": 0.9260841012001038
+                },
+                "p_true": 0.9260841012001038,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n023",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8685975074768066,
+                  "true": 0.13140252232551575
+                },
+                "p_true": 0.13140252232551575,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9881057739257812,
+                  "true": 0.01189420185983181
+                },
+                "p_true": 0.01189420185983181,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n024",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.999661922454834,
+                  "true": 0.00033803159021772444
+                },
+                "p_true": 0.00033803159021772444,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9996718168258667,
+                  "true": 0.00032820572960190475
+                },
+                "p_true": 0.00032820572960190475,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 24,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 4,
+          "server_evaluation_seconds": 0.6572342081926763
+        },
+        "states": [
+          {
+            "id": "n025",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9808059930801392,
+                  "true": 0.019194001331925392
+                },
+                "p_true": 0.019194001331925392,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9961162805557251,
+                  "true": 0.0038837091997265816
+                },
+                "p_true": 0.0038837091997265816,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n026",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9718416929244995,
+                  "true": 0.028158288449048996
+                },
+                "p_true": 0.028158288449048996,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9964516162872314,
+                  "true": 0.003548335749655962
+                },
+                "p_true": 0.003548335749655962,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n027",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9996925592422485,
+                  "true": 0.00030747096752747893
+                },
+                "p_true": 0.00030747096752747893,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9996966123580933,
+                  "true": 0.00030342373065650463
+                },
+                "p_true": 0.00030342373065650463,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n028",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9821352958679199,
+                  "true": 0.017864663153886795
+                },
+                "p_true": 0.017864663153886795,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5057046413421631,
+                  "true": 0.4942953586578369
+                },
+                "p_true": 0.4942953586578369,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n029",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9837048649787903,
+                  "true": 0.01629512570798397
+                },
+                "p_true": 0.01629512570798397,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9621943831443787,
+                  "true": 0.03780560567975044
+                },
+                "p_true": 0.03780560567975044,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n030",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7861312627792358,
+                  "true": 0.21386869251728058
+                },
+                "p_true": 0.21386869251728058,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6285240650177002,
+                  "true": 0.3714759051799774
+                },
+                "p_true": 0.3714759051799774,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n031",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8422188758850098,
+                  "true": 0.15778109431266785
+                },
+                "p_true": 0.15778109431266785,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9591082334518433,
+                  "true": 0.04089177027344704
+                },
+                "p_true": 0.04089177027344704,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n032",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9619642496109009,
+                  "true": 0.0380358025431633
+                },
+                "p_true": 0.0380358025431633,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9607574939727783,
+                  "true": 0.03924257308244705
+                },
+                "p_true": 0.03924257308244705,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 32,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 5,
+          "server_evaluation_seconds": 0.653545374982059
+        },
+        "states": [
+          {
+            "id": "n033",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7520004510879517,
+                  "true": 0.24799951910972595
+                },
+                "p_true": 0.24799951910972595,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8840745091438293,
+                  "true": 0.11592555046081543
+                },
+                "p_true": 0.11592555046081543,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n034",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9988214373588562,
+                  "true": 0.00117854168638587
+                },
+                "p_true": 0.00117854168638587,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9839087128639221,
+                  "true": 0.01609123684465885
+                },
+                "p_true": 0.01609123684465885,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n035",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9750816822052002,
+                  "true": 0.02491837553679943
+                },
+                "p_true": 0.02491837553679943,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9931793212890625,
+                  "true": 0.006820672191679478
+                },
+                "p_true": 0.006820672191679478,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n036",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999951124191284,
+                  "true": 4.877776063949568e-06
+                },
+                "p_true": 4.877776063949568e-06,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999963045120239,
+                  "true": 3.7291144963091938e-06
+                },
+                "p_true": 3.7291144963091938e-06,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n037",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9877818822860718,
+                  "true": 0.012218190357089043
+                },
+                "p_true": 0.012218190357089043,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9317049384117126,
+                  "true": 0.06829509139060974
+                },
+                "p_true": 0.06829509139060974,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n038",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9968376159667969,
+                  "true": 0.0031623856630176306
+                },
+                "p_true": 0.0031623856630176306,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9997021555900574,
+                  "true": 0.00029776274459436536
+                },
+                "p_true": 0.00029776274459436536,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n039",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6940508484840393,
+                  "true": 0.30594921112060547
+                },
+                "p_true": 0.30594921112060547,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.40164563059806824,
+                  "true": 0.5983543395996094
+                },
+                "p_true": 0.5983543395996094,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n040",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998493194580078,
+                  "true": 0.0001505989785073325
+                },
+                "p_true": 0.0001505989785073325,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999719858169556,
+                  "true": 2.80454787571216e-05
+                },
+                "p_true": 2.80454787571216e-05,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 40,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 6,
+          "server_evaluation_seconds": 0.6792622082866728
+        },
+        "states": [
+          {
+            "id": "n041",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.09946475178003311,
+                  "true": 0.9005352258682251
+                },
+                "p_true": 0.9005352258682251,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7343636155128479,
+                  "true": 0.2656363248825073
+                },
+                "p_true": 0.2656363248825073,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n042",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6471460461616516,
+                  "true": 0.3528539538383484
+                },
+                "p_true": 0.3528539538383484,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9218127727508545,
+                  "true": 0.0781872496008873
+                },
+                "p_true": 0.0781872496008873,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n043",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9772124886512756,
+                  "true": 0.022787511348724365
+                },
+                "p_true": 0.022787511348724365,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9736852645874023,
+                  "true": 0.026314763352274895
+                },
+                "p_true": 0.026314763352274895,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n044",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9799017906188965,
+                  "true": 0.020098211243748665
+                },
+                "p_true": 0.020098211243748665,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9992766976356506,
+                  "true": 0.0007233400829136372
+                },
+                "p_true": 0.0007233400829136372,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n045",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9317708611488342,
+                  "true": 0.06822910904884338
+                },
+                "p_true": 0.06822910904884338,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.06432531028985977,
+                  "true": 0.9356746673583984
+                },
+                "p_true": 0.9356746673583984,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n046",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9035691022872925,
+                  "true": 0.09643089771270752
+                },
+                "p_true": 0.09643089771270752,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.012720360420644283,
+                  "true": 0.9872796535491943
+                },
+                "p_true": 0.9872796535491943,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n047",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4481809437274933,
+                  "true": 0.5518190264701843
+                },
+                "p_true": 0.5518190264701843,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7518446445465088,
+                  "true": 0.2481553703546524
+                },
+                "p_true": 0.2481553703546524,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n048",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.19007544219493866,
+                  "true": 0.8099245429039001
+                },
+                "p_true": 0.8099245429039001,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.2792569398880005,
+                  "true": 0.7207431197166443
+                },
+                "p_true": 0.7207431197166443,
+                "value": true
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 48,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 4,
+          "questions": 8,
+          "candidate_paths": 8,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 7,
+          "server_evaluation_seconds": 0.318918792065233
+        },
+        "states": [
+          {
+            "id": "n049",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999874830245972,
+                  "true": 1.2500490811362397e-05
+                },
+                "p_true": 1.2500490811362397e-05,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999945163726807,
+                  "true": 5.504143700818531e-06
+                },
+                "p_true": 5.504143700818531e-06,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n050",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9992685914039612,
+                  "true": 0.0007314085378311574
+                },
+                "p_true": 0.0007314085378311574,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9995378255844116,
+                  "true": 0.00046219659270718694
+                },
+                "p_true": 0.00046219659270718694,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n051",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9850366115570068,
+                  "true": 0.014963438734412193
+                },
+                "p_true": 0.014963438734412193,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9945074915885925,
+                  "true": 0.005492459051311016
+                },
+                "p_true": 0.005492459051311016,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n052",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999234676361084,
+                  "true": 7.649590406799689e-05
+                },
+                "p_true": 7.649590406799689e-05,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998272061347961,
+                  "true": 0.00017287657829001546
+                },
+                "p_true": 0.00017287657829001546,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "firstCase": 0,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 8,
+          "server_evaluation_seconds": 0.6748015000484884
+        },
+        "states": [
+          {
+            "id": "n001",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5073837637901306,
+                  "true": 0.492616206407547
+                },
+                "p_true": 0.492616206407547,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.051978956907987595,
+                  "true": 0.9480210542678833
+                },
+                "p_true": 0.9480210542678833,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n002",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9992284774780273,
+                  "true": 0.0007715508691035211
+                },
+                "p_true": 0.0007715508691035211,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8683844208717346,
+                  "true": 0.13161557912826538
+                },
+                "p_true": 0.13161557912826538,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n003",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9634912610054016,
+                  "true": 0.03650866076350212
+                },
+                "p_true": 0.03650866076350212,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.18915808200836182,
+                  "true": 0.8108419179916382
+                },
+                "p_true": 0.8108419179916382,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n004",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7381466031074524,
+                  "true": 0.2618533670902252
+                },
+                "p_true": 0.2618533670902252,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.32822489738464355,
+                  "true": 0.6717751622200012
+                },
+                "p_true": 0.6717751622200012,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n005",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7011050581932068,
+                  "true": 0.2988949120044708
+                },
+                "p_true": 0.2988949120044708,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4529688358306885,
+                  "true": 0.5470312237739563
+                },
+                "p_true": 0.5470312237739563,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n006",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998676776885986,
+                  "true": 0.00013224538997747004
+                },
+                "p_true": 0.00013224538997747004,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9913807511329651,
+                  "true": 0.008619206957519054
+                },
+                "p_true": 0.008619206957519054,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n007",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9939255118370056,
+                  "true": 0.00607448723167181
+                },
+                "p_true": 0.00607448723167181,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.043004050850868225,
+                  "true": 0.9569959044456482
+                },
+                "p_true": 0.9569959044456482,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n008",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9954949617385864,
+                  "true": 0.004505000077188015
+                },
+                "p_true": 0.004505000077188015,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9880712032318115,
+                  "true": 0.011928772553801537
+                },
+                "p_true": 0.011928772553801537,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "firstCase": 8,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 9,
+          "server_evaluation_seconds": 0.659594583325088
+        },
+        "states": [
+          {
+            "id": "n009",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9959012866020203,
+                  "true": 0.004098689183592796
+                },
+                "p_true": 0.004098689183592796,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9846928119659424,
+                  "true": 0.015307219699025154
+                },
+                "p_true": 0.015307219699025154,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n010",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.998749852180481,
+                  "true": 0.0012500808807089925
+                },
+                "p_true": 0.0012500808807089925,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9745985865592957,
+                  "true": 0.025401422753930092
+                },
+                "p_true": 0.025401422753930092,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n011",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999921321868896,
+                  "true": 7.842128979973495e-06
+                },
+                "p_true": 7.842128979973495e-06,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999974966049194,
+                  "true": 2.550869567130576e-06
+                },
+                "p_true": 2.550869567130576e-06,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n012",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9987126588821411,
+                  "true": 0.0012873064260929823
+                },
+                "p_true": 0.0012873064260929823,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9997323155403137,
+                  "true": 0.000267681636614725
+                },
+                "p_true": 0.000267681636614725,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n013",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9983111619949341,
+                  "true": 0.0016887825913727283
+                },
+                "p_true": 0.0016887825913727283,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9800503849983215,
+                  "true": 0.019949624314904213
+                },
+                "p_true": 0.019949624314904213,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n014",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999053478240967,
+                  "true": 9.4697876193095e-05
+                },
+                "p_true": 9.4697876193095e-05,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998941421508789,
+                  "true": 0.00010586460120975971
+                },
+                "p_true": 0.00010586460120975971,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n015",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.09349454194307327,
+                  "true": 0.9065055251121521
+                },
+                "p_true": 0.9065055251121521,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.37487831711769104,
+                  "true": 0.6251217126846313
+                },
+                "p_true": 0.6251217126846313,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n016",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.14793898165225983,
+                  "true": 0.8520610332489014
+                },
+                "p_true": 0.8520610332489014,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5738127827644348,
+                  "true": 0.42618727684020996
+                },
+                "p_true": 0.42618727684020996,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "firstCase": 16,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 10,
+          "server_evaluation_seconds": 0.6632943749427795
+        },
+        "states": [
+          {
+            "id": "n017",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4022105038166046,
+                  "true": 0.5977895259857178
+                },
+                "p_true": 0.5977895259857178,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8539360165596008,
+                  "true": 0.1460639387369156
+                },
+                "p_true": 0.1460639387369156,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n018",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4971905052661896,
+                  "true": 0.502809464931488
+                },
+                "p_true": 0.502809464931488,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7953720092773438,
+                  "true": 0.20462797582149506
+                },
+                "p_true": 0.20462797582149506,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n019",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.40674781799316406,
+                  "true": 0.5932521820068359
+                },
+                "p_true": 0.5932521820068359,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9071558713912964,
+                  "true": 0.09284412860870361
+                },
+                "p_true": 0.09284412860870361,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n020",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6715041995048523,
+                  "true": 0.3284957706928253
+                },
+                "p_true": 0.3284957706928253,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7492850422859192,
+                  "true": 0.2507149875164032
+                },
+                "p_true": 0.2507149875164032,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n021",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.49143874645233154,
+                  "true": 0.5085612535476685
+                },
+                "p_true": 0.5085612535476685,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.21415488421916962,
+                  "true": 0.7858451008796692
+                },
+                "p_true": 0.7858451008796692,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n022",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.001702698995359242,
+                  "true": 0.9982972741127014
+                },
+                "p_true": 0.9982972741127014,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.07391583174467087,
+                  "true": 0.9260841012001038
+                },
+                "p_true": 0.9260841012001038,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n023",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8685975074768066,
+                  "true": 0.13140252232551575
+                },
+                "p_true": 0.13140252232551575,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9881057739257812,
+                  "true": 0.01189420185983181
+                },
+                "p_true": 0.01189420185983181,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n024",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.999661922454834,
+                  "true": 0.00033803159021772444
+                },
+                "p_true": 0.00033803159021772444,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9996718168258667,
+                  "true": 0.00032820572960190475
+                },
+                "p_true": 0.00032820572960190475,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "firstCase": 24,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 11,
+          "server_evaluation_seconds": 0.6416540420614183
+        },
+        "states": [
+          {
+            "id": "n025",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9808059930801392,
+                  "true": 0.019194001331925392
+                },
+                "p_true": 0.019194001331925392,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9961162805557251,
+                  "true": 0.0038837091997265816
+                },
+                "p_true": 0.0038837091997265816,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n026",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9718416929244995,
+                  "true": 0.028158288449048996
+                },
+                "p_true": 0.028158288449048996,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9964516162872314,
+                  "true": 0.003548335749655962
+                },
+                "p_true": 0.003548335749655962,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n027",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9996925592422485,
+                  "true": 0.00030747096752747893
+                },
+                "p_true": 0.00030747096752747893,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9996966123580933,
+                  "true": 0.00030342373065650463
+                },
+                "p_true": 0.00030342373065650463,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n028",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9821352958679199,
+                  "true": 0.017864663153886795
+                },
+                "p_true": 0.017864663153886795,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5057046413421631,
+                  "true": 0.4942953586578369
+                },
+                "p_true": 0.4942953586578369,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n029",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9837048649787903,
+                  "true": 0.01629512570798397
+                },
+                "p_true": 0.01629512570798397,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9621943831443787,
+                  "true": 0.03780560567975044
+                },
+                "p_true": 0.03780560567975044,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n030",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7861312627792358,
+                  "true": 0.21386869251728058
+                },
+                "p_true": 0.21386869251728058,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6285240650177002,
+                  "true": 0.3714759051799774
+                },
+                "p_true": 0.3714759051799774,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n031",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8422188758850098,
+                  "true": 0.15778109431266785
+                },
+                "p_true": 0.15778109431266785,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9591082334518433,
+                  "true": 0.04089177027344704
+                },
+                "p_true": 0.04089177027344704,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n032",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9619642496109009,
+                  "true": 0.0380358025431633
+                },
+                "p_true": 0.0380358025431633,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9607574939727783,
+                  "true": 0.03924257308244705
+                },
+                "p_true": 0.03924257308244705,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "firstCase": 32,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 12,
+          "server_evaluation_seconds": 0.6575247081927955
+        },
+        "states": [
+          {
+            "id": "n033",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7520004510879517,
+                  "true": 0.24799951910972595
+                },
+                "p_true": 0.24799951910972595,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8840745091438293,
+                  "true": 0.11592555046081543
+                },
+                "p_true": 0.11592555046081543,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n034",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9988214373588562,
+                  "true": 0.00117854168638587
+                },
+                "p_true": 0.00117854168638587,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9839087128639221,
+                  "true": 0.01609123684465885
+                },
+                "p_true": 0.01609123684465885,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n035",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9750816822052002,
+                  "true": 0.02491837553679943
+                },
+                "p_true": 0.02491837553679943,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9931793212890625,
+                  "true": 0.006820672191679478
+                },
+                "p_true": 0.006820672191679478,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n036",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999951124191284,
+                  "true": 4.877776063949568e-06
+                },
+                "p_true": 4.877776063949568e-06,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999963045120239,
+                  "true": 3.7291144963091938e-06
+                },
+                "p_true": 3.7291144963091938e-06,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n037",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9877818822860718,
+                  "true": 0.012218190357089043
+                },
+                "p_true": 0.012218190357089043,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9317049384117126,
+                  "true": 0.06829509139060974
+                },
+                "p_true": 0.06829509139060974,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n038",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9968376159667969,
+                  "true": 0.0031623856630176306
+                },
+                "p_true": 0.0031623856630176306,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9997021555900574,
+                  "true": 0.00029776274459436536
+                },
+                "p_true": 0.00029776274459436536,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n039",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6940508484840393,
+                  "true": 0.30594921112060547
+                },
+                "p_true": 0.30594921112060547,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.40164563059806824,
+                  "true": 0.5983543395996094
+                },
+                "p_true": 0.5983543395996094,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n040",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998493194580078,
+                  "true": 0.0001505989785073325
+                },
+                "p_true": 0.0001505989785073325,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999719858169556,
+                  "true": 2.80454787571216e-05
+                },
+                "p_true": 2.80454787571216e-05,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "firstCase": 40,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 13,
+          "server_evaluation_seconds": 0.7557567078620195
+        },
+        "states": [
+          {
+            "id": "n041",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.09946475178003311,
+                  "true": 0.9005352258682251
+                },
+                "p_true": 0.9005352258682251,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7343636155128479,
+                  "true": 0.2656363248825073
+                },
+                "p_true": 0.2656363248825073,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n042",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6471460461616516,
+                  "true": 0.3528539538383484
+                },
+                "p_true": 0.3528539538383484,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9218127727508545,
+                  "true": 0.0781872496008873
+                },
+                "p_true": 0.0781872496008873,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n043",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9772124886512756,
+                  "true": 0.022787511348724365
+                },
+                "p_true": 0.022787511348724365,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9736852645874023,
+                  "true": 0.026314763352274895
+                },
+                "p_true": 0.026314763352274895,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n044",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9799017906188965,
+                  "true": 0.020098211243748665
+                },
+                "p_true": 0.020098211243748665,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9992766976356506,
+                  "true": 0.0007233400829136372
+                },
+                "p_true": 0.0007233400829136372,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n045",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9317708611488342,
+                  "true": 0.06822910904884338
+                },
+                "p_true": 0.06822910904884338,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.06432531028985977,
+                  "true": 0.9356746673583984
+                },
+                "p_true": 0.9356746673583984,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n046",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9035691022872925,
+                  "true": 0.09643089771270752
+                },
+                "p_true": 0.09643089771270752,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.012720360420644283,
+                  "true": 0.9872796535491943
+                },
+                "p_true": 0.9872796535491943,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "n047",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4481809437274933,
+                  "true": 0.5518190264701843
+                },
+                "p_true": 0.5518190264701843,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7518446445465088,
+                  "true": 0.2481553703546524
+                },
+                "p_true": 0.2481553703546524,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n048",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.19007544219493866,
+                  "true": 0.8099245429039001
+                },
+                "p_true": 0.8099245429039001,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.2792569398880005,
+                  "true": 0.7207431197166443
+                },
+                "p_true": 0.7207431197166443,
+                "value": true
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 2,
+      "firstCase": 48,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 4,
+          "questions": 8,
+          "candidate_paths": 8,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 14,
+          "server_evaluation_seconds": 0.350490250159055
+        },
+        "states": [
+          {
+            "id": "n049",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999874830245972,
+                  "true": 1.2500490811362397e-05
+                },
+                "p_true": 1.2500490811362397e-05,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999945163726807,
+                  "true": 5.504143700818531e-06
+                },
+                "p_true": 5.504143700818531e-06,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n050",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9992685914039612,
+                  "true": 0.0007314085378311574
+                },
+                "p_true": 0.0007314085378311574,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9995378255844116,
+                  "true": 0.00046219659270718694
+                },
+                "p_true": 0.00046219659270718694,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n051",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9850366115570068,
+                  "true": 0.014963438734412193
+                },
+                "p_true": 0.014963438734412193,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9945074915885925,
+                  "true": 0.005492459051311016
+                },
+                "p_true": 0.005492459051311016,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "n052",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999234676361084,
+                  "true": 7.649590406799689e-05
+                },
+                "p_true": 7.649590406799689e-05,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998272061347961,
+                  "true": 0.00017287657829001546
+                },
+                "p_true": 0.00017287657829001546,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Hand-authored small synthetic suite; no held-out production distribution or calibration.",
+    "Adaptation metadata is recorded; synthetic held-out performance does not establish production calibration.",
+    "This evaluates classification only, not LLM extraction, calendar writes or glasses operations."
+  ],
+  "suiteSha256": "a384a6a63f139b1c532caa446eee2b59afa1e9644629d941f21a68ddafd18d5e"
+}

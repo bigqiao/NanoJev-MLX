@@ -1,0 +1,12 @@
+{
+  "base": "nanojev-intent-zh-lora-v1",
+  "candidate": "nanojev-intent-zh-lora-head-v1",
+  "baseWeightsSha256": "0c065a349d20e35f08023007c6c31596f7441e8602681ae9c095d019e0799bb8",
+  "candidateWeightsSha256": "dacb8030616ce9163d2a154cab15a8e21f89ba284b326a91e6a7a968ce72180b",
+  "tensorCount": 322,
+  "changedTensors": [
+    "scalar.bias",
+    "scalar.weight"
+  ],
+  "nonScalarTensorsByteIdentical": true
+}

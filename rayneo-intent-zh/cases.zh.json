@@ -1,0 +1,32 @@
+{
+  "version": "rayneo-intent-zh-smoke-v1",
+  "description": "24个手写合成中文样本；标签在推理前固定。用于发现当前游戏权重的迁移问题，不代表线上准确率。",
+  "recordedAt": 1790042400000,
+  "timeZone": "Asia/Singapore",
+  "cases": [
+    {"id":"s001","group":"chat","text":"今天这杯咖啡有点苦，还是昨天那杯好喝。","assist":false,"schedule":false},
+    {"id":"s002","group":"chat","text":"原来地铁这么早就开了，我之前一直不知道。","assist":false,"schedule":false},
+    {"id":"s003","group":"chat","text":"为什么我总忘带伞？大概是出门太着急了，哈哈。","assist":false,"schedule":false},
+    {"id":"s004","group":"chat","text":"昨天的会已经结束了，我们只是聊了聊下个季度的方向。","assist":false,"schedule":false},
+    {"id":"s005","group":"assist","text":"眼镜助手，帮我解释一下为什么夏天会打雷。","assist":true,"schedule":false},
+    {"id":"s006","group":"assist","text":"请帮我把三英里换算成公里，给我一个大概数字。","assist":true,"schedule":false},
+    {"id":"s007","group":"assist","text":"帮我查一下这句英文什么意思：Please bear with me。","assist":true,"schedule":false},
+    {"id":"s008","group":"assist","text":"眼镜助手，请告诉我怎么在手机上打开飞行模式。","assist":true,"schedule":false},
+    {"id":"s009","group":"hypothetical","text":"如果下周有空，也许我们可以找一天吃饭，先不定时间。","assist":false,"schedule":false},
+    {"id":"s010","group":"hypothetical","text":"假如明天三点开会，我可能赶不上；这里只是假设。","assist":false,"schedule":false},
+    {"id":"s011","group":"hypothetical","text":"剧本里的人会说“明天下午两点在门口见”，这是台词，不是我的安排。","assist":false,"schedule":false},
+    {"id":"s012","group":"hypothetical","text":"要是有人问“这道题怎么做”，老师一般会让他先自己想想。","assist":false,"schedule":false},
+    {"id":"s013","group":"cancellation","context":["我明天下午两点参加项目会。"],"text":"明天下午两点的项目会取消了，不要再给我新增这个日程。","assist":false,"schedule":false},
+    {"id":"s014","group":"cancellation","context":["周五晚上七点我去聚餐。"],"text":"我决定不去周五那场聚餐了，这个安排作废。","assist":false,"schedule":false},
+    {"id":"s015","group":"correction","context":["我明天下午两点与小王在会议室见面。"],"text":"刚才时间说错了，是明天下午三点与小王在会议室见面，我会参加。","assist":false,"schedule":true},
+    {"id":"s016","group":"correction","context":["我下周一上午十点要看牙医。"],"text":"不对，是下周二上午十点的牙医预约，已经和诊所确认了。","assist":false,"schedule":true},
+    {"id":"s017","group":"confirmed_schedule","text":"我已经和小李约好了，明天下午四点在楼下咖啡店见面，聊半小时。","assist":false,"schedule":true},
+    {"id":"s018","group":"confirmed_schedule","text":"这周五晚上七点我去体育馆打羽毛球，球场已订好。","assist":false,"schedule":true},
+    {"id":"s019","group":"confirmed_schedule","text":"我周六上午九点有一个医院复诊预约，已经确认参加。","assist":false,"schedule":true},
+    {"id":"s020","group":"confirmed_schedule","text":"眼镜助手，帮我记个日程：明天早上九点到十点在二号会议室参加评审。","assist":true,"schedule":true},
+    {"id":"s021","group":"other_person","text":"小陈说他明天下午三点去看电影，我不去，这和我的安排无关。","assist":false,"schedule":false},
+    {"id":"s022","group":"other_person","text":"新闻说市长周六上午九点参加典礼；我只是听到这个消息。","assist":false,"schedule":false},
+    {"id":"s023","group":"asr_error","text":"眼睛助手帮我查一下二的十次方是多少。","assist":true,"schedule":false},
+    {"id":"s024","group":"asr_error","text":"明天下午三点的回忆已经取笑了，不用安排。","assist":false,"schedule":false}
+  ]
+}

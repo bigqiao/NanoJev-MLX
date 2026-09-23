@@ -1,0 +1,4066 @@
+{
+  "createdAt": "2026-09-22T02:49:00.251399+00:00",
+  "suiteVersion": "zh-intent-v1",
+  "synthetic": true,
+  "caseCount": 80,
+  "repeats": 1,
+  "batchSize": 8,
+  "endpoint": "http://127.0.0.1:8765/api/evaluate",
+  "thresholdPolicy": "0.85 is the initial backend threshold; 0.5 is diagnostic only. No threshold is fitted on this suite.",
+  "questions": {
+    "assist": {
+      "type": "boolean",
+      "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。"
+    },
+    "schedule": {
+      "type": "boolean",
+      "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。"
+    }
+  },
+  "backend": "mlx",
+  "checkpoint": {
+    "base_model": "Qwen/Qwen3-0.6B",
+    "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+    "set_head": "attention",
+    "name": "nanojev-intent-zh-head-v2",
+    "weightsSha256": "4cc9362ca559990c41fc5d5b61b857c4907e3cdab545cf0dec529540075ba253",
+    "configSha256": "fbc47767b6d9ff7edf45d5be029aedb342a1ebb897ac2f5f5dd50ff5203c11b5",
+    "trainingSchema": "rayneo-intent-zh-head-v1",
+    "adaptation": {
+      "kind": "frozen_encoder_scalar_head",
+      "selected_on": "dev_bce",
+      "best_epoch": 55,
+      "train_only_preconditioning_folded_into_head": true,
+      "base_weights_sha256": "f68c47d66998231b86b7e91b4ed5e82ae23acf104c8b7cd6d165c3ac7b7ffe1b",
+      "seed": 20260922
+    }
+  },
+  "source": {
+    "commit": "441b4fa69d21856f12f26773801f146ba41cf2d7",
+    "scriptSha256": {
+      "serve_decisions.py": "9aa818130f33fcce66e07cb67f30efe9b38010a1df2654cb180d0d38afaf18ba",
+      "predict_toy_decisions.py": "abe7b9104baa8d21208e835c0295788858d67184081510265309da873af49b7c",
+      "mlx_decisions.py": "f3c5ba1bc9a5af5eba56f5f5eaaf1e34ffff5942b3c0407140bb0e1319d6f170"
+    }
+  },
+  "repeatScoresIdentical": null,
+  "requestLatencyMs": {
+    "samples": [
+      828.010625,
+      655.8990410000001,
+      635.6103749999997,
+      639.6954999999997,
+      685.1409999999997,
+      674.3977500000002,
+      644.1074589999997,
+      679.0787089999997,
+      648.5746670000001,
+      701.8104579999997
+    ],
+    "median": 665.1483955000001,
+    "max": 828.010625,
+    "note": "Batch HTTP latency; not per-case or end-to-end glasses latency. First request may be cold."
+  },
+  "metrics": {
+    "0.85": {
+      "assist": {
+        "tp": 15,
+        "fp": 5,
+        "fn": 9,
+        "tn": 51,
+        "accuracy": 0.825,
+        "precision": 0.75,
+        "recall": 0.625,
+        "falsePositiveRate": 0.08928571428571429
+      },
+      "schedule": {
+        "tp": 17,
+        "fp": 1,
+        "fn": 7,
+        "tn": 55,
+        "accuracy": 0.9,
+        "precision": 0.9444444444444444,
+        "recall": 0.7083333333333334,
+        "falsePositiveRate": 0.017857142857142856
+      }
+    },
+    "0.5": {
+      "assist": {
+        "tp": 18,
+        "fp": 8,
+        "fn": 6,
+        "tn": 48,
+        "accuracy": 0.825,
+        "precision": 0.6923076923076923,
+        "recall": 0.75,
+        "falsePositiveRate": 0.14285714285714285
+      },
+      "schedule": {
+        "tp": 20,
+        "fp": 8,
+        "fn": 4,
+        "tn": 48,
+        "accuracy": 0.85,
+        "precision": 0.7142857142857143,
+        "recall": 0.8333333333333334,
+        "falsePositiveRate": 0.14285714285714285
+      }
+    }
+  },
+  "groups": {
+    "asr_noise": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "assist_explicit": {
+      "assist": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 1,
+        "tn": 0,
+        "accuracy": 0.875,
+        "precision": 1.0,
+        "recall": 0.875,
+        "falsePositiveRate": null
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "assist_question": {
+      "assist": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 4,
+        "tn": 0,
+        "accuracy": 0.5,
+        "precision": 1.0,
+        "recall": 0.5,
+        "falsePositiveRate": null
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "cancellation": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "chat": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "confirmed": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 3,
+        "tn": 0,
+        "accuracy": 0.625,
+        "precision": 1.0,
+        "recall": 0.625,
+        "falsePositiveRate": null
+      }
+    },
+    "correction": {
+      "assist": {
+        "tp": 0,
+        "fp": 4,
+        "fn": 0,
+        "tn": 4,
+        "accuracy": 0.5,
+        "precision": 0.0,
+        "recall": null,
+        "falsePositiveRate": 0.5
+      },
+      "schedule": {
+        "tp": 7,
+        "fp": 0,
+        "fn": 1,
+        "tn": 0,
+        "accuracy": 0.875,
+        "precision": 1.0,
+        "recall": 0.875,
+        "falsePositiveRate": null
+      }
+    },
+    "hypothetical": {
+      "assist": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "tn": 7,
+        "accuracy": 0.875,
+        "precision": 0.0,
+        "recall": null,
+        "falsePositiveRate": 0.125
+      }
+    },
+    "other_person": {
+      "assist": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0,
+        "tn": 7,
+        "accuracy": 0.875,
+        "precision": 0.0,
+        "recall": null,
+        "falsePositiveRate": 0.125
+      },
+      "schedule": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 8,
+        "accuracy": 1.0,
+        "precision": null,
+        "recall": null,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "schedule_request": {
+      "assist": {
+        "tp": 4,
+        "fp": 0,
+        "fn": 4,
+        "tn": 0,
+        "accuracy": 0.5,
+        "precision": 1.0,
+        "recall": 0.5,
+        "falsePositiveRate": null
+      },
+      "schedule": {
+        "tp": 5,
+        "fp": 0,
+        "fn": 3,
+        "tn": 0,
+        "accuracy": 0.625,
+        "precision": 1.0,
+        "recall": 0.625,
+        "falsePositiveRate": null
+      }
+    }
+  },
+  "cases": [
+    {
+      "id": "dev-00-00",
+      "group": "assist_explicit",
+      "text": "眼镜助手，解释一下间歇跑中“组间恢复”和“完全休息”的区别。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9745478630065918,
+        "schedule": 0.42533156275749207
+      }
+    },
+    {
+      "id": "dev-00-01",
+      "group": "assist_explicit",
+      "text": "眼镜助手，帮我把每公里六分二十秒换算成跑步机时速。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9997684359550476,
+        "schedule": 0.5699260234832764
+      }
+    },
+    {
+      "id": "dev-00-02",
+      "group": "assist_explicit",
+      "text": "眼镜助手，查清楚空腹抽血前为什么通常只能喝少量白水。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9912625551223755,
+        "schedule": 0.04954814538359642
+      }
+    },
+    {
+      "id": "dev-00-03",
+      "group": "assist_explicit",
+      "text": "眼镜助手，教我怎样用节拍器把八分音符三连音拆开练习。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9992462396621704,
+        "schedule": 0.845984160900116
+      }
+    },
+    {
+      "id": "dev-00-04",
+      "group": "assist_question",
+      "text": "这个差值算明显吗，我下一组应该先调整哪一侧？",
+      "context": [
+        "我戴着眼镜做完三组深蹲，屏幕显示左右重心相差百分之八。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6979142427444458,
+        "schedule": 0.002455067588016391
+      }
+    },
+    {
+      "id": "dev-00-05",
+      "group": "assist_question",
+      "text": "这里的“复诊报到”应该点哪个入口才对？",
+      "context": [
+        "眼镜助手先别退出识图，我正站在诊所的自助服务机前。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.99958735704422,
+        "schedule": 0.5864835381507874
+      }
+    },
+    {
+      "id": "dev-00-06",
+      "group": "assist_question",
+      "text": "红色标签和蓝色标签分别贴在哪两类箱子上？",
+      "context": [
+        "请继续看志愿站的分装说明，我已经走到物资桌旁了。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9975749850273132,
+        "schedule": 3.0192803023965098e-05
+      }
+    },
+    {
+      "id": "dev-00-07",
+      "group": "assist_question",
+      "text": "刚才第二小节总是抢拍，我应该从哪一拍重新数？",
+      "context": [
+        "眼镜助手正在听我跟着节拍器练习这段旋律。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9995942711830139,
+        "schedule": 0.1692218780517578
+      }
+    },
+    {
+      "id": "dev-00-08",
+      "group": "chat",
+      "text": "今天的游泳训练比预想轻松，最后两趟竟然也没乱节奏。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.3185066878795624,
+        "schedule": 0.015165758319199085
+      }
+    },
+    {
+      "id": "dev-00-09",
+      "group": "chat",
+      "text": "诊所候诊区那幅蓝色海报很醒目，远远就能看到。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.014687317423522472,
+        "schedule": 0.032014183700084686
+      }
+    },
+    {
+      "id": "dev-00-10",
+      "group": "chat",
+      "text": "志愿者们把旧纸箱叠得整整齐齐，看起来特别解压。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.4099481999874115,
+        "schedule": 0.016319263726472855
+      }
+    },
+    {
+      "id": "dev-00-11",
+      "group": "chat",
+      "text": "那段和声为什么听着发飘？原来是我自己把低音哼高了。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.7237311005592346,
+        "schedule": 0.004074756987392902
+      }
+    },
+    {
+      "id": "dev-00-12",
+      "group": "confirmed",
+      "text": "本周六上午九点，我会参加训练馆的核心力量小组课。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.17615285515785217,
+        "schedule": 0.9884981513023376
+      }
+    },
+    {
+      "id": "dev-00-13",
+      "group": "confirmed",
+      "text": "下周二下午三点，我确定去社区诊所参加复诊。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.18034480512142181,
+        "schedule": 0.9988584518432617
+      }
+    },
+    {
+      "id": "dev-00-14",
+      "group": "confirmed",
+      "text": "周日上午八点半，我会参加河岸步道的垃圾清理活动。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.2154790759086609,
+        "schedule": 0.956886887550354
+      }
+    },
+    {
+      "id": "dev-00-15",
+      "group": "confirmed",
+      "text": "星期四晚上七点，我确定到排练室参加弦乐合奏。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.47293686866760254,
+        "schedule": 0.999291181564331
+      }
+    },
+    {
+      "id": "dev-00-16",
+      "group": "schedule_request",
+      "text": "请提醒我周三早上六点半参加操场的间歇跑训练。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.7278035283088684,
+        "schedule": 0.9995577931404114
+      }
+    },
+    {
+      "id": "dev-00-17",
+      "group": "schedule_request",
+      "text": "记下我下周一下午两点要去诊所做已约好的视力复查。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9077187776565552,
+        "schedule": 0.9908924102783203
+      }
+    },
+    {
+      "id": "dev-00-18",
+      "group": "schedule_request",
+      "text": "帮我安排提醒，周六上午我要参加社区物资整理志愿活动。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9882432818412781,
+        "schedule": 0.3095138967037201
+      }
+    },
+    {
+      "id": "dev-00-19",
+      "group": "schedule_request",
+      "text": "请把星期五晚上的乐队排练记下来，我已经确认会参加。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.31877627968788147,
+        "schedule": 0.09888267517089844
+      }
+    },
+    {
+      "id": "dev-00-20",
+      "group": "hypothetical",
+      "text": "如果周日下午不下雨，我也许会去参加户外体能训练。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.01702331379055977,
+        "schedule": 0.642213761806488
+      }
+    },
+    {
+      "id": "dev-00-21",
+      "group": "hypothetical",
+      "text": "护士刚才举例说“你可以下周三来复诊”，那不是给我约号。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.02094753086566925,
+        "schedule": 0.9111848473548889
+      }
+    },
+    {
+      "id": "dev-00-22",
+      "group": "hypothetical",
+      "text": "假如志愿站临时缺人，我可能过去帮忙，但现在没有决定。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.127292200922966,
+        "schedule": 0.0037744189612567425
+      }
+    },
+    {
+      "id": "dev-00-23",
+      "group": "hypothetical",
+      "text": "剧本里的角色说“提醒我晚上参加排练”，这只是引用台词。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.10727535933256149,
+        "schedule": 0.0829947218298912
+      }
+    },
+    {
+      "id": "dev-00-24",
+      "group": "cancellation",
+      "text": "原定周五晚上的篮球训练已经取消，我不会再去场馆。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.002139698015525937,
+        "schedule": 0.00040878338040784
+      }
+    },
+    {
+      "id": "dev-00-25",
+      "group": "cancellation",
+      "text": "我不参加下周二上午的诊所复查了，那次预约已经作废。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1318824142217636,
+        "schedule": 0.01236350554972887
+      }
+    },
+    {
+      "id": "dev-00-26",
+      "group": "cancellation",
+      "text": "周日的公园引导志愿活动取消了，我当天不会到场。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.004275428596884012,
+        "schedule": 0.012917894870042801
+      }
+    },
+    {
+      "id": "dev-00-27",
+      "group": "cancellation",
+      "text": "我已经退出星期三晚上的合唱排练，这次确定不参加。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.039201315492391586,
+        "schedule": 0.00010689418559195474
+      }
+    },
+    {
+      "id": "dev-00-28",
+      "group": "other_person",
+      "text": "室友周六早上七点参加长跑训练，我不会跟他一起去。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.004854150582104921,
+        "schedule": 0.051105864346027374
+      }
+    },
+    {
+      "id": "dev-00-29",
+      "group": "other_person",
+      "text": "同事下周四下午预约了诊所检查，那是她自己的安排。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.029342912137508392,
+        "schedule": 0.5535797476768494
+      }
+    },
+    {
+      "id": "dev-00-30",
+      "group": "other_person",
+      "text": "邻居周日上午要参加社区助老活动，我没有报名也不出席。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.009402901865541935,
+        "schedule": 0.0010348053183406591
+      }
+    },
+    {
+      "id": "dev-00-31",
+      "group": "other_person",
+      "text": "鼓手今晚八点去排练室练习，我不参加，也没替他安排。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.07096394151449203,
+        "schedule": 0.056952353566884995
+      }
+    },
+    {
+      "id": "dev-00-32",
+      "group": "correction",
+      "text": "更正一下，我确定参加的是周三晚上七点，训练地点仍在北厅。",
+      "context": [
+        "我刚才误说成周二晚上七点参加力量训练。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9998633861541748,
+        "schedule": 0.9999998807907104
+      }
+    },
+    {
+      "id": "dev-00-33",
+      "group": "correction",
+      "text": "不是上午十点，我已确认的诊所复诊时间是下周五下午两点。",
+      "context": [
+        "我先前说下周五上午十点去诊所复诊。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.999872088432312,
+        "schedule": 1.0
+      }
+    },
+    {
+      "id": "dev-00-34",
+      "group": "correction",
+      "text": "志愿活动地点改成河畔广场，我周六九点仍会准时参加。",
+      "context": [
+        "我之前确认周六九点到社区东门参加环境清理。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9305768609046936,
+        "schedule": 1.0
+      }
+    },
+    {
+      "id": "dev-00-35",
+      "group": "correction",
+      "text": "我确定参加周四的排练，不过正确时间是晚上八点半，不是七点。",
+      "context": [
+        "刚才我说周四晚上七点参加管乐排练。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.00019806972704827785,
+        "schedule": 0.13461120426654816
+      }
+    },
+    {
+      "id": "dev-00-36",
+      "group": "asr_noise",
+      "text": "今天练完折返跑，教练说我的步服稳定，我听着还挺开心。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.19863101840019226,
+        "schedule": 0.15602301061153412
+      }
+    },
+    {
+      "id": "dev-00-37",
+      "group": "asr_noise",
+      "text": "如果检查结果没改善，我也许再去复振，现在还不能确定。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.13786403834819794,
+        "schedule": 0.0011124161537736654
+      }
+    },
+    {
+      "id": "dev-00-38",
+      "group": "asr_noise",
+      "text": "原定周日的河岸捡拾活动已经取笑，我当天不会到场。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0035209879279136658,
+        "schedule": 0.027789127081632614
+      }
+    },
+    {
+      "id": "dev-00-39",
+      "group": "asr_noise",
+      "text": "要是以后真组乐队，我可能参加排链，不过目前只是随口设想。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.05610368028283119,
+        "schedule": 0.7985401749610901
+      }
+    },
+    {
+      "id": "dev-01-00",
+      "group": "assist_explicit",
+      "text": "眼镜助手，请解释博物馆说明牌上的“临时闭展”是什么意思。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9972527623176575,
+        "schedule": 0.2674559950828552
+      }
+    },
+    {
+      "id": "dev-01-01",
+      "group": "assist_explicit",
+      "text": "帮我把园艺手册里的三点五升换算成大约多少毫升。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9867321848869324,
+        "schedule": 0.11245401203632355
+      }
+    },
+    {
+      "id": "dev-01-02",
+      "group": "assist_explicit",
+      "text": "请告诉我体检报告中空腹血糖和餐后血糖有什么区别。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.4940493106842041,
+        "schedule": 0.0017287975642830133
+      }
+    },
+    {
+      "id": "dev-01-03",
+      "group": "assist_explicit",
+      "text": "眼镜助手，教我怎么把朋友聚会的合照调亮一些。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9691209197044373,
+        "schedule": 0.011620407924056053
+      }
+    },
+    {
+      "id": "dev-01-04",
+      "group": "assist_question",
+      "text": "上面写的“策展人导赏”到底是什么意思，能直接进去吗？",
+      "context": [
+        "我正在博物馆入口查看今天的活动牌。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00391175365075469,
+        "schedule": 0.04895590990781784
+      }
+    },
+    {
+      "id": "dev-01-05",
+      "group": "assist_question",
+      "text": "这些白点是在长虫吗，现在应该先剪叶子还是先隔离？",
+      "context": [
+        "我正对着阳台花盆检查叶片背面。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.45007991790771484,
+        "schedule": 0.3867652416229248
+      }
+    },
+    {
+      "id": "dev-01-06",
+      "group": "assist_question",
+      "text": "这里的数值单位和旁边不一样，应该怎么比较才准确？",
+      "context": [
+        "我正在看刚拿到的两页体检结果。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2544611990451813,
+        "schedule": 2.7563384719542228e-05
+      }
+    },
+    {
+      "id": "dev-01-07",
+      "group": "assist_question",
+      "text": "这句话是让大家各自带菜，还是到了以后一起点餐？",
+      "context": [
+        "朋友群里刚发来一句“今晚吃的各自准备”。"
+      ],
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9755579233169556,
+        "schedule": 0.3066616952419281
+      }
+    },
+    {
+      "id": "dev-01-08",
+      "group": "chat",
+      "text": "博物馆大厅那面光影墙变化得很慢，看久了反而特别安静。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.12659503519535065,
+        "schedule": 0.004237241577357054
+      }
+    },
+    {
+      "id": "dev-01-09",
+      "group": "chat",
+      "text": "这次园艺展的多肉配色真大胆，我一路看下来心情很好。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.11746689677238464,
+        "schedule": 0.19368477165699005
+      }
+    },
+    {
+      "id": "dev-01-10",
+      "group": "chat",
+      "text": "体检前为什么总觉得饿呢，大概是越不能吃越惦记吧。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6073989272117615,
+        "schedule": 0.005735139828175306
+      }
+    },
+    {
+      "id": "dev-01-11",
+      "group": "chat",
+      "text": "朋友们聚在一起聊旧事，话题绕来绕去又回到了学生时代。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0006323695997707546,
+        "schedule": 0.00821447093039751
+      }
+    },
+    {
+      "id": "dev-01-12",
+      "group": "confirmed",
+      "text": "本周日上午十点，我确定参加博物馆的陶俑修复体验活动。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.003599173156544566,
+        "schedule": 0.48541581630706787
+      }
+    },
+    {
+      "id": "dev-01-13",
+      "group": "confirmed",
+      "text": "明早七点半我会去体检中心完成已经预约好的基础检查。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.03783351182937622,
+        "schedule": 0.7854352593421936
+      }
+    },
+    {
+      "id": "dev-01-14",
+      "group": "confirmed",
+      "text": "周五晚上七点，我要参加朋友们定好的火锅聚会。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.006897080689668655,
+        "schedule": 0.8147302865982056
+      }
+    },
+    {
+      "id": "dev-01-15",
+      "group": "confirmed",
+      "text": "周六上午九点我已报名参加社区花园的春季栽培课。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.49414896965026855,
+        "schedule": 0.9664549827575684
+      }
+    },
+    {
+      "id": "dev-01-16",
+      "group": "schedule_request",
+      "text": "请提醒我周日下午两点去博物馆参加已经报名的版画工坊。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.5062524676322937,
+        "schedule": 0.9154441356658936
+      }
+    },
+    {
+      "id": "dev-01-17",
+      "group": "schedule_request",
+      "text": "帮我记下周三早上八点参加社区园艺换盆实践课。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9152448177337646,
+        "schedule": 0.9945202469825745
+      }
+    },
+    {
+      "id": "dev-01-18",
+      "group": "schedule_request",
+      "text": "我已确认下周一上午九点做年度体检，替我设个提醒。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9009220600128174,
+        "schedule": 0.9999904632568359
+      }
+    },
+    {
+      "id": "dev-01-19",
+      "group": "schedule_request",
+      "text": "记一下周六晚上六点半的朋友聚餐，我已经答应会到场。",
+      "context": [],
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.05879746004939079,
+        "schedule": 0.7771961688995361
+      }
+    },
+    {
+      "id": "dev-01-20",
+      "group": "hypothetical",
+      "text": "要是博物馆周末还有夜游活动，我也许会考虑去看看。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.059336185455322266,
+        "schedule": 0.10617613792419434
+      }
+    },
+    {
+      "id": "dev-01-21",
+      "group": "hypothetical",
+      "text": "我还没决定要不要报名园艺讲座，得先看看那天忙不忙。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.055846069008111954,
+        "schedule": 0.07376114279031754
+      }
+    },
+    {
+      "id": "dev-01-22",
+      "group": "hypothetical",
+      "text": "朋友开玩笑说：“明天八点全员体检”，那不是真安排。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.09825950115919113,
+        "schedule": 0.13001982867717743
+      }
+    },
+    {
+      "id": "dev-01-23",
+      "group": "hypothetical",
+      "text": "排练时我的台词是“提醒我晚上去聚会”，并不是在下指令。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.006981463637202978,
+        "schedule": 0.22768425941467285
+      }
+    },
+    {
+      "id": "dev-01-24",
+      "group": "cancellation",
+      "text": "原定周日下午参加的博物馆摄影活动已经取消，我不会去了。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0017333530122414231,
+        "schedule": 0.0016310004284605384
+      }
+    },
+    {
+      "id": "dev-01-25",
+      "group": "cancellation",
+      "text": "我退出了周六的园艺交流会，那天不再过去参加。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.041585247963666916,
+        "schedule": 0.23600034415721893
+      }
+    },
+    {
+      "id": "dev-01-26",
+      "group": "cancellation",
+      "text": "下周二的体检预约已由机构取消，目前没有新的检查时间。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.20354393124580383,
+        "schedule": 0.3860408067703247
+      }
+    },
+    {
+      "id": "dev-01-27",
+      "group": "cancellation",
+      "text": "今晚那场朋友聚会我已经明确不参加，其他人的计划照旧。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.5049847364425659,
+        "schedule": 0.00010330665099900216
+      }
+    },
+    {
+      "id": "dev-01-28",
+      "group": "other_person",
+      "text": "室友周六下午要参加博物馆讲座，我不会陪他一起去。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0006580300396308303,
+        "schedule": 0.05500410869717598
+      }
+    },
+    {
+      "id": "dev-01-29",
+      "group": "other_person",
+      "text": "邻居明早九点参加社区园艺培训，这件事和我的安排无关。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9828144311904907,
+        "schedule": 0.5296483039855957
+      }
+    },
+    {
+      "id": "dev-01-30",
+      "group": "other_person",
+      "text": "同事下周三上午去做入职体检，不是我去，也没让我代办。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1768200695514679,
+        "schedule": 0.010432250797748566
+      }
+    },
+    {
+      "id": "dev-01-31",
+      "group": "other_person",
+      "text": "两位朋友周五晚上约在咖啡馆聚会，我没有参与这次碰面。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00019033144053537399,
+        "schedule": 1.1913979506061878e-05
+      }
+    },
+    {
+      "id": "dev-01-32",
+      "group": "correction",
+      "text": "刚才日期说错了，我确定参加的是周日下午两点的博物馆导览。",
+      "context": [
+        "我周六下午两点会参加博物馆导览。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.0236660148948431,
+        "schedule": 0.9989823698997498
+      }
+    },
+    {
+      "id": "dev-01-33",
+      "group": "correction",
+      "text": "园艺课改正为周四早上八点，我会按这个新时间到场。",
+      "context": [
+        "我已确认周二早上八点参加园艺栽培课。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.27449682354927063,
+        "schedule": 0.9999996423721313
+      }
+    },
+    {
+      "id": "dev-01-34",
+      "group": "correction",
+      "text": "不是上午，我的体检复查确定在下周一下午两点半进行。",
+      "context": [
+        "下周一上午十点我会去做体检复查。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9461898803710938,
+        "schedule": 0.9999779462814331
+      }
+    },
+    {
+      "id": "dev-01-35",
+      "group": "correction",
+      "text": "朋友聚餐改正为周五晚上七点在西门集合，我确定参加。",
+      "context": [
+        "周五晚上六点，我们在东门集合参加朋友聚餐。"
+      ],
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.05888459458947182,
+        "schedule": 0.9994729161262512
+      }
+    },
+    {
+      "id": "dev-01-36",
+      "group": "asr_noise",
+      "text": "博物馆那场导揽已经取消，我今天不会再过去，正好在家休息。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.29961246252059937,
+        "schedule": 0.028739167377352715
+      }
+    },
+    {
+      "id": "dev-01-37",
+      "group": "asr_noise",
+      "text": "如果周末有空，我也许会种点薄和，不过现在完全没决定。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0009241991792805493,
+        "schedule": 0.00027595998835749924
+      }
+    },
+    {
+      "id": "dev-01-38",
+      "group": "asr_noise",
+      "text": "体检单上的胆固纯数值看着挺复杂，我只是随口感叹一下。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.24844160676002502,
+        "schedule": 0.08118150383234024
+      }
+    },
+    {
+      "id": "dev-01-39",
+      "group": "asr_noise",
+      "text": "朋友们说聚会改到路台，我听完觉得有趣，但我本来就不参加。",
+      "context": [],
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0022431432735174894,
+        "schedule": 0.01566173881292343
+      }
+    }
+  ],
+  "executions": [
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 17,
+      "server_evaluation_seconds": 0.8258350412361324
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 18,
+      "server_evaluation_seconds": 0.6542905839160085
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 19,
+      "server_evaluation_seconds": 0.6337302499450743
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 20,
+      "server_evaluation_seconds": 0.6380437919870019
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 21,
+      "server_evaluation_seconds": 0.6834555417299271
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 22,
+      "server_evaluation_seconds": 0.6727710417471826
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 23,
+      "server_evaluation_seconds": 0.6423380421474576
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 24,
+      "server_evaluation_seconds": 0.6773080839775503
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 25,
+      "server_evaluation_seconds": 0.646949874702841
+    },
+    {
+      "device": "mlx:gpu",
+      "backend": "mlx",
+      "parameter_storage": "bfloat16",
+      "quantization": {
+        "bits": 8,
+        "group_size": 64,
+        "mode": "affine",
+        "scope": "backbone Linear+Embedding"
+      },
+      "peak_memory_gb": 1.6877476,
+      "precision": "bf16",
+      "forward_autocast": "native bfloat16 backbone, float32 heads",
+      "states": 8,
+      "questions": 16,
+      "candidate_paths": 16,
+      "forward_passes": 1,
+      "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+      "autoregressive_decode_steps": 0,
+      "prefix_sharing": true,
+      "max_length": 2048,
+      "disable_native_triton": null,
+      "network_model_calls": 0,
+      "persistent_model_load_count": 1,
+      "inference_call_index": 26,
+      "server_evaluation_seconds": 0.7000533333048224
+    }
+  ],
+  "rawResponses": [
+    {
+      "repeat": 1,
+      "firstCase": 0,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 17,
+          "server_evaluation_seconds": 0.8258350412361324
+        },
+        "states": [
+          {
+            "id": "dev-00-00",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5746684670448303,
+                  "true": 0.42533156275749207
+                },
+                "p_true": 0.42533156275749207,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.025452136993408203,
+                  "true": 0.9745478630065918
+                },
+                "p_true": 0.9745478630065918,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-01",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.43007391691207886,
+                  "true": 0.5699260234832764
+                },
+                "p_true": 0.5699260234832764,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.00023159990087151527,
+                  "true": 0.9997684359550476
+                },
+                "p_true": 0.9997684359550476,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-02",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9504518508911133,
+                  "true": 0.04954814538359642
+                },
+                "p_true": 0.04954814538359642,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.008737465366721153,
+                  "true": 0.9912625551223755
+                },
+                "p_true": 0.9912625551223755,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-03",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.15401582419872284,
+                  "true": 0.845984160900116
+                },
+                "p_true": 0.845984160900116,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.0007538052159361541,
+                  "true": 0.9992462396621704
+                },
+                "p_true": 0.9992462396621704,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-04",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9975449442863464,
+                  "true": 0.002455067588016391
+                },
+                "p_true": 0.002455067588016391,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.302085816860199,
+                  "true": 0.6979142427444458
+                },
+                "p_true": 0.6979142427444458,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-05",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.41351646184921265,
+                  "true": 0.5864835381507874
+                },
+                "p_true": 0.5864835381507874,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.00041269263601861894,
+                  "true": 0.99958735704422
+                },
+                "p_true": 0.99958735704422,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-06",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999698400497437,
+                  "true": 3.0192803023965098e-05
+                },
+                "p_true": 3.0192803023965098e-05,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.002424979582428932,
+                  "true": 0.9975749850273132
+                },
+                "p_true": 0.9975749850273132,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-07",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.830778181552887,
+                  "true": 0.1692218780517578
+                },
+                "p_true": 0.1692218780517578,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.00040570335113443434,
+                  "true": 0.9995942711830139
+                },
+                "p_true": 0.9995942711830139,
+                "value": true
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 8,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 18,
+          "server_evaluation_seconds": 0.6542905839160085
+        },
+        "states": [
+          {
+            "id": "dev-00-08",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9848341941833496,
+                  "true": 0.015165758319199085
+                },
+                "p_true": 0.015165758319199085,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6814932823181152,
+                  "true": 0.3185066878795624
+                },
+                "p_true": 0.3185066878795624,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-09",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9679858684539795,
+                  "true": 0.032014183700084686
+                },
+                "p_true": 0.032014183700084686,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9853126406669617,
+                  "true": 0.014687317423522472
+                },
+                "p_true": 0.014687317423522472,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-10",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9836807250976562,
+                  "true": 0.016319263726472855
+                },
+                "p_true": 0.016319263726472855,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5900518298149109,
+                  "true": 0.4099481999874115
+                },
+                "p_true": 0.4099481999874115,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-11",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9959253072738647,
+                  "true": 0.004074756987392902
+                },
+                "p_true": 0.004074756987392902,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.27626892924308777,
+                  "true": 0.7237311005592346
+                },
+                "p_true": 0.7237311005592346,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-12",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.011501815170049667,
+                  "true": 0.9884981513023376
+                },
+                "p_true": 0.9884981513023376,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8238471746444702,
+                  "true": 0.17615285515785217
+                },
+                "p_true": 0.17615285515785217,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-13",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.0011415533954277635,
+                  "true": 0.9988584518432617
+                },
+                "p_true": 0.9988584518432617,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8196552395820618,
+                  "true": 0.18034480512142181
+                },
+                "p_true": 0.18034480512142181,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-14",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.043113138526678085,
+                  "true": 0.956886887550354
+                },
+                "p_true": 0.956886887550354,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7845209836959839,
+                  "true": 0.2154790759086609
+                },
+                "p_true": 0.2154790759086609,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-15",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.0007088217535056174,
+                  "true": 0.999291181564331
+                },
+                "p_true": 0.999291181564331,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5270631313323975,
+                  "true": 0.47293686866760254
+                },
+                "p_true": 0.47293686866760254,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 16,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 19,
+          "server_evaluation_seconds": 0.6337302499450743
+        },
+        "states": [
+          {
+            "id": "dev-00-16",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.00044217437971383333,
+                  "true": 0.9995577931404114
+                },
+                "p_true": 0.9995577931404114,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.2721964418888092,
+                  "true": 0.7278035283088684
+                },
+                "p_true": 0.7278035283088684,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-17",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.00910751149058342,
+                  "true": 0.9908924102783203
+                },
+                "p_true": 0.9908924102783203,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.09228115528821945,
+                  "true": 0.9077187776565552
+                },
+                "p_true": 0.9077187776565552,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-18",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6904861330986023,
+                  "true": 0.3095138967037201
+                },
+                "p_true": 0.3095138967037201,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.011756794527173042,
+                  "true": 0.9882432818412781
+                },
+                "p_true": 0.9882432818412781,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-19",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9011173844337463,
+                  "true": 0.09888267517089844
+                },
+                "p_true": 0.09888267517089844,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6812237501144409,
+                  "true": 0.31877627968788147
+                },
+                "p_true": 0.31877627968788147,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-20",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.3577861785888672,
+                  "true": 0.642213761806488
+                },
+                "p_true": 0.642213761806488,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9829766750335693,
+                  "true": 0.01702331379055977
+                },
+                "p_true": 0.01702331379055977,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-21",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.08881520479917526,
+                  "true": 0.9111848473548889
+                },
+                "p_true": 0.9111848473548889,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9790524840354919,
+                  "true": 0.02094753086566925
+                },
+                "p_true": 0.02094753086566925,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-22",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9962255954742432,
+                  "true": 0.0037744189612567425
+                },
+                "p_true": 0.0037744189612567425,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8727077841758728,
+                  "true": 0.127292200922966
+                },
+                "p_true": 0.127292200922966,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-23",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9170052409172058,
+                  "true": 0.0829947218298912
+                },
+                "p_true": 0.0829947218298912,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8927246928215027,
+                  "true": 0.10727535933256149
+                },
+                "p_true": 0.10727535933256149,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 24,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 20,
+          "server_evaluation_seconds": 0.6380437919870019
+        },
+        "states": [
+          {
+            "id": "dev-00-24",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9995911717414856,
+                  "true": 0.00040878338040784
+                },
+                "p_true": 0.00040878338040784,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9978602528572083,
+                  "true": 0.002139698015525937
+                },
+                "p_true": 0.002139698015525937,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-25",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9876365065574646,
+                  "true": 0.01236350554972887
+                },
+                "p_true": 0.01236350554972887,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8681175708770752,
+                  "true": 0.1318824142217636
+                },
+                "p_true": 0.1318824142217636,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-26",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9870821237564087,
+                  "true": 0.012917894870042801
+                },
+                "p_true": 0.012917894870042801,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9957245588302612,
+                  "true": 0.004275428596884012
+                },
+                "p_true": 0.004275428596884012,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-27",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.999893069267273,
+                  "true": 0.00010689418559195474
+                },
+                "p_true": 0.00010689418559195474,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9607986211776733,
+                  "true": 0.039201315492391586
+                },
+                "p_true": 0.039201315492391586,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-28",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9488940834999084,
+                  "true": 0.051105864346027374
+                },
+                "p_true": 0.051105864346027374,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.995145857334137,
+                  "true": 0.004854150582104921
+                },
+                "p_true": 0.004854150582104921,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-29",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.44642025232315063,
+                  "true": 0.5535797476768494
+                },
+                "p_true": 0.5535797476768494,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9706571102142334,
+                  "true": 0.029342912137508392
+                },
+                "p_true": 0.029342912137508392,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-30",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9989651441574097,
+                  "true": 0.0010348053183406591
+                },
+                "p_true": 0.0010348053183406591,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9905970692634583,
+                  "true": 0.009402901865541935
+                },
+                "p_true": 0.009402901865541935,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-31",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9430476427078247,
+                  "true": 0.056952353566884995
+                },
+                "p_true": 0.056952353566884995,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.929036021232605,
+                  "true": 0.07096394151449203
+                },
+                "p_true": 0.07096394151449203,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 32,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 21,
+          "server_evaluation_seconds": 0.6834555417299271
+        },
+        "states": [
+          {
+            "id": "dev-00-32",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 7.60204841299128e-08,
+                  "true": 0.9999998807907104
+                },
+                "p_true": 0.9999998807907104,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.00013660623517353088,
+                  "true": 0.9998633861541748
+                },
+                "p_true": 0.9998633861541748,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-33",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 1.3907374600899414e-12,
+                  "true": 1.0
+                },
+                "p_true": 1.0,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.00012793586938641965,
+                  "true": 0.999872088432312
+                },
+                "p_true": 0.999872088432312,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-34",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 2.1448327558459823e-09,
+                  "true": 1.0
+                },
+                "p_true": 1.0,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.0694231167435646,
+                  "true": 0.9305768609046936
+                },
+                "p_true": 0.9305768609046936,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-00-35",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8653887510299683,
+                  "true": 0.13461120426654816
+                },
+                "p_true": 0.13461120426654816,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998019337654114,
+                  "true": 0.00019806972704827785
+                },
+                "p_true": 0.00019806972704827785,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-36",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8439769744873047,
+                  "true": 0.15602301061153412
+                },
+                "p_true": 0.15602301061153412,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8013690114021301,
+                  "true": 0.19863101840019226
+                },
+                "p_true": 0.19863101840019226,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-37",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9988875985145569,
+                  "true": 0.0011124161537736654
+                },
+                "p_true": 0.0011124161537736654,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8621359467506409,
+                  "true": 0.13786403834819794
+                },
+                "p_true": 0.13786403834819794,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-38",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9722108840942383,
+                  "true": 0.027789127081632614
+                },
+                "p_true": 0.027789127081632614,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9964789748191833,
+                  "true": 0.0035209879279136658
+                },
+                "p_true": 0.0035209879279136658,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-00-39",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.2014598250389099,
+                  "true": 0.7985401749610901
+                },
+                "p_true": 0.7985401749610901,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9438963532447815,
+                  "true": 0.05610368028283119
+                },
+                "p_true": 0.05610368028283119,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 40,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 22,
+          "server_evaluation_seconds": 0.6727710417471826
+        },
+        "states": [
+          {
+            "id": "dev-01-00",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7325440049171448,
+                  "true": 0.2674559950828552
+                },
+                "p_true": 0.2674559950828552,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.0027472355868667364,
+                  "true": 0.9972527623176575
+                },
+                "p_true": 0.9972527623176575,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-01",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8875460028648376,
+                  "true": 0.11245401203632355
+                },
+                "p_true": 0.11245401203632355,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.013267768546938896,
+                  "true": 0.9867321848869324
+                },
+                "p_true": 0.9867321848869324,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-02",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9982712268829346,
+                  "true": 0.0017287975642830133
+                },
+                "p_true": 0.0017287975642830133,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5059506297111511,
+                  "true": 0.4940493106842041
+                },
+                "p_true": 0.4940493106842041,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-03",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9883795976638794,
+                  "true": 0.011620407924056053
+                },
+                "p_true": 0.011620407924056053,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.030879097059369087,
+                  "true": 0.9691209197044373
+                },
+                "p_true": 0.9691209197044373,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-04",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9510440826416016,
+                  "true": 0.04895590990781784
+                },
+                "p_true": 0.04895590990781784,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9960882663726807,
+                  "true": 0.00391175365075469
+                },
+                "p_true": 0.00391175365075469,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-05",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6132346987724304,
+                  "true": 0.3867652416229248
+                },
+                "p_true": 0.3867652416229248,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5499201416969299,
+                  "true": 0.45007991790771484
+                },
+                "p_true": 0.45007991790771484,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-06",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999724626541138,
+                  "true": 2.7563384719542228e-05
+                },
+                "p_true": 2.7563384719542228e-05,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7455387711524963,
+                  "true": 0.2544611990451813
+                },
+                "p_true": 0.2544611990451813,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-07",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6933383941650391,
+                  "true": 0.3066616952419281
+                },
+                "p_true": 0.3066616952419281,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.024442097172141075,
+                  "true": 0.9755579233169556
+                },
+                "p_true": 0.9755579233169556,
+                "value": true
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 48,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 23,
+          "server_evaluation_seconds": 0.6423380421474576
+        },
+        "states": [
+          {
+            "id": "dev-01-08",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9957627654075623,
+                  "true": 0.004237241577357054
+                },
+                "p_true": 0.004237241577357054,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8734049201011658,
+                  "true": 0.12659503519535065
+                },
+                "p_true": 0.12659503519535065,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-09",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8063151836395264,
+                  "true": 0.19368477165699005
+                },
+                "p_true": 0.19368477165699005,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8825331330299377,
+                  "true": 0.11746689677238464
+                },
+                "p_true": 0.11746689677238464,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-10",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9942649006843567,
+                  "true": 0.005735139828175306
+                },
+                "p_true": 0.005735139828175306,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.39260104298591614,
+                  "true": 0.6073989272117615
+                },
+                "p_true": 0.6073989272117615,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-11",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.99178546667099,
+                  "true": 0.00821447093039751
+                },
+                "p_true": 0.00821447093039751,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9993676543235779,
+                  "true": 0.0006323695997707546
+                },
+                "p_true": 0.0006323695997707546,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-12",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5145842432975769,
+                  "true": 0.48541581630706787
+                },
+                "p_true": 0.48541581630706787,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9964008331298828,
+                  "true": 0.003599173156544566
+                },
+                "p_true": 0.003599173156544566,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-13",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.21456477046012878,
+                  "true": 0.7854352593421936
+                },
+                "p_true": 0.7854352593421936,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9621664881706238,
+                  "true": 0.03783351182937622
+                },
+                "p_true": 0.03783351182937622,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-14",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.18526966869831085,
+                  "true": 0.8147302865982056
+                },
+                "p_true": 0.8147302865982056,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9931029081344604,
+                  "true": 0.006897080689668655
+                },
+                "p_true": 0.006897080689668655,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-15",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.03354501724243164,
+                  "true": 0.9664549827575684
+                },
+                "p_true": 0.9664549827575684,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.5058509707450867,
+                  "true": 0.49414896965026855
+                },
+                "p_true": 0.49414896965026855,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 56,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 24,
+          "server_evaluation_seconds": 0.6773080839775503
+        },
+        "states": [
+          {
+            "id": "dev-01-16",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.08455593138933182,
+                  "true": 0.9154441356658936
+                },
+                "p_true": 0.9154441356658936,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4937475919723511,
+                  "true": 0.5062524676322937
+                },
+                "p_true": 0.5062524676322937,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-17",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.005479774903506041,
+                  "true": 0.9945202469825745
+                },
+                "p_true": 0.9945202469825745,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.08475516736507416,
+                  "true": 0.9152448177337646
+                },
+                "p_true": 0.9152448177337646,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-18",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 9.513983968645334e-06,
+                  "true": 0.9999904632568359
+                },
+                "p_true": 0.9999904632568359,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.09907793998718262,
+                  "true": 0.9009220600128174
+                },
+                "p_true": 0.9009220600128174,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-19",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.22280383110046387,
+                  "true": 0.7771961688995361
+                },
+                "p_true": 0.7771961688995361,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9412025809288025,
+                  "true": 0.05879746004939079
+                },
+                "p_true": 0.05879746004939079,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-20",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8938238024711609,
+                  "true": 0.10617613792419434
+                },
+                "p_true": 0.10617613792419434,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9406638741493225,
+                  "true": 0.059336185455322266
+                },
+                "p_true": 0.059336185455322266,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-21",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9262388348579407,
+                  "true": 0.07376114279031754
+                },
+                "p_true": 0.07376114279031754,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9441539645195007,
+                  "true": 0.055846069008111954
+                },
+                "p_true": 0.055846069008111954,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-22",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8699801564216614,
+                  "true": 0.13001982867717743
+                },
+                "p_true": 0.13001982867717743,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9017404913902283,
+                  "true": 0.09825950115919113
+                },
+                "p_true": 0.09825950115919113,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-23",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7723157405853271,
+                  "true": 0.22768425941467285
+                },
+                "p_true": 0.22768425941467285,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9930184483528137,
+                  "true": 0.006981463637202978
+                },
+                "p_true": 0.006981463637202978,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 64,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 25,
+          "server_evaluation_seconds": 0.646949874702841
+        },
+        "states": [
+          {
+            "id": "dev-01-24",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.998369038105011,
+                  "true": 0.0016310004284605384
+                },
+                "p_true": 0.0016310004284605384,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9982665777206421,
+                  "true": 0.0017333530122414231
+                },
+                "p_true": 0.0017333530122414231,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-25",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7639997005462646,
+                  "true": 0.23600034415721893
+                },
+                "p_true": 0.23600034415721893,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9584147930145264,
+                  "true": 0.041585247963666916
+                },
+                "p_true": 0.041585247963666916,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-26",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.6139591932296753,
+                  "true": 0.3860408067703247
+                },
+                "p_true": 0.3860408067703247,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7964560389518738,
+                  "true": 0.20354393124580383
+                },
+                "p_true": 0.20354393124580383,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-27",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998966455459595,
+                  "true": 0.00010330665099900216
+                },
+                "p_true": 0.00010330665099900216,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.49501535296440125,
+                  "true": 0.5049847364425659
+                },
+                "p_true": 0.5049847364425659,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-28",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9449959397315979,
+                  "true": 0.05500410869717598
+                },
+                "p_true": 0.05500410869717598,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9993419051170349,
+                  "true": 0.0006580300396308303
+                },
+                "p_true": 0.0006580300396308303,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-29",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.4703516960144043,
+                  "true": 0.5296483039855957
+                },
+                "p_true": 0.5296483039855957,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.017185566946864128,
+                  "true": 0.9828144311904907
+                },
+                "p_true": 0.9828144311904907,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-30",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9895676970481873,
+                  "true": 0.010432250797748566
+                },
+                "p_true": 0.010432250797748566,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.8231799006462097,
+                  "true": 0.1768200695514679
+                },
+                "p_true": 0.1768200695514679,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-31",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9999880790710449,
+                  "true": 1.1913979506061878e-05
+                },
+                "p_true": 1.1913979506061878e-05,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9998096823692322,
+                  "true": 0.00019033144053537399
+                },
+                "p_true": 0.00019033144053537399,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "repeat": 1,
+      "firstCase": 72,
+      "response": {
+        "schema_version": "openjev-toy-inference-v1",
+        "checkpoint": {
+          "base_model": "Qwen/Qwen3-0.6B",
+          "base_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+          "set_head": "attention"
+        },
+        "temperature": {
+          "value": 1.0,
+          "fitted_by_this_command": false,
+          "note": "显式应用给定标量；默认1不表示模型已校准。"
+        },
+        "execution": {
+          "device": "mlx:gpu",
+          "backend": "mlx",
+          "parameter_storage": "bfloat16",
+          "quantization": {
+            "bits": 8,
+            "group_size": 64,
+            "mode": "affine",
+            "scope": "backbone Linear+Embedding"
+          },
+          "peak_memory_gb": 1.6877476,
+          "precision": "bf16",
+          "forward_autocast": "native bfloat16 backbone, float32 heads",
+          "states": 8,
+          "questions": 16,
+          "candidate_paths": 16,
+          "forward_passes": 1,
+          "batch_questions_limit": "length-bucketed, 8192 padded tokens",
+          "autoregressive_decode_steps": 0,
+          "prefix_sharing": true,
+          "max_length": 2048,
+          "disable_native_triton": null,
+          "network_model_calls": 0,
+          "persistent_model_load_count": 1,
+          "inference_call_index": 26,
+          "server_evaluation_seconds": 0.7000533333048224
+        },
+        "states": [
+          {
+            "id": "dev-01-32",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.0010176448849961162,
+                  "true": 0.9989823698997498
+                },
+                "p_true": 0.9989823698997498,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9763339757919312,
+                  "true": 0.0236660148948431
+                },
+                "p_true": 0.0236660148948431,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-33",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 3.0055068123147066e-07,
+                  "true": 0.9999996423721313
+                },
+                "p_true": 0.9999996423721313,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7255032062530518,
+                  "true": 0.27449682354927063
+                },
+                "p_true": 0.27449682354927063,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-34",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 2.2069232727517374e-05,
+                  "true": 0.9999779462814331
+                },
+                "p_true": 0.9999779462814331,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.053810134530067444,
+                  "true": 0.9461898803710938
+                },
+                "p_true": 0.9461898803710938,
+                "value": true
+              }
+            }
+          },
+          {
+            "id": "dev-01-35",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.000527125783264637,
+                  "true": 0.9994729161262512
+                },
+                "p_true": 0.9994729161262512,
+                "value": true
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9411154389381409,
+                  "true": 0.05888459458947182
+                },
+                "p_true": 0.05888459458947182,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-36",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9712608456611633,
+                  "true": 0.028739167377352715
+                },
+                "p_true": 0.028739167377352715,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7003875374794006,
+                  "true": 0.29961246252059937
+                },
+                "p_true": 0.29961246252059937,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-37",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9997239708900452,
+                  "true": 0.00027595998835749924
+                },
+                "p_true": 0.00027595998835749924,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9990757703781128,
+                  "true": 0.0009241991792805493
+                },
+                "p_true": 0.0009241991792805493,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-38",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.918818473815918,
+                  "true": 0.08118150383234024
+                },
+                "p_true": 0.08118150383234024,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.7515584230422974,
+                  "true": 0.24844160676002502
+                },
+                "p_true": 0.24844160676002502,
+                "value": false
+              }
+            }
+          },
+          {
+            "id": "dev-01-39",
+            "answers": {
+              "schedule": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9843382239341736,
+                  "true": 0.01566173881292343
+                },
+                "p_true": 0.01566173881292343,
+                "value": false
+              },
+              "assist": {
+                "type": "boolean",
+                "probabilities": {
+                  "false": 0.9977568984031677,
+                  "true": 0.0022431432735174894
+                },
+                "p_true": 0.0022431432735174894,
+                "value": false
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Hand-authored small synthetic suite; no held-out production distribution or calibration.",
+    "Adaptation metadata is recorded; synthetic held-out performance does not establish production calibration.",
+    "This evaluates classification only, not LLM extraction, calendar writes or glasses operations."
+  ],
+  "suiteSha256": "d0ebbacc1c16c8885fc5aaa0e01b127d6a7e6aeae2eff4f891d672c56ad2b73e"
+}

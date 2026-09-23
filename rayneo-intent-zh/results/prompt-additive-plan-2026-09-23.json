@@ -1,0 +1,29 @@
+{
+  "createdAt": "2026-09-23T01:55:00.410141+00:00",
+  "previousDevelopmentFinding": "Three complete rewrites materially hurt developer metrics for v1/v2; this final fourth candidate appends a short guard to the original trained prompt.",
+  "model": "nanojev-intent-zh-lora-head-v2",
+  "threshold": 0.85,
+  "candidate": {
+    "assist": {
+      "type": "boolean",
+      "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。只判断当前一句；已作出的决定或单纯更正不算求助。"
+    },
+    "schedule": {
+      "type": "boolean",
+      "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。只判断当前一句；没有确定参加意图的时间数字不算。"
+    }
+  },
+  "baseline": {
+    "assist": {
+      "type": "boolean",
+      "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。"
+    },
+    "schedule": {
+      "type": "boolean",
+      "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。"
+    }
+  },
+  "promptTemplatesSha256": "3ef86a49a55fcc48dc98516b6fc4369ffaeeb958325f7d3f91d00bd2eb7a56a5",
+  "selectionRule": "Compare on dev80 only. For both intents require candidate TP >= baseline TP and FP <= baseline FP, with at least one greater TP. No threshold change. If no improvement, keep baseline.",
+  "regressionBoundary": "The previously exposed 52-case set is not used unless a candidate first passes the dev-only rule."
+}

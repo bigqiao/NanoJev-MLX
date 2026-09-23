@@ -1,0 +1,72 @@
+{
+  "synthetic": true,
+  "splitBeforeGeneration": true,
+  "testGeneration": "Separate hand-authored held-out fixture; never submitted to the training optimizer or model-selection loss.",
+  "labels": "Conditioned synthetic categories; not independently human-annotated production ground truth.",
+  "provenance": [
+    {
+      "split": "dev",
+      "batch": 0,
+      "model": "gpt-5.6-sol",
+      "responseId": "resp_07c264cdf6074e56016ab1eabbc29487d093a8e4c22019dbdd",
+      "domains": "运动训练、诊所预约、志愿活动、音乐排练",
+      "promptSha256": "faba862a8bf78912ab57c614c1ad53aaf545836808b9574a3486448b93310daf"
+    },
+    {
+      "split": "dev",
+      "batch": 1,
+      "model": "gpt-5.6-sol",
+      "responseId": "resp_0f673dda4abd5636016ab1eacf922487d08b98af3495af5d30",
+      "domains": "博物馆活动、园艺、体检、朋友聚会",
+      "promptSha256": "e15075c42a07aa839c4b1b7261285404f43509f5614a8e922eea98f6ccea4ae2"
+    },
+    {
+      "split": "train",
+      "batch": 0,
+      "model": "gpt-5.6-sol",
+      "responseId": "resp_0b8d426eaadebdc7016ab1ea05a5a887d0b314eac94d0f1e6d",
+      "domains": "家庭做饭、家电设置、日常购物、清洁收纳",
+      "promptSha256": "fe8af0ac7f720d06883cb1f2acee6b1c4e9f3f9bb714adf057142618dc459508"
+    },
+    {
+      "split": "train",
+      "batch": 1,
+      "model": "gpt-5.6-sol",
+      "responseId": "resp_03c5f4a1826242d7016ab1ea05944887d09a003dd1c5f3e818",
+      "domains": "办公室协作、软件学习、同事闲聊、项目协调",
+      "promptSha256": "958bc520edfdab57e97e2df09fbdc95cc29edb0a9bcc11e6b9400357cdc9045d"
+    },
+    {
+      "split": "train",
+      "batch": 2,
+      "model": "gpt-5.6-sol",
+      "responseId": "resp_05738a292fe78ce3016ab1ea05b60887d0903516189d5d84c6",
+      "domains": "通勤、散步、阅读、宠物照顾",
+      "promptSha256": "af2ab5acd0d90cf7bd6c12dbdd09d7e6c997d59acf6b1fddb8682edf27eb68be"
+    },
+    {
+      "split": "train",
+      "batch": 3,
+      "model": "gpt-5.6-sol",
+      "responseId": "resp_099528c93236a0c3016ab1ea61ca7487d0a7bd09de33f0ca16",
+      "domains": "院校学习、考试复习、社团活动、语言解释",
+      "promptSha256": "dde1ea8bd8be9627e15a5d6b924fc6fe6ee04eb289cf5c5a37bfe90b1e8bc906"
+    },
+    {
+      "split": "train",
+      "batch": 4,
+      "model": "gpt-5.6-sol",
+      "responseId": "resp_05bba01f71ff2a18016ab1ea7d9f4087d0be62ef1388958cc6",
+      "domains": "远程协作、手工维修、快递取件、公共交通",
+      "promptSha256": "76e6d1f2cab8f9e96eccddfa7d45e92fd2815e4e1830897dc9a2fcd8d46c159e"
+    },
+    {
+      "split": "train",
+      "batch": 5,
+      "model": "gpt-5.6-sol",
+      "responseId": "resp_05087c02e1f4c1c3016ab1ea96ecc087d0b73acebadb9c7f17",
+      "domains": "居家生活、电脑问题、午餐约定、数字换算",
+      "promptSha256": "5711341ac9609bb7929a24c8c9601061929716c6e53f7443551e03f013d090d1"
+    }
+  ]
+}

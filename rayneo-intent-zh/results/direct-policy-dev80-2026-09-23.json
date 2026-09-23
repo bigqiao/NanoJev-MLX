@@ -1,0 +1,62 @@
+{
+  "sourceSha256": "eb1013419a099aebbea91b22e6d90f8fe8f2819bd28d48d2d7b770ba557aa8b6",
+  "policySha256": "ad6cd640d02c91f7adeb1aa1d997ba101c2e437e9cab20b4c9e9b64a563c84b3",
+  "checkpointWeightsSha256": "4032c670cab8319130ec148beef14386aa518b09cc5196c08ef379cc5180726c",
+  "synthetic": true,
+  "suiteVersion": "zh-intent-v1",
+  "sampleCount": 80,
+  "threshold": 0.85,
+  "note": "Direct commands use backend explicitIntent; other samples use frozen NanoJev p_true at 0.85. This does not evaluate LLM, audio, or deployment.",
+  "metrics": {
+    "assist": {
+      "modelOnly": {
+        "tp": 14,
+        "fp": 1,
+        "fn": 10,
+        "tn": 55
+      },
+      "directThenModel": {
+        "tp": 24,
+        "fp": 1,
+        "fn": 0,
+        "tn": 55
+      }
+    },
+    "schedule": {
+      "modelOnly": {
+        "tp": 18,
+        "fp": 0,
+        "fn": 6,
+        "tn": 56
+      },
+      "directThenModel": {
+        "tp": 20,
+        "fp": 0,
+        "fn": 4,
+        "tn": 56
+      }
+    }
+  },
+  "directCaseIds": [
+    "dev-00-00",
+    "dev-00-01",
+    "dev-00-02",
+    "dev-00-03",
+    "dev-00-16",
+    "dev-00-17",
+    "dev-00-18",
+    "dev-00-19",
+    "dev-01-00",
+    "dev-01-01",
+    "dev-01-02",
+    "dev-01-03",
+    "dev-01-16",
+    "dev-01-17",
+    "dev-01-18",
+    "dev-01-19"
+  ],
+  "directFalsePositiveIds": {
+    "assist": [],
+    "schedule": []
+  }
+}

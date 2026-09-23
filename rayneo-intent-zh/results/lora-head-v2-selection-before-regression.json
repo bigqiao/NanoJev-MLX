@@ -1,0 +1,36 @@
+{
+  "createdAt": "2026-09-23T01:45:55.025298+00:00",
+  "selectionSplit": "dev80 only",
+  "criterion": "At the pre-existing 0.85 threshold, real API true positives increase for both intents without more dev false positives; lower dev BCE is secondary.",
+  "selected": true,
+  "selectedModel": "nanojev-intent-zh-lora-head-v2",
+  "threshold": 0.85,
+  "devComparison": {
+    "assist": {
+      "oldTp": 8,
+      "oldFp": 2,
+      "newTp": 14,
+      "newFp": 1
+    },
+    "schedule": {
+      "oldTp": 13,
+      "oldFp": 2,
+      "newTp": 18,
+      "newFp": 0
+    }
+  },
+  "baselineWeightsSha256": "dacb8030616ce9163d2a154cab15a8e21f89ba284b326a91e6a7a968ce72180b",
+  "candidateWeightsSha256": "4032c670cab8319130ec148beef14386aa518b09cc5196c08ef379cc5180726c",
+  "candidateRepeatedScoresIdentical": true,
+  "baseModelSelection": {
+    "loraBestStep": 360,
+    "loraDevBce": 0.33815459144724136,
+    "headBestEpoch": 105,
+    "headDevBce": 0.12153990566730499
+  },
+  "dataSha256": {
+    "train": "c43b725d564286e21b08eb86764e169df22feabf089a5d90387f3139492d8c8f",
+    "dev": "d0ebbacc1c16c8885fc5aaa0e01b127d6a7e6aeae2eff4f891d672c56ad2b73e"
+  },
+  "regressionBoundary": "The 52-case set was already evaluated on v1; it is used once on this candidate as a regression set, not as an untouched blind test or for threshold/model selection."
+}

@@ -1,0 +1,22 @@
+{
+  "createdAt": "2026-09-22T03:08:40.270539+00:00",
+  "selectedModel": "nanojev-intent-zh-lora-head-v1",
+  "criterion": "Minimum dev BCE; 52-case holdout not evaluated before this selection.",
+  "candidates": {
+    "nanojev-intent-zh-head-v2": {
+      "devBce": 0.43596386909484863,
+      "weightsSha256": "4cc9362ca559990c41fc5d5b61b857c4907e3cdab545cf0dec529540075ba253"
+    },
+    "nanojev-intent-zh-lora-head-v1": {
+      "devBce": 0.28039661049842834,
+      "weightsSha256": "dacb8030616ce9163d2a154cab15a8e21f89ba284b326a91e6a7a968ce72180b"
+    }
+  },
+  "thresholds": [
+    0.85,
+    0.5
+  ],
+  "thresholdPolicy": "Keep initial backend 0.85 and diagnostic 0.5; do not fit on holdout.",
+  "freshHoldoutSha256": "a384a6a63f139b1c532caa446eee2b59afa1e9644629d941f21a68ddafd18d5e",
+  "previous64CaseTestRole": "Regression only; was seen in prior head evaluation and is excluded from this selection."
+}

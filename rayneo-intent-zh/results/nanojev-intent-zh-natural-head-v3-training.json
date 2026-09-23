@@ -1,0 +1,2288 @@
+{
+  "method": "Supplied NanoJev encoder and LayerNorm frozen; existing scalar linear head supervised with BCE.",
+  "parentAdaptation": {
+    "kind": "frozen_encoder_scalar_head",
+    "selected_on": "dev_bce",
+    "best_epoch": 105,
+    "parent_adaptation": {
+      "kind": "qlora",
+      "rank": 4,
+      "layers": 2,
+      "scale": 8,
+      "projections": [
+        "q_proj",
+        "v_proj"
+      ],
+      "selected_on": "dev_bce",
+      "best_step": 360,
+      "seed": 20260922,
+      "source_weights_sha256": "f68c47d66998231b86b7e91b4ed5e82ae23acf104c8b7cd6d165c3ac7b7ffe1b"
+    },
+    "train_only_preconditioning_folded_into_head": true,
+    "base_weights_sha256": "61ffccc693c4bc48a1820c442fa0e6291fedc2d64544e224151f4d9cae001630",
+    "seed": 20260922
+  },
+  "encoderQuantization": 8,
+  "encoderPrecision": "bf16",
+  "headPrecision": "float32",
+  "trainOnlyStandardization": true,
+  "trainCases": 360,
+  "devCases": 160,
+  "testUsedForSelection": false,
+  "selection": "Minimum dev BCE including the unchanged initial head; no threshold fitting.",
+  "seed": 20260922,
+  "learningRate": 0.003,
+  "maxEpochs": 180,
+  "bestEpoch": 140,
+  "initialDevLoss": 0.21346266567707062,
+  "selectedDevLoss": 0.04925842955708504,
+  "encodingSeconds": 52.416869500186294,
+  "trainingSeconds": 1.1948777921497822,
+  "peakMlxMemoryGb": 1.6877476,
+  "headParameters": 1025,
+  "baseWeightsSha256": "4032c670cab8319130ec148beef14386aa518b09cc5196c08ef379cc5180726c",
+  "dataSha256": {
+    "train": "2b68e99ea5c4888a35b6b29172a637bd620fb19f8aa9d707bf6aca750e577a4f",
+    "dev": "7b9f22b7282e4b036725c9221b3edf9ac545d2f9242ed5933e66e59ce0498709"
+  },
+  "scriptSha256": "e556e5e1b52f03cdcdaf617ef4fb71b20078dd27a48137330188e62c72ffda0a",
+  "questions": {
+    "assist": {
+      "type": "boolean",
+      "instructions": "当前说话者是否正在明确求助，或提出需要眼镜助手立即提供简短事实或解释的问题？普通闲聊、自问自答、假设对话不算。"
+    },
+    "schedule": {
+      "type": "boolean",
+      "instructions": "当前发言是否包含说话者确实打算参与、尚未取消且值得确认保存的日程安排？假设、取消、他人的无关事项不算。"
+    }
+  },
+  "devMetrics": {
+    "0.85": {
+      "assist": {
+        "tp": 14,
+        "fp": 0,
+        "fn": 10,
+        "tn": 136,
+        "accuracy": 0.9375,
+        "precision": 1.0,
+        "recall": 0.5833333333333334,
+        "falsePositiveRate": 0.0
+      },
+      "schedule": {
+        "tp": 21,
+        "fp": 0,
+        "fn": 3,
+        "tn": 136,
+        "accuracy": 0.98125,
+        "precision": 1.0,
+        "recall": 0.875,
+        "falsePositiveRate": 0.0
+      }
+    },
+    "0.5": {
+      "assist": {
+        "tp": 24,
+        "fp": 2,
+        "fn": 0,
+        "tn": 134,
+        "accuracy": 0.9875,
+        "precision": 0.9230769230769231,
+        "recall": 1.0,
+        "falsePositiveRate": 0.014705882352941176
+      },
+      "schedule": {
+        "tp": 23,
+        "fp": 1,
+        "fn": 1,
+        "tn": 135,
+        "accuracy": 0.9875,
+        "precision": 0.9583333333333334,
+        "recall": 0.9583333333333334,
+        "falsePositiveRate": 0.007352941176470588
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 5,
+      "trainLoss": 0.14329165779054165,
+      "devLoss": 0.10518355667591095,
+      "bestEpoch": 5,
+      "elapsedSeconds": 0.29900124995037913
+    },
+    {
+      "epoch": 10,
+      "trainLoss": 0.05838590875888864,
+      "devLoss": 0.07046303153038025,
+      "bestEpoch": 10,
+      "elapsedSeconds": 0.3278007498010993
+    },
+    {
+      "epoch": 15,
+      "trainLoss": 0.043960924415538706,
+      "devLoss": 0.07053475081920624,
+      "bestEpoch": 10,
+      "elapsedSeconds": 0.3529710001312196
+    },
+    {
+      "epoch": 20,
+      "trainLoss": 0.035885015657792486,
+      "devLoss": 0.069882832467556,
+      "bestEpoch": 20,
+      "elapsedSeconds": 0.37828850001096725
+    },
+    {
+      "epoch": 25,
+      "trainLoss": 0.031910911900922656,
+      "devLoss": 0.06603994220495224,
+      "bestEpoch": 25,
+      "elapsedSeconds": 0.4053617501631379
+    },
+    {
+      "epoch": 30,
+      "trainLoss": 0.038108826614916325,
+      "devLoss": 0.06441906839609146,
+      "bestEpoch": 30,
+      "elapsedSeconds": 0.4305010000243783
+    },
+    {
+      "epoch": 35,
+      "trainLoss": 0.029359221536045272,
+      "devLoss": 0.06738774478435516,
+      "bestEpoch": 30,
+      "elapsedSeconds": 0.45457600010558963
+    },
+    {
+      "epoch": 40,
+      "trainLoss": 0.02928965911269188,
+      "devLoss": 0.06424310803413391,
+      "bestEpoch": 40,
+      "elapsedSeconds": 0.478342916816473
+    },
+    {
+      "epoch": 45,
+      "trainLoss": 0.029931837770467002,
+      "devLoss": 0.06749013066291809,
+      "bestEpoch": 40,
+      "elapsedSeconds": 0.503670624922961
+    },
+    {
+      "epoch": 50,
+      "trainLoss": 0.027403671527281404,
+      "devLoss": 0.06568213552236557,
+      "bestEpoch": 40,
+      "elapsedSeconds": 0.5275069591589272
+    },
+    {
+      "epoch": 55,
+      "trainLoss": 0.029096586629748344,
+      "devLoss": 0.0657859668135643,
+      "bestEpoch": 40,
+      "elapsedSeconds": 0.5511380420066416
+    },
+    {
+      "epoch": 60,
+      "trainLoss": 0.030485288860897224,
+      "devLoss": 0.07081648707389832,
+      "bestEpoch": 40,
+      "elapsedSeconds": 0.5761067918501794
+    },
+    {
+      "epoch": 65,
+      "trainLoss": 0.025762560544535518,
+      "devLoss": 0.055666662752628326,
+      "bestEpoch": 65,
+      "elapsedSeconds": 0.5999269592575729
+    },
+    {
+      "epoch": 70,
+      "trainLoss": 0.02951493812724948,
+      "devLoss": 0.08586034923791885,
+      "bestEpoch": 65,
+      "elapsedSeconds": 0.6250961669720709
+    },
+    {
+      "epoch": 75,
+      "trainLoss": 0.023654204638053972,
+      "devLoss": 0.05908654257655144,
+      "bestEpoch": 65,
+      "elapsedSeconds": 0.6490152920596302
+    },
+    {
+      "epoch": 80,
+      "trainLoss": 0.022537993538814288,
+      "devLoss": 0.056068506091833115,
+      "bestEpoch": 65,
+      "elapsedSeconds": 0.6731921248137951
+    },
+    {
+      "epoch": 85,
+      "trainLoss": 0.022865842717389267,
+      "devLoss": 0.053107500076293945,
+      "bestEpoch": 85,
+      "elapsedSeconds": 0.700511374976486
+    },
+    {
+      "epoch": 90,
+      "trainLoss": 0.02146194448384146,
+      "devLoss": 0.06949162483215332,
+      "bestEpoch": 85,
+      "elapsedSeconds": 0.727544667199254
+    },
+    {
+      "epoch": 95,
+      "trainLoss": 0.022605654938767355,
+      "devLoss": 0.056430257856845856,
+      "bestEpoch": 85,
+      "elapsedSeconds": 0.7515892921946943
+    },
+    {
+      "epoch": 100,
+      "trainLoss": 0.026106878959884245,
+      "devLoss": 0.06909375637769699,
+      "bestEpoch": 85,
+      "elapsedSeconds": 0.777316833846271
+    },
+    {
+      "epoch": 105,
+      "trainLoss": 0.03206558572128415,
+      "devLoss": 0.05783747509121895,
+      "bestEpoch": 85,
+      "elapsedSeconds": 0.8031194168142974
+    },
+    {
+      "epoch": 110,
+      "trainLoss": 0.02412888073983292,
+      "devLoss": 0.05910837650299072,
+      "bestEpoch": 85,
+      "elapsedSeconds": 0.826759375166148
+    },
+    {
+      "epoch": 115,
+      "trainLoss": 0.01767211880845328,
+      "devLoss": 0.05232787877321243,
+      "bestEpoch": 115,
+      "elapsedSeconds": 0.8519744998775423
+    },
+    {
+      "epoch": 120,
+      "trainLoss": 0.017294900336613257,
+      "devLoss": 0.05147272348403931,
+      "bestEpoch": 120,
+      "elapsedSeconds": 0.8772947918623686
+    },
+    {
+      "epoch": 125,
+      "trainLoss": 0.017155678787579138,
+      "devLoss": 0.05315481498837471,
+      "bestEpoch": 120,
+      "elapsedSeconds": 0.9007893339730799
+    },
+    {
+      "epoch": 130,
+      "trainLoss": 0.017464126693084836,
+      "devLoss": 0.053606707602739334,
+      "bestEpoch": 120,
+      "elapsedSeconds": 0.9247863749042153
+    },
+    {
+      "epoch": 135,
+      "trainLoss": 0.01741848886013031,
+      "devLoss": 0.051723457872867584,
+      "bestEpoch": 120,
+      "elapsedSeconds": 0.9491560840979218
+    },
+    {
+      "epoch": 140,
+      "trainLoss": 0.015617829708692929,
+      "devLoss": 0.04925842955708504,
+      "bestEpoch": 140,
+      "elapsedSeconds": 0.9732719170860946
+    },
+    {
+      "epoch": 145,
+      "trainLoss": 0.014539964535894493,
+      "devLoss": 0.05436759069561958,
+      "bestEpoch": 140,
+      "elapsedSeconds": 0.9999776668846607
+    },
+    {
+      "epoch": 150,
+      "trainLoss": 0.014903560668850938,
+      "devLoss": 0.0497538261115551,
+      "bestEpoch": 140,
+      "elapsedSeconds": 1.0264265001751482
+    },
+    {
+      "epoch": 155,
+      "trainLoss": 0.014295397597985962,
+      "devLoss": 0.050996314734220505,
+      "bestEpoch": 140,
+      "elapsedSeconds": 1.0528858751058578
+    },
+    {
+      "epoch": 160,
+      "trainLoss": 0.014246634595716992,
+      "devLoss": 0.051590677350759506,
+      "bestEpoch": 140,
+      "elapsedSeconds": 1.0761505840346217
+    },
+    {
+      "epoch": 165,
+      "trainLoss": 0.014293495565652847,
+      "devLoss": 0.05086877942085266,
+      "bestEpoch": 140,
+      "elapsedSeconds": 1.1071906248107553
+    },
+    {
+      "epoch": 170,
+      "trainLoss": 0.013368349173106253,
+      "devLoss": 0.05121912434697151,
+      "bestEpoch": 140,
+      "elapsedSeconds": 1.134006458800286
+    },
+    {
+      "epoch": 175,
+      "trainLoss": 0.016493444369795423,
+      "devLoss": 0.05050843954086304,
+      "bestEpoch": 140,
+      "elapsedSeconds": 1.1591331670060754
+    },
+    {
+      "epoch": 180,
+      "trainLoss": 0.013745738620248934,
+      "devLoss": 0.05382218584418297,
+      "bestEpoch": 140,
+      "elapsedSeconds": 1.1868573748506606
+    }
+  ],
+  "devPredictions": [
+    {
+      "id": "dev-00-00",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.5083081722259521,
+        "schedule": 0.010515076108276844
+      }
+    },
+    {
+      "id": "dev-00-01",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.6533764600753784,
+        "schedule": 0.47209957242012024
+      }
+    },
+    {
+      "id": "dev-00-02",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.5235522389411926,
+        "schedule": 0.0016506959218531847
+      }
+    },
+    {
+      "id": "dev-00-03",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.797757089138031,
+        "schedule": 0.11472150683403015
+      }
+    },
+    {
+      "id": "dev-00-04",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9900856614112854,
+        "schedule": 0.20151205360889435
+      }
+    },
+    {
+      "id": "dev-00-05",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9990118145942688,
+        "schedule": 0.10622715204954147
+      }
+    },
+    {
+      "id": "dev-00-06",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9924936294555664,
+        "schedule": 0.059486936777830124
+      }
+    },
+    {
+      "id": "dev-00-07",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9995083808898926,
+        "schedule": 0.005585410166531801
+      }
+    },
+    {
+      "id": "dev-00-08",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 2.6534648895903956e-06,
+        "schedule": 3.2934738555923104e-05
+      }
+    },
+    {
+      "id": "dev-00-09",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.002577871549874544,
+        "schedule": 7.071219897625269e-06
+      }
+    },
+    {
+      "id": "dev-00-10",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0651790127158165,
+        "schedule": 5.001549288863316e-05
+      }
+    },
+    {
+      "id": "dev-00-11",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.20934179425239563,
+        "schedule": 0.004226210061460733
+      }
+    },
+    {
+      "id": "dev-00-12",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.009551518596708775,
+        "schedule": 0.9941495060920715
+      }
+    },
+    {
+      "id": "dev-00-13",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.004750268999487162,
+        "schedule": 0.8828184008598328
+      }
+    },
+    {
+      "id": "dev-00-14",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.06163690984249115,
+        "schedule": 0.9907122850418091
+      }
+    },
+    {
+      "id": "dev-00-15",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.040117520838975906,
+        "schedule": 0.9992328882217407
+      }
+    },
+    {
+      "id": "dev-00-16",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.8942917585372925,
+        "schedule": 0.9999998211860657
+      }
+    },
+    {
+      "id": "dev-00-17",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9972729086875916,
+        "schedule": 0.9896755218505859
+      }
+    },
+    {
+      "id": "dev-00-18",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.8185570240020752,
+        "schedule": 0.9974951148033142
+      }
+    },
+    {
+      "id": "dev-00-19",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.733950138092041,
+        "schedule": 0.172120600938797
+      }
+    },
+    {
+      "id": "dev-00-20",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0180082805454731,
+        "schedule": 0.025233997032046318
+      }
+    },
+    {
+      "id": "dev-00-21",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0001649288897169754,
+        "schedule": 1.3279133099786122e-06
+      }
+    },
+    {
+      "id": "dev-00-22",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.020245663821697235,
+        "schedule": 0.012236559763550758
+      }
+    },
+    {
+      "id": "dev-00-23",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.020587502047419548,
+        "schedule": 0.03404785692691803
+      }
+    },
+    {
+      "id": "dev-00-24",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 2.6065235942951404e-06,
+        "schedule": 0.00032824737718328834
+      }
+    },
+    {
+      "id": "dev-00-25",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0010926744434982538,
+        "schedule": 0.002829052973538637
+      }
+    },
+    {
+      "id": "dev-00-26",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 3.1738803954795e-05,
+        "schedule": 0.01052067894488573
+      }
+    },
+    {
+      "id": "dev-00-27",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.4635765182902105e-05,
+        "schedule": 0.0002197827270720154
+      }
+    },
+    {
+      "id": "dev-00-28",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 4.237391770800514e-09,
+        "schedule": 4.922292646369897e-06
+      }
+    },
+    {
+      "id": "dev-00-29",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0643845945596695,
+        "schedule": 0.6880028247833252
+      }
+    },
+    {
+      "id": "dev-00-30",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00010104355897055939,
+        "schedule": 0.006650829687714577
+      }
+    },
+    {
+      "id": "dev-00-31",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 5.188762315810891e-06,
+        "schedule": 0.0013545764377340674
+      }
+    },
+    {
+      "id": "dev-00-32",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.002286686794832349,
+        "schedule": 0.9935162663459778
+      }
+    },
+    {
+      "id": "dev-00-33",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.002896491438150406,
+        "schedule": 0.8785003423690796
+      }
+    },
+    {
+      "id": "dev-00-34",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.11436673998832703,
+        "schedule": 0.9945293664932251
+      }
+    },
+    {
+      "id": "dev-00-35",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.0003578292380552739,
+        "schedule": 0.8168144226074219
+      }
+    },
+    {
+      "id": "dev-00-36",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 8.738126052776352e-05,
+        "schedule": 2.7880196284968406e-05
+      }
+    },
+    {
+      "id": "dev-00-37",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0001392794365528971,
+        "schedule": 2.814444997056853e-05
+      }
+    },
+    {
+      "id": "dev-00-38",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00025643856497481465,
+        "schedule": 0.024750441312789917
+      }
+    },
+    {
+      "id": "dev-00-39",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2705395817756653,
+        "schedule": 0.0035620820708572865
+      }
+    },
+    {
+      "id": "dev-01-00",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9914867281913757,
+        "schedule": 0.05205010250210762
+      }
+    },
+    {
+      "id": "dev-01-01",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.7505456209182739,
+        "schedule": 0.010961504653096199
+      }
+    },
+    {
+      "id": "dev-01-02",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.8723249435424805,
+        "schedule": 0.01712219975888729
+      }
+    },
+    {
+      "id": "dev-01-03",
+      "group": "assist_explicit",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.8803557753562927,
+        "schedule": 0.003642593277618289
+      }
+    },
+    {
+      "id": "dev-01-04",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9672870635986328,
+        "schedule": 0.0013667079620063305
+      }
+    },
+    {
+      "id": "dev-01-05",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.7218796610832214,
+        "schedule": 6.835569365648553e-05
+      }
+    },
+    {
+      "id": "dev-01-06",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.9515705108642578,
+        "schedule": 0.028240220621228218
+      }
+    },
+    {
+      "id": "dev-01-07",
+      "group": "assist_question",
+      "expected": {
+        "assist": true,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.527862012386322,
+        "schedule": 0.009575973264873028
+      }
+    },
+    {
+      "id": "dev-01-08",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00016228934691753238,
+        "schedule": 1.1627595085883513e-05
+      }
+    },
+    {
+      "id": "dev-01-09",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0012958759907633066,
+        "schedule": 9.242797204933595e-06
+      }
+    },
+    {
+      "id": "dev-01-10",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0004904441302642226,
+        "schedule": 2.0714427591883577e-05
+      }
+    },
+    {
+      "id": "dev-01-11",
+      "group": "chat",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.006862714421004057,
+        "schedule": 0.0011924845166504383
+      }
+    },
+    {
+      "id": "dev-01-12",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.044702958315610886,
+        "schedule": 0.99811190366745
+      }
+    },
+    {
+      "id": "dev-01-13",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.273591548204422,
+        "schedule": 0.9899849891662598
+      }
+    },
+    {
+      "id": "dev-01-14",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.09286534786224365,
+        "schedule": 0.9995410442352295
+      }
+    },
+    {
+      "id": "dev-01-15",
+      "group": "confirmed",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.029450539499521255,
+        "schedule": 0.9710165858268738
+      }
+    },
+    {
+      "id": "dev-01-16",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9635594487190247,
+        "schedule": 0.9638104438781738
+      }
+    },
+    {
+      "id": "dev-01-17",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9990875720977783,
+        "schedule": 1.0
+      }
+    },
+    {
+      "id": "dev-01-18",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6821099519729614,
+        "schedule": 0.9994472861289978
+      }
+    },
+    {
+      "id": "dev-01-19",
+      "group": "schedule_request",
+      "expected": {
+        "assist": true,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.9983935356140137,
+        "schedule": 0.9999997019767761
+      }
+    },
+    {
+      "id": "dev-01-20",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.002956337993964553,
+        "schedule": 2.167907041439321e-05
+      }
+    },
+    {
+      "id": "dev-01-21",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00031092987046577036,
+        "schedule": 0.07884714752435684
+      }
+    },
+    {
+      "id": "dev-01-22",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 6.48863096586183e-09,
+        "schedule": 0.0005765127716585994
+      }
+    },
+    {
+      "id": "dev-01-23",
+      "group": "hypothetical",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0067512476816773415,
+        "schedule": 9.42413134907838e-06
+      }
+    },
+    {
+      "id": "dev-01-24",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.2802274795831181e-05,
+        "schedule": 0.016634514555335045
+      }
+    },
+    {
+      "id": "dev-01-25",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 6.506394583993824e-06,
+        "schedule": 6.46190092083998e-05
+      }
+    },
+    {
+      "id": "dev-01-26",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.011094131506979465,
+        "schedule": 0.010431102477014065
+      }
+    },
+    {
+      "id": "dev-01-27",
+      "group": "cancellation",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 8.826166595099494e-05,
+        "schedule": 0.004702249076217413
+      }
+    },
+    {
+      "id": "dev-01-28",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 3.7229696658869216e-07,
+        "schedule": 6.684905383735895e-05
+      }
+    },
+    {
+      "id": "dev-01-29",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.19887490570545197,
+        "schedule": 0.048413097858428955
+      }
+    },
+    {
+      "id": "dev-01-30",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 5.244801286607981e-06,
+        "schedule": 0.0006418545381166041
+      }
+    },
+    {
+      "id": "dev-01-31",
+      "group": "other_person",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.005420222412794828,
+        "schedule": 0.007740257307887077
+      }
+    },
+    {
+      "id": "dev-01-32",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.11054771393537521,
+        "schedule": 0.998175859451294
+      }
+    },
+    {
+      "id": "dev-01-33",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.00020109138858970255,
+        "schedule": 0.9998523592948914
+      }
+    },
+    {
+      "id": "dev-01-34",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.5557478070259094,
+        "schedule": 0.9755647778511047
+      }
+    },
+    {
+      "id": "dev-01-35",
+      "group": "correction",
+      "expected": {
+        "assist": false,
+        "schedule": true
+      },
+      "pTrue": {
+        "assist": 0.6455345153808594,
+        "schedule": 0.7086448669433594
+      }
+    },
+    {
+      "id": "dev-01-36",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.4567020116373897e-05,
+        "schedule": 3.131288622171269e-06
+      }
+    },
+    {
+      "id": "dev-01-37",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0010590864112600684,
+        "schedule": 0.0002406596322543919
+      }
+    },
+    {
+      "id": "dev-01-38",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.009561010636389256,
+        "schedule": 4.185673788015265e-06
+      }
+    },
+    {
+      "id": "dev-01-39",
+      "group": "asr_noise",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0005032751359976828,
+        "schedule": 0.06829176843166351
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-815",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00035532526089809835,
+        "schedule": 4.109617179892666e-07
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-9",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0010862071067094803,
+        "schedule": 4.400187947339873e-07
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-562",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.011803783476352692,
+        "schedule": 4.696546238847077e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1170",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00044720989535562694,
+        "schedule": 1.3376367178352666e-06
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1315",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.021475844085216522,
+        "schedule": 0.0017232733080163598
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-979",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.003611499210819602,
+        "schedule": 0.001155687728896737
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1136",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 8.901383989723399e-05,
+        "schedule": 2.7269768906990066e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-185",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.05020754411816597,
+        "schedule": 2.6447480195201933e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1102",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.469115495922324e-08,
+        "schedule": 1.5358527889475226e-06
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-825",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.000789476209320128,
+        "schedule": 2.292815395321668e-07
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-303",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0003345253353472799,
+        "schedule": 1.2643058653338812e-06
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1309",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0001714542886475101,
+        "schedule": 0.00011483368871267885
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-149",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.0635042599460576e-05,
+        "schedule": 2.4585424398537725e-06
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1017",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0017113153589889407,
+        "schedule": 3.0477298196274205e-07
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-959",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 3.1575144721074366e-09,
+        "schedule": 7.671184576452106e-09
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-628",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 5.77197533857543e-05,
+        "schedule": 1.4864357581245713e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-277",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.7451390021960833e-06,
+        "schedule": 6.136738894824134e-10
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-905",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 9.82565907179378e-05,
+        "schedule": 5.6999155617631914e-08
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-903",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 8.486847946187481e-05,
+        "schedule": 7.459668995579705e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1178",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.04517778009176254,
+        "schedule": 0.0009226635447703302
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-647",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0003939081507269293,
+        "schedule": 1.3234706784714945e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-43",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.000525730662047863,
+        "schedule": 3.4294595252504223e-07
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-700",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.629743978659448e-10,
+        "schedule": 1.057699483553165e-09
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-169",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0005535130621865392,
+        "schedule": 3.923320036847144e-06
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1188",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.029609479010105133,
+        "schedule": 5.43888054380659e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-540",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.01363087072968483,
+        "schedule": 1.6581063391640782e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-113",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.012538564391434193,
+        "schedule": 5.702199268853292e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-319",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 5.716079158446519e-06,
+        "schedule": 4.5289674233117694e-08
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1240",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.0936383176840536e-07,
+        "schedule": 6.893213139846921e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-121",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.010289576835930347,
+        "schedule": 0.00010390135139459744
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-590",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.003403737908229232,
+        "schedule": 2.462027914873488e-08
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-235",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0009707416174933314,
+        "schedule": 7.257698371176957e-07
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-506",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 2.4644752556923777e-05,
+        "schedule": 1.7622362520341994e-06
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-125",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0032363906502723694,
+        "schedule": 1.2819134099117946e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1313",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.10630525648593903,
+        "schedule": 6.956124252610607e-06
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-297",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0004491173312999308,
+        "schedule": 3.8403217672566825e-07
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-975",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00014358124462887645,
+        "schedule": 4.172179160377709e-06
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-1044",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.001768447575159371,
+        "schedule": 7.892302528489381e-05
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-989",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 3.43782376148738e-05,
+        "schedule": 2.0618169855879387e-06
+      }
+    },
+    {
+      "id": "public-L_R004S03C01-157",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.02024197205901146,
+        "schedule": 0.0004430439730640501
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-229",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 2.3728669475531206e-05,
+        "schedule": 1.019297087623272e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-507",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00013642643170896918,
+        "schedule": 1.629867512065175e-07
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-370",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0204942487180233,
+        "schedule": 9.67057167144958e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-556",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.13684339821338654,
+        "schedule": 0.0003404017479624599
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-554",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.015816491097211838,
+        "schedule": 0.003216924611479044
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-513",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.010068001225590706,
+        "schedule": 8.49124899104936e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-25",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 5.2007184422109276e-05,
+        "schedule": 1.3894423318561167e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-654",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0007550745503976941,
+        "schedule": 2.1874702724744566e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-423",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 3.8192236388567835e-05,
+        "schedule": 5.6513817980885506e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-752",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.030114861205220222,
+        "schedule": 1.5588460883009247e-05
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-207",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.06056707724928856,
+        "schedule": 0.00014196867414284497
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-564",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0004121917299926281,
+        "schedule": 6.313505451771562e-08
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-672",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.000151977947098203,
+        "schedule": 4.108167104277527e-07
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-443",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0008354730089195073,
+        "schedule": 1.3105440075378283e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-278",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 6.13691663602367e-05,
+        "schedule": 2.5405940959899453e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-662",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.03385986387729645,
+        "schedule": 0.0001267567276954651
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-189",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.01156314555555582,
+        "schedule": 0.0001254494272870943
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-263",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.013885704800486565,
+        "schedule": 2.3498592781834304e-05
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-276",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.00021354945783969015,
+        "schedule": 3.339941940794233e-07
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-674",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.045359622687101364,
+        "schedule": 0.0002882115950342268
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-676",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.1205420196056366,
+        "schedule": 0.00029532742337323725
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-582",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 2.715097252803389e-05,
+        "schedule": 3.069724243687233e-07
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-419",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0012575344881042838,
+        "schedule": 8.391923074668739e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-231",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.011052592657506466,
+        "schedule": 2.6294173949281685e-05
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-199",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0030256621539592743,
+        "schedule": 1.704833994153887e-05
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-580",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.2594369053840637,
+        "schedule": 6.251104423427023e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-300",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0006483120378106833,
+        "schedule": 3.7697798688896e-05
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-544",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 8.543557487428188e-05,
+        "schedule": 1.3261855258406285e-07
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-526",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 6.628712526435265e-06,
+        "schedule": 9.678755219511004e-08
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-690",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.05151774361729622,
+        "schedule": 3.509901580400765e-05
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-710",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.018824497237801552,
+        "schedule": 2.017556835198775e-05
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-620",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 5.911009429837577e-05,
+        "schedule": 3.101977767983044e-07
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-154",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 7.791820098645985e-05,
+        "schedule": 2.141864712257302e-07
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-193",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.9801806047325954e-05,
+        "schedule": 6.757200753781945e-05
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-511",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 1.0013209106318754e-07,
+        "schedule": 1.3637801998811483e-08
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-292",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0002799241920001805,
+        "schedule": 1.729446194076445e-05
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-742",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.377988338470459,
+        "schedule": 0.00021728509454987943
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-596",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.0014161545550450683,
+        "schedule": 3.845033916149987e-06
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-684",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.028813660144805908,
+        "schedule": 0.008832347579300404
+      }
+    },
+    {
+      "id": "public-L_R003S02C02-368",
+      "group": "public_meeting_negative",
+      "expected": {
+        "assist": false,
+        "schedule": false
+      },
+      "pTrue": {
+        "assist": 0.05539444088935852,
+        "schedule": 0.0006855559768155217
+      }
+    }
+  ],
+  "limitations": [
+    "Synthetic supervision with category-conditioned LLM labels; limited manual audit only.",
+    "Only a linear decision head is adapted; no encoder/LoRA training in this run.",
+    "Test remains unseen until the exported checkpoint is selected and served."
+  ],
+  "weightsSha256": "8d66a897c4b00bbb16eebea9f1ba49422366aaa04090b9aa895c5bb913d7cb0e",
+  "outputName": "nanojev-intent-zh-natural-head-v3"
+}
