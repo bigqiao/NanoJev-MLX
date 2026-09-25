@@ -16,7 +16,12 @@ import sys
 import time
 
 from common import HERE, PROJECT, settings
-from evaluate import QUESTIONS, digest, metrics, payload_for
+from evaluate import QUESTIONS, digest, metrics
+from role_state import ROLE_STATE, payload_for_suite
+
+
+def payload_for(suite, cases):
+    return payload_for_suite(suite, cases, QUESTIONS)
 
 
 def main():
@@ -58,7 +63,16 @@ def main():
                  and dev_suite.get("metadataAugmentation") == train_suite.get("metadataAugmentation"))
     if train_text & dev_text:
         raise ValueError("Cross-split text leakage.")
-    if augmented:
+    role_variants = all(suite.get("stateShape") == ROLE_STATE and suite.get("roleVariants") for suite in (train_suite, dev_suite))
+    if role_variants:
+        # One scene yields several speaker-role variants of the same sentence (labels may differ
+        # by role); a sentence may not recur across scenes.
+        for split, suite in (("train", train_suite), ("dev", dev_suite)):
+            owner = {}
+            for case in suite["cases"]:
+                if owner.setdefault(norm(case["text"]), case["canonicalId"]) != case["canonicalId"]:
+                    raise ValueError(f"Repeated sentence across scenes in {split}.")
+    elif augmented:
         variants = {"null_null", "stable_null", "null_ms", "stable_ms"}
         for split, suite in (("train", train_suite), ("dev", dev_suite)):
             grouped = {}

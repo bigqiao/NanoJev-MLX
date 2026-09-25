@@ -1,0 +1,720 @@
+{
+ "version": "zh-intent-v6-roles-holdout",
+ "split": "holdout",
+ "stateShape": "speaker-role-v1",
+ "authoring": "Hand-authored 2026-09-24 before any v6 training data was generated; frozen. Never used for training, model selection or thresholds.",
+ "cases": [
+  {
+   "id": "r001",
+   "group": "fact",
+   "speaker": "本人",
+   "text": "中秋节是哪一天？",
+   "context": [],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r002",
+   "group": "fact",
+   "speaker": "本人",
+   "text": "中秋节是哪天来着",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "下个月好像有个长假。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r003",
+   "group": "fact",
+   "speaker": "本人",
+   "text": "那个，一盎司是多少克啊？",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "这个配方写的是两盎司黄油。"
+    },
+    {
+     "speaker": "本人",
+     "text": "我家只有克的秤。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r004",
+   "group": "fact",
+   "speaker": "对方A",
+   "text": "你知道重阳节是几月几号吗？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "这周末回老家看看爷爷。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r005",
+   "group": "fact",
+   "speaker": "对方A",
+   "text": "布洛芬饭前吃还是饭后吃？",
+   "context": [
+    {
+     "speaker": "对方B",
+     "text": "我头有点疼。"
+    },
+    {
+     "speaker": "对方A",
+     "text": "药箱里有布洛芬。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r006",
+   "group": "fact",
+   "speaker": "对方B",
+   "text": "新加坡跟北京有时差吗",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "我下周去新加坡出差。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r007",
+   "group": "fact",
+   "speaker": "未知",
+   "text": "珠穆朗玛峰现在测的是多高",
+   "context": [],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r008",
+   "group": "fact",
+   "speaker": "本人",
+   "text": "嗯……光年是时间单位还是距离单位？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "这本书里老说几光年。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r009",
+   "group": "fact",
+   "speaker": "对方A",
+   "text": "二十四节气里立秋之后是哪个？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "今天好像立秋了。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r010",
+   "group": "fact",
+   "speaker": "未知",
+   "text": "蓝牙五点三比五点零好在哪",
+   "context": [
+    {
+     "speaker": "未知",
+     "text": "这个耳机写着蓝牙五点三。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r011",
+   "group": "fact",
+   "speaker": "对方B",
+   "text": "腊八节要喝什么粥来着？",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "快到腊八了吧。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r012",
+   "group": "fact",
+   "speaker": "本人",
+   "text": "牛顿第二定律是啥来着",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "明天物理小测。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r013",
+   "group": "personal_to_self",
+   "speaker": "对方A",
+   "text": "你明天去不去公司？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "今天总算下班了。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r014",
+   "group": "personal_to_self",
+   "speaker": "对方A",
+   "text": "你周五晚上有空吗？",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "好久没一起吃饭了。"
+    },
+    {
+     "speaker": "本人",
+     "text": "是啊最近太忙。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r015",
+   "group": "personal_to_self",
+   "speaker": "对方B",
+   "text": "你下周几出差来着",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "我下周要去深圳。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r016",
+   "group": "personal_to_self",
+   "speaker": "对方A",
+   "text": "你几点的高铁？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "我得先回家拿行李。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r017",
+   "group": "personal_other",
+   "speaker": "本人",
+   "text": "你明天去不去公司？",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "今天总算下班了。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r018",
+   "group": "personal_other",
+   "speaker": "本人",
+   "text": "你周末回老家吗",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "我妈又打电话催我回去。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r019",
+   "group": "personal_other",
+   "speaker": "对方A",
+   "text": "你周五晚上有空吗？",
+   "context": [
+    {
+     "speaker": "对方B",
+     "text": "好久没一起吃饭了。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r020",
+   "group": "personal_other",
+   "speaker": "对方B",
+   "text": "你几点的高铁？",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "我得先回家拿行李。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r021",
+   "group": "personal_other",
+   "speaker": "未知",
+   "text": "你下周几出差来着",
+   "context": [
+    {
+     "speaker": "未知",
+     "text": "我下周要去深圳。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r022",
+   "group": "social",
+   "speaker": "对方A",
+   "text": "你吃饭了没有？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "刚忙完。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r023",
+   "group": "social",
+   "speaker": "本人",
+   "text": "你吃饭了没有？",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "刚忙完。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r024",
+   "group": "social",
+   "speaker": "对方B",
+   "text": "您贵姓？",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "这位是新来的同事。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r025",
+   "group": "social",
+   "speaker": "对方A",
+   "text": "你觉得这件衣服好看吗？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "还行吧。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r026",
+   "group": "social",
+   "speaker": "未知",
+   "text": "最近身体还好吧？",
+   "context": [],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r027",
+   "group": "social",
+   "speaker": "本人",
+   "text": "路上辛苦了吧？",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "我刚下飞机。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r028",
+   "group": "social",
+   "speaker": "对方A",
+   "text": "要不要来杯茶？",
+   "context": [
+    {
+     "speaker": "对方B",
+     "text": "有点渴了。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r029",
+   "group": "rhetorical",
+   "speaker": "本人",
+   "text": "怎么又堵车了？",
+   "context": [],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r030",
+   "group": "rhetorical",
+   "speaker": "本人",
+   "text": "这都几点了还不来？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "说好七点的。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r031",
+   "group": "rhetorical",
+   "speaker": "对方A",
+   "text": "这谁受得了啊？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "空调坏了。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r032",
+   "group": "rhetorical",
+   "speaker": "对方B",
+   "text": "你说气人不气人？",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "他又迟到了。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r033",
+   "group": "rhetorical",
+   "speaker": "未知",
+   "text": "天哪，怎么这么贵！",
+   "context": [],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r034",
+   "group": "rhetorical",
+   "speaker": "本人",
+   "text": "我是不是傻？",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "钥匙又忘带了。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r035",
+   "group": "chat",
+   "speaker": "本人",
+   "text": "今天的汤有点咸。",
+   "context": [],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r036",
+   "group": "chat",
+   "speaker": "对方A",
+   "text": "楼下那家面馆关门了。",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "中午吃啥？"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r037",
+   "group": "chat",
+   "speaker": "对方B",
+   "text": "我昨天看了一部挺好看的电影。",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "周末干嘛了？"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r038",
+   "group": "chat",
+   "speaker": "未知",
+   "text": "嗯。",
+   "context": [
+    {
+     "speaker": "未知",
+     "text": "那就这样吧。"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r039",
+   "group": "chat",
+   "speaker": "本人",
+   "text": "对对对，就是那个。",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "你说的是蓝色那个吧？"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r040",
+   "group": "chat",
+   "speaker": "对方A",
+   "text": "我觉得还是先把报告写完。",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "要不先去吃饭？"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r041",
+   "group": "help_request",
+   "speaker": "本人",
+   "text": "帮我查一下明天会不会下雨。",
+   "context": [],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r042",
+   "group": "help_request",
+   "speaker": "本人",
+   "text": "小雷，把三百毫升换算成杯。",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "配方要三百毫升牛奶。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r043",
+   "group": "help_request",
+   "speaker": "未知",
+   "text": "帮我算一下三百八乘以十二。",
+   "context": [],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r044",
+   "group": "help_request",
+   "speaker": "本人",
+   "text": "帮我翻译一下这句英文：see you around",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "他最后说了句see you around。"
+    }
+   ],
+   "assist": true,
+   "schedule": false
+  },
+  {
+   "id": "r045",
+   "group": "schedule_self",
+   "speaker": "本人",
+   "text": "我明天下午三点去牙科复诊，已经约好了。",
+   "context": [],
+   "assist": false,
+   "schedule": true
+  },
+  {
+   "id": "r046",
+   "group": "schedule_self",
+   "speaker": "本人",
+   "text": "行，那就周六上午十点在公司楼下见。",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "周六上午十点公司楼下见？"
+    }
+   ],
+   "assist": false,
+   "schedule": true
+  },
+  {
+   "id": "r047",
+   "group": "schedule_self",
+   "speaker": "本人",
+   "text": "提醒我后天早上八点交房租。",
+   "context": [],
+   "assist": true,
+   "schedule": true
+  },
+  {
+   "id": "r048",
+   "group": "schedule_self",
+   "speaker": "未知",
+   "text": "下周三晚上七点我去参加同学聚会，已经报名了。",
+   "context": [],
+   "assist": false,
+   "schedule": true
+  },
+  {
+   "id": "r049",
+   "group": "schedule_self",
+   "speaker": "本人",
+   "text": "我改一下，面试是周四上午十点，不是周三。",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "我周三上午十点面试。"
+    }
+   ],
+   "assist": false,
+   "schedule": true
+  },
+  {
+   "id": "r050",
+   "group": "schedule_not",
+   "speaker": "对方A",
+   "text": "我明天下午三点去牙科复诊。",
+   "context": [
+    {
+     "speaker": "本人",
+     "text": "你牙还疼吗？"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r051",
+   "group": "schedule_not",
+   "speaker": "对方B",
+   "text": "周六上午我要去考驾照。",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "周末干嘛？"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r052",
+   "group": "schedule_not",
+   "speaker": "本人",
+   "text": "如果周末不下雨，我也许去爬山。",
+   "context": [],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r053",
+   "group": "schedule_not",
+   "speaker": "本人",
+   "text": "周五的聚餐取消了，我不去了。",
+   "context": [
+    {
+     "speaker": "对方A",
+     "text": "周五聚餐你来吗？"
+    }
+   ],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r054",
+   "group": "schedule_not",
+   "speaker": "本人",
+   "text": "我昨天下午去看了牙医。",
+   "context": [],
+   "assist": false,
+   "schedule": false
+  },
+  {
+   "id": "r055",
+   "group": "schedule_not",
+   "speaker": "未知",
+   "text": "要不下周找个时间吃饭？",
+   "context": [],
+   "assist": false,
+   "schedule": false
+  }
+ ]
+}

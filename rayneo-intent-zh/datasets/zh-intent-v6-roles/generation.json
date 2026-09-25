@@ -1,0 +1,152 @@
+{
+ "synthetic": true,
+ "stateShape": "speaker-role-v1",
+ "categories": {
+  "info_need": "有人提出或流露出需要常识、技术知识、公开信息或解释的问题，可以是会议讨论中的技术疑问、闲聊中的知识疑问、带“吧？”的求证，助手补充信息会有帮助",
+  "own_data": "有人问现在几点、今天几号星期几、天气、日出日落、附近地点等助手能直接查到的信息",
+  "help_request": "有人直接请求帮忙查询、计算、换算、翻译、解释或调研，可以带或不带“小雷/助手”称呼",
+  "schedule_request": "我明确请助手记下或提醒我自己已确定的一个安排",
+  "personal_plan": "甲问我关于我自己的安排、行程或打算（例如明天去不去公司、几点的车），前文最后一句是我说的",
+  "schedule_self": "我确定地说出自己将参加、尚未取消的具体安排（时间和事情），或答应别人的约定；没有请助手做事",
+  "other_knowledge": "有人问只有对方自己才知道的事情：对方的经历、对方项目或系统的内部情况、对方的看法和打算",
+  "social": "寒暄、客套、招呼、关心、邀请吃喝、称赞，包括问句形式",
+  "rhetorical": "反问、感叹、抱怨、自嘲，形式上是问句但不需要答案",
+  "self_answered": "有人问了一个问题后自己马上回答了，或者只是在复述别人的问题",
+  "chat": "普通陈述、附和、讨论意见、指令别人做事，没有求助",
+  "garbled": "语音识别出错严重、语义不通的口语碎片或半句话",
+  "schedule_not": "假设、未决定、已取消、已过去的安排，或者别人自己的安排"
+ },
+ "styles": "口语化、带语气词和重复（嗯、啊、那个、就是）、会议里的长句、很短的半句、带1到2个同音错字的语音识别文本，各种风格混合",
+ "labels": "Derived by variants() from the requested category and speaker roles; the LLM never labels.",
+ "holdouts": "holdout.json (hand-authored before generation) and a private real-speech set; neither is read here.",
+ "provenance": [
+  {
+   "split": "dev",
+   "batch": 0,
+   "setting": "运动健身和户外",
+   "model": "gpt-6-luna",
+   "responseId": "resp_09a6643b6c4156e3016ab548ca1e7487d0bcfef325ce2bc31b",
+   "promptSha256": "5d7470790257f6530e31bef26dc1477126c84ea3d96bd408b71778ecc3a4bb02"
+  },
+  {
+   "split": "dev",
+   "batch": 1,
+   "setting": "理财买房和保险",
+   "model": "gpt-6-luna",
+   "responseId": "resp_081e3aa449313133016ab5498286ac87d0a8c93fc4a015184a",
+   "promptSha256": "9bbd173e03ff5f88594f6b8ad945f69d38949aa9c5da1ba03409417efb8ed4a5"
+  },
+  {
+   "split": "dev",
+   "batch": 2,
+   "setting": "朋友聚会和游戏",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0d595ff94659eb25016ab5493a58a887d08a14e318a729466a",
+   "promptSha256": "9b921a072cba61feebe1c66a1743e810e54ecb12b3fb9323aefa08479ae36e34"
+  },
+  {
+   "split": "dev",
+   "batch": 3,
+   "setting": "项目上线和故障排查",
+   "model": "gpt-6-luna",
+   "responseId": "resp_09cf2f38abad3a21016ab5494956b887d0a4846f9c06e6b7e4",
+   "promptSha256": "a8f03a3f62351ec9c3c698b8a919e04c9450c1750a0b829fee5dd104c25cb73c"
+  },
+  {
+   "split": "train",
+   "batch": 0,
+   "setting": "公司技术会议和方案评审",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0dd2545bcf648baf016ab5474fb39887d0b60c9676f39c05c3",
+   "promptSha256": "3fb873ea4c68f01d9e4842f4933be022a83dbd509bc86e4b102fecbe2f63f483"
+  },
+  {
+   "split": "train",
+   "batch": 1,
+   "setting": "招聘面试",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0bad5db87780bb57016ab5474f94f487d08bfe50fa954d63b9",
+   "promptSha256": "4c730767066c04812f92b8117bc8d96477d3fdb2aea493ace986d0961c8eb5b9"
+  },
+  {
+   "split": "train",
+   "batch": 2,
+   "setting": "开车导航和停车充电",
+   "model": "gpt-6-luna",
+   "responseId": "resp_05ec2bf3900e3371016ab5487d4a5087d0b038d2fce6e2fb52",
+   "promptSha256": "f2915d156b20919f37ca8c729c9c4c6a04bf048f16ad11f6cd087eeb871bc8d4"
+  },
+  {
+   "split": "train",
+   "batch": 3,
+   "setting": "家里和孩子老人聊天",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0a179d75d0bd7822016ab5474fcaa887d0a590b3ac18ebf74a",
+   "promptSha256": "f5c6fa0668bec5c099d6a23eeeabc7f881f1b16e5db1e119e4d382f14d15d926"
+  },
+  {
+   "split": "train",
+   "batch": 4,
+   "setting": "餐厅吃饭和购物",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0445f83dc15d06ff016ab547ab84ec87d0ad13bcdfe2e56f23",
+   "promptSha256": "cd4b085c619fc13180fb6860a2318cdf65e123d3d3fd3162cced582f8f6d89c8"
+  },
+  {
+   "split": "train",
+   "batch": 5,
+   "setting": "同事午饭闲聊",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0cf05c8c407bd94c016ab547b6655c87d0b1ebe70021ea0756",
+   "promptSha256": "bae7112783f3e0a0eacbf4de68a28f9983dcd9b895b7351efe1eff5e83c342f3"
+  },
+  {
+   "split": "train",
+   "batch": 6,
+   "setting": "看视频和直播时的讨论",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0ceebc4de56cd3f4016ab547e18acc87d09fa34aca69492054",
+   "promptSha256": "0dd6eeffd7b16d57ef7f9d4a676cfe7f503b12b226374b226ce8999f515dfba8"
+  },
+  {
+   "split": "train",
+   "batch": 7,
+   "setting": "旅行出行和酒店",
+   "model": "gpt-6-luna",
+   "responseId": "resp_07c94c4dccbd9146016ab5481a38f487d0807ca26f59f6f9e0",
+   "promptSha256": "205b6d2886f36de14d90059df245721b920a3875a4bc0c6d0e3b3d0fdad8f83f"
+  },
+  {
+   "split": "train",
+   "batch": 8,
+   "setting": "学习考试和作业辅导",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0b2f3c921484430c016ab5481c953c87d0a006a5aae3ec4e25",
+   "promptSha256": "274544bb6d744d7335cbb9b1a7becc29a0d3768fa0625f31166af7e49b159104"
+  },
+  {
+   "split": "train",
+   "batch": 9,
+   "setting": "医院看病和健康",
+   "model": "gpt-6-luna",
+   "responseId": "resp_04693da903a368ac016ab54848107487d0af7909e00f1e1c5a",
+   "promptSha256": "0e7e08eb4c82745141e4feec678c87946ae5f76029fa234d2078886809303d80"
+  },
+  {
+   "split": "train",
+   "batch": 10,
+   "setting": "装修维修和家电",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0ea10a10254598eb016ab5489855f087d09a06630d69dcc8a8",
+   "promptSha256": "6c2e52586cbc7055c09ccf8ba603dea78ab5771c434ad8ece1ce2a3b4239fb24"
+  },
+  {
+   "split": "train",
+   "batch": 11,
+   "setting": "电话沟通和远程会议",
+   "model": "gpt-6-luna",
+   "responseId": "resp_0000d28e1ee1def3016ab548c7abe487d09c369b6687527088",
+   "promptSha256": "9c2d53aa355e3803cfc0fcef2eda75677448e4b3641f2b1bf82601feacc7f189"
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+{
+ "source": "zh-intent-v6-roles",
+ "seed": 20260925,
+ "method": "Deterministically lengthen v6 speaker-role contexts and drop the writer's 甲/乙 names.\n\nThe generator's LLM wrote about three context turns per scene, while the backend sends\nthe last two minutes of a recording (median nine turns in real speech). This prepends an\nearlier stretch borrowed from another scene of the same split so each case carries 2-10\nturns, oldest first. Only older turns are added, so who the current sentence is said to\nand its label are unchanged. Every variant of one scene borrows the same stretch, so a\nscene's variants still differ only in speaker roles. Borrowed turns take roles already in\nthe scene (all 未知 in unrecognised variants). The letters 甲/乙 that the writer used as\nspeaker names in the text are replaced by ordinary names so they cannot become a cue."
+}

@@ -15,7 +15,12 @@ import sys
 import time
 from types import SimpleNamespace
 from common import HERE, PROJECT, settings
-from evaluate import QUESTIONS, digest, metrics, payload_for
+from evaluate import QUESTIONS, digest, metrics
+from role_state import ROLE_STATE, payload_for_suite
+
+
+def payload_for(suite, cases):
+    return payload_for_suite(suite, cases, QUESTIONS)
 
 
 def main():
@@ -25,9 +30,14 @@ def main():
     p.add_argument("--steps", type=int, default=240)
     p.add_argument("--probe-only", action="store_true")
     p.add_argument("--seed", type=int, default=20260922)
+    p.add_argument("--lora-layers", type=int, default=2, help="Last N transformer layers adapted (q/v projections)")
+    p.add_argument("--lora-rank", type=int, default=4)
+    p.add_argument("--dev-every", type=int, default=40, help="Steps between full dev evaluations")
     args = p.parse_args()
-    if not 1 <= args.steps <= 400:
-        raise ValueError("Bounded experiment permits only 1..400 steps.")
+    role_suite = json.loads((args.dataset / "train.json").read_text()).get("stateShape") == ROLE_STATE
+    # The speaker-role set is about seven times larger than zh-intent-v1.
+    if not 1 <= args.steps <= (1200 if role_suite else 400):
+        raise ValueError("Bounded experiment permits only 1..400 steps (1..1200 for speaker-role sets).")
     if not args.probe_only and args.output.exists() and any(args.output.iterdir()):
         raise ValueError("Use a new empty model directory.")
     root, checkpoint, _ = settings()
@@ -48,7 +58,10 @@ def main():
     runtime = MLXDecisionPredictor(checkpoint, max_length=2048, precision="bf16", quantize=8)
     model = runtime.model
     model.freeze()
-    options = SimpleNamespace(lora_layers=2, lora_rank=4, lora_scale=8.0, lora_keys="self_attn.q_proj,self_attn.v_proj")
+    if not 1 <= args.lora_layers <= 12 or args.lora_rank not in (4, 8, 16):
+        raise ValueError("LoRA layers must be 1..12 and rank 4, 8 or 16.")
+    options = SimpleNamespace(lora_layers=args.lora_layers, lora_rank=args.lora_rank, lora_scale=2.0 * args.lora_rank,
+                              lora_keys="self_attn.q_proj,self_attn.v_proj")
     attach_lora(model, options); set_backbone_trainable(model, True, True)
     model.scalar.unfreeze()
     model.shared_prefix = False
@@ -100,7 +113,7 @@ def main():
     probe = {"parameters": params, "trainableKeys": list(trainable), "changedKeys": changed,
              "loss": probe_loss, "gradientNorm": probe_gradient, "stepSeconds": time.perf_counter() - begin,
              "peakMlxMemoryGb": probe_peak, "loadAndProbeSeconds": time.perf_counter() - clock,
-             "rank": 4, "layers": 2, "projections": ["q_proj", "v_proj"]}
+             "rank": args.lora_rank, "layers": args.lora_layers, "projections": ["q_proj", "v_proj"]}
     preflight_path = HERE / "results" / f"{args.output.name}-preflight.json"
     preflight_path.write_text(json.dumps(probe, indent=2) + "\n")
     print(json.dumps({"preflight": probe}), flush=True)
@@ -139,7 +152,7 @@ def main():
         if iteration % 10 == 0 or iteration == args.steps:
             record = {"step": iteration, "loss": value, "gradientNorm": gradient, "peakMlxMemoryGb": peak,
                       "elapsedSeconds": time.perf_counter() - start}
-            if iteration % 40 == 0 or iteration == args.steps:
+            if iteration % args.dev_every == 0 or iteration == args.steps:
                 dev_loss, rows = evaluate_dev(); record["devLoss"] = dev_loss
                 record["devMetrics"] = metrics(rows, 0.85)
                 if dev_loss < best:
@@ -153,7 +166,7 @@ def main():
     shutil.copytree(checkpoint / "backbone_config", args.output / "backbone_config")
     config = dict(runtime.run_config)
     config.update(schema_version="rayneo-intent-zh-lora-v1", max_length=2048,
-                  adaptation={"kind": "qlora", "rank": 4, "layers": 2, "scale": 8, "projections": ["q_proj", "v_proj"],
+                  adaptation={"kind": "qlora", "rank": args.lora_rank, "layers": args.lora_layers, "scale": 2 * args.lora_rank, "projections": ["q_proj", "v_proj"],
                               "selected_on": "dev_bce", "best_step": best_step, "seed": args.seed,
                               "source_weights_sha256": digest(checkpoint / "best.safetensors")})
     (args.output / "config.json").write_text(json.dumps(config, indent=2) + "\n")

@@ -1,0 +1,38 @@
+{
+  "parameters": 41985,
+  "trainableKeys": [
+    "backbone.layers.26.self_attn.q_proj.lora_a",
+    "backbone.layers.26.self_attn.q_proj.lora_b",
+    "backbone.layers.26.self_attn.v_proj.lora_a",
+    "backbone.layers.26.self_attn.v_proj.lora_b",
+    "backbone.layers.27.self_attn.q_proj.lora_a",
+    "backbone.layers.27.self_attn.q_proj.lora_b",
+    "backbone.layers.27.self_attn.v_proj.lora_a",
+    "backbone.layers.27.self_attn.v_proj.lora_b",
+    "scalar.weight",
+    "scalar.bias"
+  ],
+  "changedKeys": [
+    "backbone.layers.26.self_attn.q_proj.lora_a",
+    "backbone.layers.26.self_attn.q_proj.lora_b",
+    "backbone.layers.26.self_attn.v_proj.lora_a",
+    "backbone.layers.26.self_attn.v_proj.lora_b",
+    "backbone.layers.27.self_attn.q_proj.lora_a",
+    "backbone.layers.27.self_attn.q_proj.lora_b",
+    "backbone.layers.27.self_attn.v_proj.lora_a",
+    "backbone.layers.27.self_attn.v_proj.lora_b",
+    "scalar.weight",
+    "scalar.bias"
+  ],
+  "loss": 1.1075263023376465,
+  "gradientNorm": 13.92715835571289,
+  "stepSeconds": 6.425046583870426,
+  "peakMlxMemoryGb": 1.6877476,
+  "loadAndProbeSeconds": 15.365962500218302,
+  "rank": 4,
+  "layers": 2,
+  "projections": [
+    "q_proj",
+    "v_proj"
+  ]
+}
